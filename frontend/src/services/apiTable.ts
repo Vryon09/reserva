@@ -1,0 +1,102 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+interface TablePayload {
+  tableNumber: string;
+  capacity: number;
+  notes: string;
+}
+
+export async function getAllTables() {
+  try {
+    const res = await fetch(`http://localhost:5000/api/tables`);
+
+    const data = await res.json();
+
+    // console.log("Retrieved Successfully");
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function handleAddTable(newTable: TablePayload) {
+  try {
+    await fetch(`http://localhost:5000/api/tables`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTable),
+    });
+
+    console.log("Added Successfully");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function useAddTable() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: handleAddTable,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tables"] });
+    },
+  });
+}
+
+async function handleDeleteTable(id: string) {
+  try {
+    await fetch(`http://localhost:5000/api/tables/${id}`, {
+      method: "DELETE",
+    });
+
+    console.log("Deleted Successfully");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function useDeleteTable() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: handleDeleteTable,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tables"] });
+    },
+  });
+}
+
+async function handleUpdateTable({
+  id,
+  updatedTable,
+}: {
+  id: string;
+  updatedTable: TablePayload;
+}) {
+  try {
+    await fetch(`http://localhost:5000/api/tables/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTable),
+    });
+
+    console.log("Updated Successfully!");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function useUpdateTable() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: handleUpdateTable,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tables"] });
+    },
+  });
+}
