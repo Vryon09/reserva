@@ -11,7 +11,8 @@ type ReservationFormAction =
   | { type: "setPartySize"; payload: string }
   | { type: "setDate"; payload: string }
   | { type: "setTime"; payload: string }
-  | { type: "setTable"; payload: string };
+  | { type: "setTable"; payload: string }
+  | { type: "resetForm" };
 
 type ReservationFormContextType = ReservationFormState & {
   dispatch: React.Dispatch<ReservationFormAction>;
@@ -39,6 +40,8 @@ function reducer(
       return { ...state, time: action.payload };
     case "setTable":
       return { ...state, table: action.payload };
+    case "resetForm":
+      return { ...state, partySize: "none", date: "", time: "none", table: "" };
     default:
       throw new Error("Unknown Type.");
   }

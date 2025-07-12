@@ -10,6 +10,7 @@ interface Reservation {
   tableNumber: string;
   name: string;
   phone: string;
+  date: string;
   time: string;
   status: string;
   reservationCode: string;
@@ -128,7 +129,12 @@ function ManageReservations() {
                 <p>Reservation Code: {reservation.reservationCode}</p>
                 <p>Name: {reservation.name}</p>
                 <p>Phone: {reservation.phone}</p>
-                <p>{format(reservation.time, "MMMM d, yyyy, h:mm a")}</p>
+                <p>
+                  {format(
+                    `${reservation.date} ${reservation.time}`,
+                    "MMMM d, yyyy, h:mm a",
+                  )}
+                </p>
                 <p>Status: {reservation.status}</p>
                 <div className="flex justify-between">
                   <button

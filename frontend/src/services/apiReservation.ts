@@ -47,6 +47,7 @@ interface ReservationPayload {
   tableNumber: string;
   name: string;
   phone: string;
+  date: string;
   time: string;
   reservationCode?: string;
   status?: string;
@@ -54,7 +55,7 @@ interface ReservationPayload {
 
 export async function handleAddReservation(newReservation: ReservationPayload) {
   try {
-    await fetch(`http://localhost:5000/api/reservations`, {
+    const res = await fetch(`http://localhost:5000/api/reservations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +63,12 @@ export async function handleAddReservation(newReservation: ReservationPayload) {
       body: JSON.stringify(newReservation),
     });
 
-    // console.log("Reservation Added Successfully!");
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.message);
+    }
+
+    return await res.json();
   } catch (error) {
     console.log(error);
   }

@@ -35,12 +35,13 @@ export async function getReservationByCode(req, res) {
 
 export async function addReservation(req, res) {
   try {
-    const { tableNumber, name, phone, time, status, reservationCode } =
+    const { tableNumber, name, phone, date, time, status, reservationCode } =
       req.body;
     const newReservation = new Reservation({
       tableNumber,
       name,
       phone,
+      date,
       time,
       status,
       reservationCode,

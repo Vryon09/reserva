@@ -14,7 +14,7 @@ export interface Table {
 function ManageTables() {
   const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({
     queryKey: ["tables"],
-    queryFn: getAllTables,
+    queryFn: () => getAllTables({ queryString: "partySize", value: "0" }),
   });
 
   return (

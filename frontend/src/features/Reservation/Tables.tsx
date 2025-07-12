@@ -12,14 +12,18 @@ interface Table {
   capacity: number;
   notes: string;
   status: string;
+  reservations: {
+    date: string;
+    time: string;
+  }[];
 }
 
 function Tables() {
   const [selectedTable, setSelectedTable] = useState("");
-  const { dispatch, time } = useReservationForm();
+  const { dispatch, date, time, partySize } = useReservationForm();
 
   const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({
-    queryFn: getAllTables,
+    queryFn: () => getAllTables({ queryString: "partySize", value: partySize }),
     queryKey: ["tables"],
   });
 
@@ -57,9 +61,11 @@ function Tables() {
                   }
                 >
                   <option value="none">Choose Time</option>
-                  {generateTimeOptions().map((time, i) => (
-                    <option key={i}>{time}</option>
-                  ))}
+                  {generateTimeOptions({ start: 8, end: 22, table, date }).map(
+                    (time, i) => (
+                      <option key={i}>{time}</option>
+                    ),
+                  )}
                 </select>
 
                 <button

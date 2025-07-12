@@ -8,24 +8,57 @@ import { useAddReservationInTable } from "../../services/apiTable";
 function PersonalInformationForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const { time, date, table } = useReservationForm();
+  const { dispatch, time, date, table } = useReservationForm();
   // const [time, setTime] = useState("");
   const [isReserved, setIsReserved] = useState(false);
   const [reservationCode, setReservationCode] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setReservationCode(nanoid(4));
   }, []);
 
-  const { mutate: handleAddReservation, isPending: isAddingPending } =
+  const { mutateAsync: handleAddReservation, isPending: isAddingPending } =
     useAddReservation();
 
   const {
-    mutate: handleAddReservationInTable,
+    mutateAsync: handleAddReservationInTable,
     isPending: isAddingReservationInTablePending,
   } = useAddReservationInTable();
 
-  const navigate = useNavigate();
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (table === undefined) {
+      console.log("Table number not found");
+      return;
+    }
+
+    try {
+      await handleAddReservationInTable({
+        tableName: table,
+        time,
+        date,
+      });
+
+      await handleAddReservation({
+        tableNumber: table,
+        name,
+        phone,
+        date,
+        time,
+        reservationCode,
+      });
+
+      setIsReserved(true);
+      setName("");
+      setPhone("");
+      dispatch({ type: "resetForm" });
+    } catch (error) {
+      console.error(error);
+      navigate("/reserve/tables");
+    }
+  }
 
   //there should be a new paramater caled reservationCode and it should be also passed in the useQuery key
 
@@ -48,35 +81,7 @@ function PersonalInformationForm() {
 
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          if (table === undefined) {
-            console.log("Table number not found");
-            return;
-          }
-
-          handleAddReservation({
-            tableNumber: table,
-            name,
-            phone,
-            time: `${time} ${date}`,
-            reservationCode,
-          });
-
-          handleAddReservationInTable({
-            tableName: table,
-            time,
-            date,
-          });
-
-          setIsReserved(true);
-          setName("");
-          setPhone("");
-        }}
-        className="grid grid-cols-2 gap-2"
-      >
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-2">
         <div className="flex flex-col">
           <label>Name</label>
           <input

@@ -6,9 +6,17 @@ interface TablePayload {
   notes: string;
 }
 
-export async function getAllTables() {
+export async function getAllTables({
+  queryString,
+  value,
+}: {
+  queryString: string;
+  value: string;
+}) {
   try {
-    const res = await fetch(`http://localhost:5000/api/tables`);
+    const res = await fetch(
+      `http://localhost:5000/api/tables?${queryString}=${value}`,
+    );
 
     const data = await res.json();
 
@@ -110,15 +118,18 @@ async function handleAddReservationInTable({
   date: string;
   time: string;
 }) {
-  try {
-    await fetch(`http://localhost:5000/api/tables/reservation`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tableName, date, time }),
-    });
-  } catch (error) {
-    console.log(error);
+  const res = await fetch(`http://localhost:5000/api/tables/reservation`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tableName, date, time }),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message);
   }
+
+  return await res.json();
 }
 
 export function useAddReservationInTable() {

@@ -1,8 +1,14 @@
 import Table from "../models/Table.js";
 
-export async function getAllTables(_, res) {
+export async function getAllTables(req, res) {
   try {
-    const tables = await Table.find().sort({ createdAt: 1 }); //-1 will sort backwards
+    const filter = {};
+
+    if (req.query.partySize) {
+      filter.capacity = { $gte: +req.query.partySize };
+    }
+
+    const tables = await Table.find(filter).sort({ createdAt: 1 }); //-1 will sort backwards
     res.status(200).json(tables);
   } catch (error) {
     console.error("Error in getAllTables controller.", error);
@@ -67,6 +73,14 @@ export async function addReservationInTable(req, res) {
     const { tableName, date, time } = req.body;
 
     const table = await Table.findOne({ tableNumber: tableName });
+
+    const isDuplicate = table.reservations.some(
+      (reservation) => reservation.date === date && reservation.time === time
+    );
+
+    if (isDuplicate) {
+      throw new Error("Date and time already reserved.");
+    }
 
     if (!table) {
       return res.status(404).json({ message: "Table not found" });
