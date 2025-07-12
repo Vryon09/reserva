@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAddReservation } from "../../services/apiReservation";
 import { nanoid } from "nanoid";
 import { useReservationForm } from "../../contexts/useReservationForm";
+import { useAddReservationInTable } from "../../services/apiTable";
 
 function PersonalInformationForm() {
   const [name, setName] = useState("");
@@ -19,11 +20,17 @@ function PersonalInformationForm() {
   const { mutate: handleAddReservation, isPending: isAddingPending } =
     useAddReservation();
 
+  const {
+    mutate: handleAddReservationInTable,
+    isPending: isAddingReservationInTablePending,
+  } = useAddReservationInTable();
+
   const navigate = useNavigate();
 
   //there should be a new paramater caled reservationCode and it should be also passed in the useQuery key
 
-  if (isAddingPending) return <p>Wait for your Reservation Code...</p>;
+  if (isAddingPending || isAddingReservationInTablePending)
+    return <p>Wait for your Reservation Code...</p>;
 
   if (isReserved)
     return (
@@ -56,6 +63,12 @@ function PersonalInformationForm() {
             phone,
             time: `${time} ${date}`,
             reservationCode,
+          });
+
+          handleAddReservationInTable({
+            tableName: table,
+            time,
+            date,
           });
 
           setIsReserved(true);

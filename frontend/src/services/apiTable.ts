@@ -100,3 +100,34 @@ export function useUpdateTable() {
     },
   });
 }
+
+async function handleAddReservationInTable({
+  tableName,
+  date,
+  time,
+}: {
+  tableName: string;
+  date: string;
+  time: string;
+}) {
+  try {
+    await fetch(`http://localhost:5000/api/tables/reservation`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tableName, date, time }),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function useAddReservationInTable() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: handleAddReservationInTable,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tables"] });
+    },
+  });
+}
