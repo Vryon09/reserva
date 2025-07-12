@@ -27,12 +27,9 @@ function AdminTables({ tables }: AdminTablesProps) {
     <div className="grid grid-cols-2 gap-2">
       {tables?.map((table, i: number) => (
         <div key={i} className="cursor-pointer border-1 p-2">
-          <p>Table {table.tableNumber}</p>
+          <p>{table.tableNumber}</p>
           <p>{table.notes}</p>
           <p>Party Size: {table.capacity}</p>
-          <p>
-            Status: <span className="uppercase">{table.status}</span>
-          </p>
 
           <div className="flex justify-end gap-2">
             <button

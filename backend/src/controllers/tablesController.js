@@ -12,8 +12,12 @@ export async function getAllTables(_, res) {
 
 export async function addTable(req, res) {
   try {
-    const { tableNumber, capacity, status, notes } = req.body;
-    const newTable = new Table({ tableNumber, capacity, status, notes });
+    const { tableNumber, capacity, notes } = req.body;
+    const newTable = new Table({
+      tableNumber,
+      capacity,
+      notes,
+    });
 
     const savedTable = await newTable.save();
     res.status(201).json(savedTable);
@@ -25,13 +29,12 @@ export async function addTable(req, res) {
 
 export async function updateTable(req, res) {
   try {
-    const { tableNumber, capacity, status, notes } = req.body;
+    const { tableNumber, capacity, notes } = req.body;
     const updatedTable = await Table.findByIdAndUpdate(
       req.params.id,
       {
         tableNumber,
         capacity,
-        status,
         notes,
       },
       { new: true }

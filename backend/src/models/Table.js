@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
 
+const reservationSchema = new mongoose.Schema(
+  {
+    date: { type: String, required: true },
+    time: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const tableSchema = new mongoose.Schema(
   {
     tableNumber: {
@@ -12,15 +22,11 @@ const tableSchema = new mongoose.Schema(
       required: true,
       min: 1,
     },
-    status: {
-      type: String,
-      enum: ["available", "reserved", "occupied", "unavailable"],
-      default: "available",
-    },
     notes: {
       type: String,
       default: "",
     },
+    reservations: { type: [reservationSchema], default: [] },
   },
   {
     timestamps: true, // automatically adds createdAt and updatedAt

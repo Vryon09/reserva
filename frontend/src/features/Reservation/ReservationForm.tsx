@@ -1,114 +1,75 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  // handleGetReservationByCode,
-  useAddReservation,
-} from "../../services/apiReservation";
-import { nanoid } from "nanoid";
-// import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { useReservationForm } from "../../contexts/useReservationForm";
 
 function ReservationForm() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [time, setTime] = useState("");
-  const [isReserved, setIsReserved] = useState(false);
-  const [reservationCode, setReservationCode] = useState("");
+  const { dispatch, partySize, date } = useReservationForm();
 
-  useEffect(() => {
-    setReservationCode(nanoid(4));
-  }, []);
-
-  const { tableNumber } = useParams();
-
-  const { mutate: handleAddReservation, isPending: isAddingPending } =
-    useAddReservation();
+  //use useReducer and useContext for handling these states
+  const item = Array.from({ length: 30 }, (_, i) => i);
 
   const navigate = useNavigate();
 
-  //there should be a new paramater caled reservationCode and it should be also passed in the useQuery key
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  if (isAddingPending) return <p>Wait for your Reservation Code...</p>;
+    if (partySize === "none" || date === "") {
+      console.log("Fill all.");
+      return;
+    }
 
-  if (isReserved)
-    return (
-      <div>
-        <p>Code: {reservationCode}</p>
-        <p>Please remember your code to monitor your reservation</p>
-        <button
-          className="border-1"
-          onClick={() => navigate(`/reserve/reservation/${reservationCode}`)}
-        >
-          Monitor your reservation
-        </button>
-      </div>
-    );
+    navigate("/reserve/tables");
+  }
 
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          if (tableNumber === undefined) {
-            console.log("Table number not found");
-            return;
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Party Size</label>
+        <select
+          value={partySize}
+          onChange={(e) =>
+            dispatch({ type: "setPartySize", payload: e.target.value })
           }
+          className="border-1"
+        >
+          <option value="none">No. of guests</option>
+          {item.map((i) => (
+            <option key={i} value={i + 1}>
+              {i + 1} guests
+            </option>
+          ))}
+        </select>
+      </div>
 
-          handleAddReservation({
-            tableNumber,
-            name,
-            phone,
-            time,
-            reservationCode,
-          });
+      <div>
+        <label>Date</label>
+        <input
+          value={date}
+          onChange={(e) =>
+            dispatch({ type: "setDate", payload: e.target.value })
+          }
+          className="border-1"
+          type="date"
+        />
+      </div>
 
-          setIsReserved(true);
-          setName("");
-          setPhone("");
-          setTime("");
-        }}
-        className="grid grid-cols-2 gap-2"
-      >
-        <div className="flex flex-col">
-          <label>Name</label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            className="border-1"
-          />
-        </div>
+      {/* <div>
+        <label>Time</label>
+        <select
+          className="border-1"
+          value={time}
+          onChange={(e) =>
+            dispatch({ type: "setTime", payload: e.target.value })
+          }
+        >
+          <option value="none">Choose Time</option>
+          {generateTimeOptions().map((time, i) => (
+            <option key={i}>{time}</option>
+          ))}
+        </select>
+      </div> */}
 
-        <div className="flex flex-col">
-          <label>Phone Number</label>
-          <input
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            type="text"
-            className="border-1"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Date and Time</label>
-          <input
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            type="datetime-local"
-            className="border-1"
-          />
-        </div>
-
-        <div className="col-span-2 flex justify-center">
-          <button
-            disabled={isReserved}
-            className="cursor-pointer rounded-2xl border-1 px-5 py-2 font-semibold uppercase"
-          >
-            Reserve
-          </button>
-        </div>
-      </form>
-    </div>
+      <button className="border-1">Submit</button>
+    </form>
   );
 }
 

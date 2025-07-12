@@ -35,7 +35,7 @@ function AddTableButton() {
             }}
           >
             <div>
-              <label>Table ID: </label>
+              <label>Table Name: </label>
               <input
                 value={tableNumber}
                 onChange={(e) => setTableNumber(e.target.value)}
@@ -56,12 +56,20 @@ function AddTableButton() {
 
             <div>
               <label>Capacity: </label>
-              <input
+              <select
+                className="w-full border-1"
                 value={capacity}
                 onChange={(e) => setCapacity(+e.target.value)}
-                type="number"
-                className="border-1"
-              />
+              >
+                <option value="none">No. of seats</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
             </div>
 
             <button className="border-1">Add</button>
