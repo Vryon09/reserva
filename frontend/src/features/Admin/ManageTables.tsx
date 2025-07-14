@@ -11,6 +11,12 @@ export interface Table {
   _id: string;
 }
 
+export interface TableInfo {
+  tableNumber: string;
+  capacity: number;
+  notes: string;
+}
+
 function ManageTables() {
   const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({
     queryKey: ["tables"],

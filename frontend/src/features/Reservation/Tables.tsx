@@ -62,8 +62,8 @@ function Tables() {
                 >
                   <option value="none">Choose Time</option>
                   {generateTimeOptions({ start: 8, end: 22, table, date }).map(
-                    (time, i) => (
-                      <option key={i}>{time}</option>
+                    (time) => (
+                      <option key={time}>{time}</option>
                     ),
                   )}
                 </select>

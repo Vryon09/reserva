@@ -19,17 +19,29 @@ const modalStyles: React.CSSProperties = {
 };
 
 type ModalProps = {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
+  isObjectState?: boolean;
+  setIsOpenObject?: () => void;
   addtionalFunction?: () => void;
 };
 
-function Modal({ setIsOpen, children, addtionalFunction }: ModalProps) {
+function Modal({
+  setIsOpen,
+  children,
+  isObjectState = false,
+  setIsOpenObject,
+  addtionalFunction,
+}: ModalProps) {
   return createPortal(
     <>
       <div
         onClick={() => {
-          setIsOpen(false);
+          if (!isObjectState) {
+            setIsOpen?.(false);
+          } else {
+            setIsOpenObject?.();
+          }
 
           addtionalFunction?.();
         }}

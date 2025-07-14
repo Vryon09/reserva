@@ -42,7 +42,7 @@ export async function getAllConfirmedReservation() {
   }
 }
 
-interface ReservationPayload {
+export interface ReservationPayload {
   _id?: string;
   tableNumber: string;
   name: string;

@@ -1,27 +1,50 @@
 import { useState } from "react";
 import Modal from "../../ui/Modal";
-import type { Table } from "./ManageTables";
+import type { Table, TableInfo } from "./ManageTables";
 import { useDeleteTable, useUpdateTable } from "../../services/apiTable";
+import TableForm from "./TableForm";
+import DeleteForm from "./DeleteForm";
 
 interface AdminTablesProps {
   tables: Table[];
 }
 
 function AdminTables({ tables }: AdminTablesProps) {
-  const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [editModal, setEditModal] = useState<boolean>(false);
-  const [selectedDeleteTable, setSelectedDeleteTable] = useState<string>("");
-  const [selectedEditTable, setSelectedEditTable] = useState<string>("");
-  const [editDatas, setEditDatas] = useState({
+  const [isModalOpen, setIsModalOpen] = useState({
+    deleteModal: false,
+    editModal: false,
+  });
+
+  const [selectedTable, setSelectedTable] = useState({
+    deleteTable: "",
+    editTable: "",
+  });
+
+  const [editDatas, setEditDatas] = useState<TableInfo>({
     tableNumber: "",
-    notes: "",
     capacity: 0,
+    notes: "",
   });
 
   //do something about the status of the table
 
   const { mutate: handleDeleteTable } = useDeleteTable();
   const { mutate: handeUpdateTable } = useUpdateTable();
+
+  function handleSubmit(id: string) {
+    handeUpdateTable({
+      id,
+      updatedTable: editDatas,
+    });
+
+    setSelectedTable((prev) => {
+      return { ...prev, editTable: "" };
+    });
+
+    setIsModalOpen((prev) => {
+      return { ...prev, editModal: false };
+    });
+  }
 
   return (
     <div className="grid grid-cols-2 gap-2">
@@ -35,8 +58,13 @@ function AdminTables({ tables }: AdminTablesProps) {
             <button
               className="cursor-pointer border-1"
               onClick={() => {
-                setEditModal(true);
-                setSelectedEditTable(table._id);
+                setIsModalOpen((prev) => {
+                  return { ...prev, editModal: true };
+                });
+
+                setSelectedTable((prev) => {
+                  return { ...prev, editTable: table._id };
+                });
 
                 setEditDatas({
                   tableNumber: table.tableNumber,
@@ -48,11 +76,17 @@ function AdminTables({ tables }: AdminTablesProps) {
               Edit
             </button>
 
-            {editModal && selectedEditTable === table._id && (
+            {isModalOpen.editModal && selectedTable.editTable === table._id && (
               <Modal
-                setIsOpen={setEditModal}
+                setIsOpenObject={() =>
+                  setIsModalOpen((prev) => {
+                    return { ...prev, editModal: false };
+                  })
+                }
                 addtionalFunction={() => {
-                  setSelectedEditTable("");
+                  setSelectedTable((prev) => {
+                    return { ...prev, editTable: "" };
+                  });
                   setEditDatas({
                     tableNumber: "",
                     notes: "",
@@ -60,114 +94,60 @@ function AdminTables({ tables }: AdminTablesProps) {
                   });
                 }}
               >
-                <div>
-                  <div>
-                    <label>Table Number: </label>
-                    <input
-                      className="border-1"
-                      type="text"
-                      value={editDatas.tableNumber}
-                      onChange={(e) =>
-                        setEditDatas((prev) => {
-                          return { ...prev, tableNumber: e.target.value };
-                        })
-                      }
-                    />
-                  </div>
-
-                  <div>
-                    <label>Description: </label>
-                    <input
-                      className="border-1"
-                      type="text"
-                      value={editDatas.notes}
-                      onChange={(e) =>
-                        setEditDatas((prev) => {
-                          return { ...prev, notes: e.target.value };
-                        })
-                      }
-                    />
-                  </div>
-
-                  <div>
-                    <label>Capacity: </label>
-                    <input
-                      className="border-1"
-                      type="text"
-                      value={editDatas.capacity}
-                      onChange={(e) =>
-                        setEditDatas((prev) => {
-                          return { ...prev, capacity: +e.target.value };
-                        })
-                      }
-                    />
-                  </div>
-
-                  <div className="flex justify-between">
-                    <button
-                      className="border-1"
-                      onClick={() => setEditModal(false)}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="border-1"
-                      onClick={() => {
-                        handeUpdateTable({
-                          id: table._id,
-                          updatedTable: editDatas,
-                        });
-
-                        setSelectedEditTable("");
-                        setEditModal(false);
-                      }}
-                    >
-                      Update
-                    </button>
-                  </div>
-                </div>
+                <TableForm
+                  handleSubmit={() => handleSubmit(table._id)}
+                  tableInfo={editDatas}
+                  setTableInfo={setEditDatas}
+                  action="Update"
+                  handleCloseModal={() =>
+                    setIsModalOpen((prev) => {
+                      return { ...prev, editModal: false };
+                    })
+                  }
+                />
               </Modal>
             )}
 
             <button
               className="cursor-pointer border-1"
               onClick={() => {
-                setSelectedDeleteTable(table._id);
-                setDeleteModal(true);
+                setSelectedTable((prev) => {
+                  return { ...prev, deleteTable: table._id };
+                });
+                setIsModalOpen((prev) => {
+                  return { ...prev, deleteModal: true };
+                });
               }}
             >
               Delete
             </button>
 
-            {deleteModal && selectedDeleteTable === table._id && (
-              <Modal
-                setIsOpen={setDeleteModal}
-                addtionalFunction={() => {
-                  setSelectedDeleteTable("");
-                }}
-              >
-                <div>
-                  <p>Are you sure you want to delele this table?</p>
-                  <div className="flex justify-between">
-                    <button
-                      className="border-1"
-                      onClick={() => setDeleteModal(false)}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="border-1"
-                      onClick={() => {
-                        handleDeleteTable(table._id);
-                        setDeleteModal(false);
-                      }}
-                    >
-                      Confirm
-                    </button>
-                  </div>
-                </div>
-              </Modal>
-            )}
+            {isModalOpen.deleteModal &&
+              selectedTable.deleteTable === table._id && (
+                <Modal
+                  isObjectState={true}
+                  setIsOpenObject={() =>
+                    setIsModalOpen((prev) => {
+                      return { ...prev, deleteModal: false };
+                    })
+                  }
+                  addtionalFunction={() => {
+                    setSelectedTable((prev) => {
+                      return { ...prev, deleteTable: "" };
+                    });
+                  }}
+                >
+                  <DeleteForm
+                    dataName="table"
+                    handleCloseModal={() =>
+                      setIsModalOpen((prev) => {
+                        return { ...prev, deleteModal: false };
+                      })
+                    }
+                    handleSubmit={() => handleDeleteTable(table._id)}
+                  />
+                </Modal>
+              )}
           </div>
         </div>
       ))}
