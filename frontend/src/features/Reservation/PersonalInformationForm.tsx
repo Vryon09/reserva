@@ -4,6 +4,7 @@ import { useAddReservation } from "../../services/apiReservation";
 import { nanoid } from "nanoid";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import { useAddReservationInTable } from "../../services/apiTable";
+import CodeReveal from "./CodeReveal";
 
 function PersonalInformationForm() {
   const [name, setName] = useState("");
@@ -65,19 +66,7 @@ function PersonalInformationForm() {
   if (isAddingPending || isAddingReservationInTablePending)
     return <p>Wait for your Reservation Code...</p>;
 
-  if (isReserved)
-    return (
-      <div>
-        <p>Code: {reservationCode}</p>
-        <p>Please remember your code to monitor your reservation</p>
-        <button
-          className="border-1"
-          onClick={() => navigate(`/reserve/reservation/${reservationCode}`)}
-        >
-          Monitor your reservation
-        </button>
-      </div>
-    );
+  if (isReserved) return <CodeReveal reservationCode={reservationCode} />;
 
   return (
     <div>
@@ -101,16 +90,6 @@ function PersonalInformationForm() {
             className="border-1"
           />
         </div>
-
-        {/* <div className="flex flex-col">
-          <label>Date and Time</label>
-          <input
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            type="datetime-local"
-            className="border-1"
-          />
-        </div> */}
 
         <div className="col-span-2 flex justify-center">
           <button

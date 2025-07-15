@@ -6,6 +6,7 @@ import {
 } from "../../services/apiReservation";
 import Modal from "../../ui/Modal";
 import { useState } from "react";
+import CancelReservation from "./CancelReservation";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 
@@ -58,27 +59,14 @@ function MonitorReservation() {
 
       {cancelModal && (
         <Modal setIsOpen={setCancelModal}>
-          <div>
-            <p>Are you sure you want to cancel your reservation?</p>
-            <div className="flex justify-between">
-              <button
-                className="border-1"
-                onClick={() => setCancelModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="border-1"
-                onClick={() => {
-                  handleDeleteReservation(reservation._id);
-                  navigate("/");
-                  setCancelModal(false);
-                }}
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
+          <CancelReservation
+            handleCloseModal={() => setCancelModal(false)}
+            handleConfirm={() => {
+              handleDeleteReservation(reservation._id);
+              navigate("/");
+              setCancelModal(false);
+            }}
+          />
         </Modal>
       )}
     </div>

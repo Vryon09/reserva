@@ -6,15 +6,20 @@ function FindReservation() {
 
   const navigate = useNavigate();
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (code.trim().length !== 4) {
+      return;
+    }
+
+    navigate(`/reserve/reservation/${code}`);
+  }
+
   //Next feature will be the cancel reservation button in the monitoring page
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        navigate(`/reserve/reservation/${code}`);
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <label>Enter code:</label>
       <input
         value={code}

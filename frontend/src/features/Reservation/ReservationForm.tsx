@@ -52,22 +52,6 @@ function ReservationForm() {
         />
       </div>
 
-      {/* <div>
-        <label>Time</label>
-        <select
-          className="border-1"
-          value={time}
-          onChange={(e) =>
-            dispatch({ type: "setTime", payload: e.target.value })
-          }
-        >
-          <option value="none">Choose Time</option>
-          {generateTimeOptions().map((time, i) => (
-            <option key={i}>{time}</option>
-          ))}
-        </select>
-      </div> */}
-
       <button className="border-1">Submit</button>
     </form>
   );
