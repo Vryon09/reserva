@@ -1,12 +1,13 @@
-import { useNavigate } from "react-router-dom";
 // import { tables } from "../../testdata";
 import { useQuery } from "@tanstack/react-query";
 import { getAllTables } from "../../services/apiTable";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import { useState } from "react";
-import { generateTimeOptions } from "../../services/helperFunctions";
+import Table from "./Table";
 
-interface Table {
+//CLEAN THIS SHIT
+
+export interface TableTypes {
   _id: string;
   tableNumber: string;
   capacity: number;
@@ -20,14 +21,12 @@ interface Table {
 
 function Tables() {
   const [selectedTable, setSelectedTable] = useState("");
-  const { dispatch, date, time, partySize } = useReservationForm();
+  const { partySize } = useReservationForm();
 
-  const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({
+  const { data: tables, isPending: isTablesPending } = useQuery<TableTypes[]>({
     queryFn: () => getAllTables({ queryString: "partySize", value: partySize }),
     queryKey: ["tables"],
   });
-
-  const navigate = useNavigate();
 
   if (isTablesPending) return <p>Loading...</p>;
 
@@ -36,55 +35,12 @@ function Tables() {
       <p className="text-xl font-semibold">Choose Table</p>
       <div className="grid grid-cols-2 gap-2">
         {tables?.map((table) => (
-          <div
-            className="border-1 p-2"
-            style={
-              selectedTable === table._id
-                ? { backgroundColor: "aquamarine" }
-                : {}
-            }
+          <Table
+            selectedTable={selectedTable}
+            setSelectedTable={setSelectedTable}
+            table={table}
             key={table._id}
-            onClick={() => {
-              setSelectedTable(table._id);
-            }}
-          >
-            <p>Table {table.tableNumber}</p>
-            <p>{table.notes}</p>
-            <p>Party Size: {table.capacity}</p>
-            {selectedTable === table._id && (
-              <>
-                <select
-                  className="border-1"
-                  value={time}
-                  onChange={(e) =>
-                    dispatch({ type: "setTime", payload: e.target.value })
-                  }
-                >
-                  <option value="none">Choose Time</option>
-                  {generateTimeOptions({ start: 8, end: 22, table, date }).map(
-                    (time) => (
-                      <option key={time}>{time}</option>
-                    ),
-                  )}
-                </select>
-
-                <button
-                  className="cursor-pointer border-1"
-                  onClick={() => {
-                    if (time === "none") {
-                      console.log("Choose time!");
-                      return;
-                    }
-
-                    dispatch({ type: "setTable", payload: table.tableNumber });
-                    navigate(`/reserve/personal-information`);
-                  }}
-                >
-                  Choose
-                </button>
-              </>
-            )}
-          </div>
+          />
         ))}
       </div>
     </div>
