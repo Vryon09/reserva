@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import { generateTimeOptions } from "../../services/helperFunctions";
 import type { TableTypes } from "./Tables";
+import { format, parse } from "date-fns";
 
 interface TableProps {
   selectedTable: string;
@@ -39,7 +40,9 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
             <option value="none">Choose Time</option>
             {generateTimeOptions({ start: 8, end: 22, table, date }).map(
               (time) => (
-                <option key={time}>{time}</option>
+                <option key={time} value={time}>
+                  {format(parse(time, "HH:mm", new Date()), "h:mm a")}
+                </option>
               ),
             )}
           </select>

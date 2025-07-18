@@ -12,8 +12,16 @@ function ReservationForm() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    const selectedDate = new Date(date);
+    const now = new Date();
+
+    if (selectedDate < now) {
+      alert("Invalid date selection.");
+      return;
+    }
+
     if (partySize === "none" || date === "") {
-      console.log("Fill all.");
+      alert("Fill all.");
       return;
     }
 

@@ -21,25 +21,22 @@ export function generateTimeOptions({
   table: Table;
   date: string;
 }) {
-  const options = [];
+  const options: string[] = [];
 
-  const reservations = table.reservations.filter((reservation) => {
-    return reservation.date === date;
-  });
+  const reservationHours = table.reservations
+    .filter((reservation) => reservation.date === date)
+    .map((reservation) => +reservation.time.split(":")[0]);
 
   for (let hour = start; hour <= end - 1; hour++) {
-    const time = new Date();
-    time.setHours(hour, 0, 0);
+    const isBlocked = reservationHours.some(
+      (reservationHour) =>
+        hour >= reservationHour && hour < reservationHour + 2,
+    );
 
-    const formatted = time.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    if (isBlocked) continue;
 
-    if (reservations.some((reservation) => reservation.time === formatted))
-      continue;
-
-    options.push(formatted);
+    const time = `${hour}:00`;
+    options.push(time);
   }
 
   return options;
