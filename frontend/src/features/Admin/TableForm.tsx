@@ -75,7 +75,7 @@ function TableForm({
 
       <div className="flex items-center justify-between">
         <Button
-          type="reject"
+          type="neutral"
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
             handleCloseModal();

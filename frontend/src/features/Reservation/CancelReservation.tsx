@@ -1,3 +1,5 @@
+import Button from "../../ui/Button";
+
 interface CancelReservationProps {
   handleCloseModal: () => void;
   handleConfirm: () => void;
@@ -11,12 +13,12 @@ function CancelReservation({
     <div>
       <p>Are you sure you want to cancel your reservation?</p>
       <div className="flex justify-between">
-        <button className="border-1" onClick={handleCloseModal}>
-          Cancel
-        </button>
-        <button className="border-1" onClick={handleConfirm}>
+        <Button type="neutral" onClick={handleCloseModal}>
+          Return
+        </Button>
+        <Button type="reject" onClick={handleConfirm}>
           Confirm
-        </button>
+        </Button>
       </div>
     </div>
   );

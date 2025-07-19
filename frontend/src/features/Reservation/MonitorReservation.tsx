@@ -7,6 +7,7 @@ import {
 import Modal from "../../ui/Modal";
 import { useState } from "react";
 import CancelReservation from "./CancelReservation";
+import Button from "../../ui/Button";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 
@@ -47,14 +48,14 @@ function MonitorReservation() {
       <p>Status: {reservation.status}</p>
       <p>(You can only cancel if the status is pending.)</p>
       {reservation.status === "pending" && (
-        <button
-          className="border-1"
+        <Button
+          type="reject"
           onClick={() => {
             setCancelModal(true);
           }}
         >
           Cancel Reservation
-        </button>
+        </Button>
       )}
 
       {cancelModal && (

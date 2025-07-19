@@ -3,6 +3,7 @@ import { useReservationForm } from "../../contexts/useReservationForm";
 import { generateTimeOptions } from "../../services/helperFunctions";
 import type { TableTypes } from "./Tables";
 import { format, parse } from "date-fns";
+import Button from "../../ui/Button";
 
 interface TableProps {
   selectedTable: string;
@@ -47,8 +48,8 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
             )}
           </select>
 
-          <button
-            className="cursor-pointer border-1"
+          <Button
+            type="confirm"
             onClick={() => {
               if (time === "none") {
                 console.log("Choose time!");
@@ -60,7 +61,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
             }}
           >
             Choose
-          </button>
+          </Button>
         </>
       )}
     </div>

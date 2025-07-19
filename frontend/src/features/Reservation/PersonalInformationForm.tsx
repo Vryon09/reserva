@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import { useAddReservationInTable } from "../../services/apiTable";
 import CodeReveal from "./CodeReveal";
+import Button from "../../ui/Button";
 
 function PersonalInformationForm() {
   const [name, setName] = useState("");
@@ -92,12 +93,9 @@ function PersonalInformationForm() {
         </div>
 
         <div className="col-span-2 flex justify-center">
-          <button
-            disabled={isReserved}
-            className="cursor-pointer rounded-2xl border-1 px-5 py-2 font-semibold uppercase"
-          >
+          <Button type="confirm" disabled={isReserved}>
             Reserve
-          </button>
+          </Button>
         </div>
       </form>
     </div>

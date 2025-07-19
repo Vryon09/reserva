@@ -61,7 +61,7 @@ function ReservationForm() {
         />
       </div>
 
-      <Button type="primary">Submit</Button>
+      <Button type="confirm">Submit</Button>
     </form>
   );
 }

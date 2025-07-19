@@ -1,3 +1,5 @@
+import Button from "../../ui/Button";
+
 interface DeleteFormProps {
   dataName: string;
   handleCloseModal: () => void;
@@ -13,18 +15,18 @@ function DeleteForm({
     <form>
       <p>Are you sure you want to delele this {dataName}?</p>
       <div className="flex justify-between">
-        <button className="border-1" onClick={handleCloseModal}>
+        <Button type="neutral" onClick={handleCloseModal}>
           Cancel
-        </button>
-        <button
-          className="border-1"
+        </Button>
+        <Button
+          type="reject"
           onClick={() => {
             handleSubmit();
             handleCloseModal();
           }}
         >
           Confirm
-        </button>
+        </Button>
       </div>
     </form>
   );

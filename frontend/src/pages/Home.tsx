@@ -8,7 +8,7 @@ function Home() {
     <div className="flex h-[90dvh] flex-col items-center justify-center gap-2">
       <div className="mb-4 flex flex-col items-center gap-2">
         <h1 className="text-4xl font-bold">
-          Book Your <span className="text-brand-500"> Table Now</span>
+          Book Your Table <span className="text-brand-500">Now</span>
         </h1>
         <p className="text-justify text-xl">
           Enjoy a memorable dining experience at Restaurant Name! Booking online
