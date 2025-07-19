@@ -3,6 +3,7 @@ import { useAddTable } from "../../services/apiTable";
 import Modal from "../../ui/Modal";
 import type { TableInfo } from "./ManageTables";
 import TableForm from "./TableForm";
+import Button from "../../ui/Button";
 
 const initialTableInfo = {
   tableNumber: "",
@@ -25,12 +26,9 @@ function AddTableButton() {
 
   return (
     <div className="flex justify-end gap-2">
-      <button
-        onClick={() => setIsAddTableOpen(true)}
-        className="cursor-pointer rounded-md bg-orange-800 p-2 text-orange-50"
-      >
+      <Button type="primary" onClick={() => setIsAddTableOpen(true)}>
         Add Table
-      </button>
+      </Button>
 
       {isAddTableOpen && (
         <Modal setIsOpen={setIsAddTableOpen}>

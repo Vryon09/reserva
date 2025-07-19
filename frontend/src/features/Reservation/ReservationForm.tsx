@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useReservationForm } from "../../contexts/useReservationForm";
+import Button from "../../ui/Button";
 
 function ReservationForm() {
   const { dispatch, partySize, date } = useReservationForm();
@@ -60,7 +61,7 @@ function ReservationForm() {
         />
       </div>
 
-      <button className="border-1">Submit</button>
+      <Button type="primary">Submit</Button>
     </form>
   );
 }

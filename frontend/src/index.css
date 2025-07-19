@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand-50: #fcfaf5;
+  --color-brand-100: #faf4eb;
+  --color-brand-200: #f0e2ce;
+  --color-brand-300: #e8d0b5;
+  --color-brand-400: #d6a783;
+  --color-brand-500: #c57b57;
+  --color-brand-600: #b06846;
+  --color-brand-700: #944f31;
+  --color-brand-800: #75361e;
+  --color-brand-900: #592412;
+  --color-brand-950: #381207;
+}
+
+body {
+  font-family: "Quicksand";
+}

@@ -1,34 +1,32 @@
 import { useNavigate } from "react-router-dom";
+import Button from "../ui/Button";
 
 function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-dvh flex-col items-center justify-center gap-2">
-      <div className="mb-8 flex flex-col items-center gap-2">
-        <h1 className="text-4xl font-bold">BOOK A TABLE</h1>
-        <p className="text-justify text-lg">
-          Reserve your place at Restaurant Name and treat yourself to a
-          flavorful experience you won’t forget! Booking your table online is
-          fast, simple, and ensures a smooth dining experience. A reservation
-          fee is required to confirm your booking—this amount will be fully
-          credited to your final bill.
+    <div className="flex h-[90dvh] flex-col items-center justify-center gap-2">
+      <div className="mb-4 flex flex-col items-center gap-2">
+        <h1 className="text-4xl font-bold">
+          Book Your <span className="text-brand-500"> Table Now</span>
+        </h1>
+        <p className="text-justify text-xl">
+          Enjoy a memorable dining experience at Restaurant Name! Booking online
+          is quick, easy, and guarantees your table. A small reservation fee
+          confirms your spot and will be fully credited to your bill.
         </p>
       </div>
       <div className="flex gap-4">
-        <button
-          className="cursor-pointer bg-neutral-800 px-4 py-3 font-semibold tracking-wide text-neutral-50 uppercase"
-          onClick={() => navigate("/reserve")}
-        >
+        <Button type="primary" onClick={() => navigate("/reserve")}>
           Book a Table
-        </button>
+        </Button>
 
-        <button
-          className="cursor-pointer bg-neutral-800 px-4 py-3 font-semibold tracking-wide text-neutral-50 uppercase"
+        <Button
+          type="secondary"
           onClick={() => navigate("/reserve/findReservation")}
         >
-          Monitor Reservation
-        </button>
+          View Reservation
+        </Button>
       </div>
     </div>
   );

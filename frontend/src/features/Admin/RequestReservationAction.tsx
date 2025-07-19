@@ -1,3 +1,4 @@
+import Button from "../../ui/Button";
 import type { ReservationActionProps } from "./Reservation";
 
 function RequestReservationAction({
@@ -6,19 +7,19 @@ function RequestReservationAction({
 }: ReservationActionProps) {
   return (
     <>
-      <button
-        className="mt-2 cursor-pointer bg-red-600 p-2 text-white"
+      <Button
+        type="reject"
         onClick={() => handleUpdate(reservation._id, { status: "rejected" })}
       >
         Reject
-      </button>
+      </Button>
 
-      <button
-        className="mt-2 cursor-pointer bg-green-500 p-2"
+      <Button
+        type="confirm"
         onClick={() => handleUpdate(reservation._id, { status: "confirmed" })}
       >
         Confirm
-      </button>
+      </Button>
     </>
   );
 }

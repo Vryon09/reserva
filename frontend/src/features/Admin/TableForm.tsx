@@ -1,3 +1,4 @@
+import Button from "../../ui/Button";
 import type { TableInfo } from "./ManageTables";
 
 interface TableFormProps {
@@ -15,6 +16,7 @@ function TableForm({
   tableInfo,
   setTableInfo,
   action,
+  handleCloseModal,
 }: TableFormProps) {
   return (
     <form
@@ -71,9 +73,17 @@ function TableForm({
         </select>
       </div>
 
-      <div className="flex justify-between">
-        <button className="border-1">Cancel</button>
-        <button className="border-1">{action}</button>
+      <div className="flex items-center justify-between">
+        <Button
+          type="reject"
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation();
+            handleCloseModal();
+          }}
+        >
+          Cancel
+        </Button>
+        <Button type="confirm">{action}</Button>
       </div>
     </form>
   );

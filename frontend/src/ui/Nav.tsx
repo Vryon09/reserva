@@ -1,19 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
+import Button from "./Button";
 
 function Nav() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between">
+    <div className="flex h-14 items-center justify-between">
       <Logo />
 
-      <button
-        className="cursor-pointer bg-neutral-800 px-3 py-2 text-xs font-semibold tracking-wide text-neutral-50 uppercase"
-        onClick={() => navigate("/admin")}
-      >
+      <Button type="secondary" onClick={() => navigate("/admin")}>
         Admin
-      </button>
+      </Button>
     </div>
   );
 }

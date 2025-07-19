@@ -4,6 +4,7 @@ import type { Table, TableInfo } from "./ManageTables";
 import { useDeleteTable, useUpdateTable } from "../../services/apiTable";
 import TableForm from "./TableForm";
 import DeleteForm from "./DeleteForm";
+import Button from "../../ui/Button";
 
 interface AdminTablesProps {
   tables: Table[];
@@ -54,9 +55,9 @@ function AdminTables({ tables }: AdminTablesProps) {
           <p>{table.notes}</p>
           <p>Party Size: {table.capacity}</p>
 
-          <div className="flex justify-end gap-2">
-            <button
-              className="cursor-pointer border-1"
+          <div className="flex items-center justify-between gap-4">
+            <Button
+              type="confirm"
               onClick={() => {
                 setIsModalOpen((prev) => {
                   return { ...prev, editModal: true };
@@ -74,7 +75,7 @@ function AdminTables({ tables }: AdminTablesProps) {
               }}
             >
               Edit
-            </button>
+            </Button>
 
             {isModalOpen.editModal && selectedTable.editTable === table._id && (
               <Modal
@@ -108,8 +109,8 @@ function AdminTables({ tables }: AdminTablesProps) {
               </Modal>
             )}
 
-            <button
-              className="cursor-pointer border-1"
+            <Button
+              type="reject"
               onClick={() => {
                 setSelectedTable((prev) => {
                   return { ...prev, deleteTable: table._id };
@@ -120,7 +121,7 @@ function AdminTables({ tables }: AdminTablesProps) {
               }}
             >
               Delete
-            </button>
+            </Button>
 
             {isModalOpen.deleteModal &&
               selectedTable.deleteTable === table._id && (
