@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../ui/Button";
 
 function FindReservation() {
   const [code, setCode] = useState("");
@@ -27,7 +28,7 @@ function FindReservation() {
         type="text"
         className="border-1"
       />
-      <button className="border-1">Enter</button>
+      <Button type="confirm">Enter</Button>
     </form>
   );
 }

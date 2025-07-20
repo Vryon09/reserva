@@ -17,7 +17,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
 
   return (
     <div
-      className="border-1 p-2"
+      className="flex min-h-48 flex-col items-baseline gap-1 border-1 p-2"
       style={
         selectedTable === table._id ? { backgroundColor: "aquamarine" } : {}
       }
@@ -26,19 +26,19 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
         setSelectedTable(table._id);
       }}
     >
-      <p>Table {table.tableNumber}</p>
-      <p>{table.notes}</p>
-      <p>Party Size: {table.capacity}</p>
+      <p className="font-semibold">Table {table.tableNumber}</p>
+      <p>Description: {table.notes}</p>
+      <p>Capacity: {table.capacity}</p>
       {selectedTable === table._id && (
         <>
           <select
-            className="border-1"
+            className="input-normal w-full"
             value={time}
             onChange={(e) =>
               dispatch({ type: "setTime", payload: e.target.value })
             }
           >
-            <option value="none">Choose Time</option>
+            <option value="none">Time</option>
             {generateTimeOptions({ start: 8, end: 22, table, date }).map(
               (time) => (
                 <option key={time} value={time}>
@@ -48,20 +48,22 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
             )}
           </select>
 
-          <Button
-            type="confirm"
-            onClick={() => {
-              if (time === "none") {
-                console.log("Choose time!");
-                return;
-              }
+          <div className="mt-2 flex w-full justify-end">
+            <Button
+              type="confirm"
+              onClick={() => {
+                if (time === "none") {
+                  console.log("Choose time!");
+                  return;
+                }
 
-              dispatch({ type: "setTable", payload: table.tableNumber });
-              navigate(`/reserve/personal-information`);
-            }}
-          >
-            Choose
-          </Button>
+                dispatch({ type: "setTable", payload: table.tableNumber });
+                navigate(`/reserve/personal-information`);
+              }}
+            >
+              Choose
+            </Button>
+          </div>
         </>
       )}
     </div>

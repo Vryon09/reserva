@@ -20,14 +20,16 @@ function TableForm({
 }: TableFormProps) {
   return (
     <form
+      className="flex flex-col gap-2"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
       }}
     >
-      <div>
-        <label>Table Name: </label>
+      <div className="flex flex-col justify-between gap-1">
+        <label className="">Table Name: </label>
         <input
+          className="input-normal w-full"
           value={tableInfo.tableNumber}
           onChange={(e) =>
             setTableInfo((prev) => {
@@ -35,12 +37,11 @@ function TableForm({
             })
           }
           type="text"
-          className="border-1"
         />
       </div>
 
-      <div>
-        <label>Notes: </label>
+      <div className="flex flex-col justify-between gap-1">
+        <label className="">Notes: </label>
         <input
           value={tableInfo.notes}
           onChange={(e) =>
@@ -49,14 +50,14 @@ function TableForm({
             })
           }
           type="text"
-          className="border-1"
+          className="input-normal w-full"
         />
       </div>
 
-      <div>
-        <label>Capacity: </label>
+      <div className="flex flex-col justify-between gap-1">
+        <label className="">Capacity:</label>
         <select
-          className="w-full border-1"
+          className="input-normal w-full"
           value={tableInfo.capacity}
           onChange={(e) =>
             setTableInfo((prev) => {
@@ -73,7 +74,7 @@ function TableForm({
         </select>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="mt-2 flex items-center justify-between">
         <Button
           type="neutral"
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {

@@ -14,7 +14,7 @@ function DeleteForm({
   return (
     <form>
       <p>Are you sure you want to delele this {dataName}?</p>
-      <div className="flex justify-between">
+      <div className="mt-2 flex justify-between">
         <Button type="neutral" onClick={handleCloseModal}>
           Cancel
         </Button>

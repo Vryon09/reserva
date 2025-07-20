@@ -17,3 +17,7 @@
 body {
   font-family: "Quicksand";
 }
+
+@utility input-normal {
+  @apply h-8 border-1 px-2;
+}

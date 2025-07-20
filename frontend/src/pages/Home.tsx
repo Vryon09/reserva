@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
+import { Search } from "lucide-react";
 
 function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-[90dvh] flex-col items-center justify-center gap-2">
+    <div className="flex h-[80dvh] flex-col items-center justify-center gap-2">
       <div className="mb-4 flex flex-col items-center gap-2">
         <h1 className="text-4xl font-bold">
           Book Your Table <span className="text-brand-500">Now</span>
@@ -16,7 +17,7 @@ function Home() {
           confirms your spot and will be fully credited to your bill.
         </p>
       </div>
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4">
         <Button type="primary" onClick={() => navigate("/reserve")}>
           Book a Table
         </Button>
@@ -25,7 +26,9 @@ function Home() {
           type="secondary"
           onClick={() => navigate("/reserve/findReservation")}
         >
-          View Reservation
+          <span className="flex items-center gap-1">
+            <Search size={20} /> View Reservation
+          </span>
         </Button>
       </div>
     </div>

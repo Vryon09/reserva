@@ -55,7 +55,7 @@ function AdminTables({ tables }: AdminTablesProps) {
           <p>{table.notes}</p>
           <p>Party Size: {table.capacity}</p>
 
-          <div className="flex items-center justify-between gap-4">
+          <div className="mt-2 flex items-center justify-between gap-4">
             <Button
               type="confirm"
               onClick={() => {

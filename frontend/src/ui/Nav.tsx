@@ -6,7 +6,7 @@ function Nav() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-14 items-center justify-between">
+    <div className="items-cen ter flex h-14 justify-between">
       <Logo />
 
       <Button type="secondary" onClick={() => navigate("/admin")}>

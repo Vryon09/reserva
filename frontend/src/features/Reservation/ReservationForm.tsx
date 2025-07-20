@@ -30,38 +30,47 @@ function ReservationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Party Size</label>
-        <select
-          value={partySize}
-          onChange={(e) =>
-            dispatch({ type: "setPartySize", payload: e.target.value })
-          }
-          className="border-1"
-        >
-          <option value="none">No. of guests</option>
-          {item.map((i) => (
-            <option key={i} value={i + 1}>
-              {i + 1} guests
-            </option>
-          ))}
-        </select>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-baseline gap-4"
+    >
+      <p className="mb-4 text-2xl font-bold">Reservation Form</p>
+
+      <div className="flex w-full justify-between gap-2">
+        <div className="flex w-[50%] flex-col gap-2">
+          <label className="font-semibold">Party Size:</label>
+          <select
+            value={partySize}
+            onChange={(e) =>
+              dispatch({ type: "setPartySize", payload: e.target.value })
+            }
+            className="input-normal"
+          >
+            <option value="none">No. of guests</option>
+            {item.map((i) => (
+              <option key={i} value={i + 1}>
+                {i + 1} guests
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex w-[50%] flex-col gap-2">
+          <label className="font-semibold">Date:</label>
+          <input
+            value={date}
+            onChange={(e) =>
+              dispatch({ type: "setDate", payload: e.target.value })
+            }
+            className="input-normal"
+            type="date"
+          />
+        </div>
       </div>
 
-      <div>
-        <label>Date</label>
-        <input
-          value={date}
-          onChange={(e) =>
-            dispatch({ type: "setDate", payload: e.target.value })
-          }
-          className="border-1"
-          type="date"
-        />
+      <div className="flex w-full justify-end">
+        <Button type="confirmXl">Submit</Button>
       </div>
-
-      <Button type="confirm">Submit</Button>
     </form>
   );
 }

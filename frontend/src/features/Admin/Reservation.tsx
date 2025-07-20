@@ -40,7 +40,7 @@ function Reservation({
       </p>
       <p>Status: {reservation.status}</p>
 
-      <div className="flex items-center justify-between gap-4">
+      <div className="mt-2 flex items-center justify-between gap-4">
         {reservationType === "confirmed" && (
           <ConfirmedReservationAction
             reservation={reservation}
