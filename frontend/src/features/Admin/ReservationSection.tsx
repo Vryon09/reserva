@@ -30,7 +30,9 @@ function ReservationSection({
 
   return (
     <div className="space-y-4">
-      <p className="text-xl font-semibold">Confirmed Reservation</p>
+      <p className="text-xl font-semibold">
+        <span className="capitalize">{reservationType}</span> Reservation
+      </p>
 
       {isReservationPending ||
         (isUpdateReservationPending && <p>Loading...</p>)}

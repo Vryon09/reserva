@@ -12,7 +12,7 @@ function CancelReservation({
   return (
     <div>
       <p>Are you sure you want to cancel your reservation?</p>
-      <div className="flex justify-between">
+      <div className="mt-2 flex justify-between">
         <Button type="neutral" onClick={handleCloseModal}>
           Return
         </Button>

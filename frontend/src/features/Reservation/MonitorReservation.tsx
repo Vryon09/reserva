@@ -41,23 +41,33 @@ function MonitorReservation() {
     );
 
   return (
-    <div>
-      <p>Code: {reservation.reservationCode}</p>
-      <p>Name: {reservation.name}</p>
-      <p>Phone: {reservation.phone}</p>
-      <p>Status: {reservation.status}</p>
-      <p>(You can only cancel if the status is pending.)</p>
-      {reservation.status === "pending" && (
-        <Button
-          type="reject"
-          onClick={() => {
-            setCancelModal(true);
-          }}
-        >
-          Cancel Reservation
-        </Button>
-      )}
-
+    <div className="m-auto flex max-w-[400px] flex-col items-baseline">
+      <p>
+        <span className="font-semibold">Code: </span>
+        {reservation.reservationCode}
+      </p>
+      <p>
+        <span className="font-semibold">Name:</span> {reservation.name}
+      </p>
+      <p>
+        <span className="font-semibold">Phone:</span> {reservation.phone}
+      </p>
+      <p>
+        <span className="font-semibold">Status:</span> {reservation.status}
+      </p>
+      <p> (You can only cancel if the status is pending.)</p>
+      <div className="mt-2 flex w-full justify-end">
+        {reservation.status === "pending" && (
+          <Button
+            type="reject"
+            onClick={() => {
+              setCancelModal(true);
+            }}
+          >
+            Cancel Reservation
+          </Button>
+        )}
+      </div>
       {cancelModal && (
         <Modal setIsOpen={setCancelModal}>
           <CancelReservation

@@ -46,7 +46,7 @@ function ManageReservations() {
       <ReservationSection
         isReservationPending={isRequestReservationsPending}
         reservations={requestReservations ?? []}
-        reservationType="request"
+        reservationType="requested"
       />
     </div>
   );

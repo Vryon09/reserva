@@ -20,15 +20,22 @@ function FindReservation() {
   //Next feature will be the cancel reservation button in the monitoring page
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Enter code:</label>
-      <input
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        type="text"
-        className="border-1"
-      />
-      <Button type="confirm">Enter</Button>
+    <form
+      onSubmit={handleSubmit}
+      className="m-auto flex max-w-[400px] flex-col items-baseline gap-2"
+    >
+      <div className="flex w-full items-center gap-4">
+        <label className="text-xl">Enter code:</label>
+        <input
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          type="text"
+          className="input-normal flex-1"
+        />
+      </div>
+      <div className="flex w-full justify-end">
+        <Button type="confirmXl">Enter</Button>
+      </div>
     </form>
   );
 }

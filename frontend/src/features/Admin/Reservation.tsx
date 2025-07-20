@@ -48,7 +48,7 @@ function Reservation({
           />
         )}
 
-        {reservationType === "request" && (
+        {reservationType === "requested" && (
           <RequestReservationAction
             reservation={reservation}
             handleUpdate={handleUpdate}

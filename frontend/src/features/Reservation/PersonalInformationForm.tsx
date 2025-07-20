@@ -92,7 +92,7 @@ function PersonalInformationForm() {
           />
         </div>
 
-        <div className="col-span-2 flex justify-center">
+        <div className="col-span-2 flex justify-end">
           <Button type="confirm" disabled={isReserved}>
             Reserve
           </Button>

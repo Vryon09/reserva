@@ -17,9 +17,11 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
 
   return (
     <div
-      className="flex min-h-48 flex-col items-baseline gap-1 border-1 p-2"
+      className="flex min-h-48 cursor-pointer flex-col items-baseline gap-1 border-1 p-2"
       style={
-        selectedTable === table._id ? { backgroundColor: "aquamarine" } : {}
+        selectedTable === table._id
+          ? { borderColor: "#c57b57", borderWidth: "2px" }
+          : {}
       }
       key={table._id}
       onClick={() => {
