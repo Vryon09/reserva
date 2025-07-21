@@ -1,6 +1,7 @@
 import express from "express";
 import tablesRoutes from "./routes/tablesRoutes.js";
 import reservationsRoutes from "./routes/reservationsRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use("/api/tables", tablesRoutes);
 app.use("/api/reservations", reservationsRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(PORT, () => {
   console.log("Server started listening to Port: " + PORT);

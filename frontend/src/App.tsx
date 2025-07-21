@@ -10,6 +10,7 @@ import FindReservation from "./features/Reservation/FindReservation";
 import ReservationForm from "./features/Reservation/ReservationForm";
 import { ReservationFormProvider } from "./contexts/ReservationFormContext";
 import PersonalInformationForm from "./features/Reservation/PersonalInformationForm";
+import AdminLogin from "./pages/AdminLogin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,7 +41,10 @@ function App() {
               />
               <Route path="findReservation" element={<FindReservation />} />
             </Route>
-            <Route path="admin" element={<AdminMode />} />
+            <Route path="admin">
+              <Route path="login" element={<AdminLogin />} />
+              <Route path="dashboard" element={<AdminMode />} />
+            </Route>
           </Route>
         </Routes>
       </QueryClientProvider>
