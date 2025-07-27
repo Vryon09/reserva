@@ -1,17 +1,43 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import Button from "./Button";
 
 function Nav() {
+  const location = useLocation();
   const navigate = useNavigate();
 
   return (
     <div className="flex h-14 items-center justify-between">
       <Logo />
 
-      <Button type="secondary" onClick={() => navigate("/admin/login")}>
-        Admin
-      </Button>
+      {location.pathname === "/" && (
+        <Button
+          type="secondary"
+          onClick={() => {
+            const token = localStorage.getItem("adminToken");
+            console.log(location);
+            if (token) {
+              navigate("/admin/dashboard");
+              return;
+            }
+            navigate("/admin/login");
+          }}
+        >
+          Admin
+        </Button>
+      )}
+
+      {location.pathname === "/admin/dashboard" && (
+        <Button
+          type="secondary"
+          onClick={() => {
+            localStorage.setItem("adminToken", "");
+            navigate("/admin/login");
+          }}
+        >
+          Logout
+        </Button>
+      )}
     </div>
   );
 }

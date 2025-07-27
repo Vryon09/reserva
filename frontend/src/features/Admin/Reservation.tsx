@@ -3,6 +3,7 @@ import type { ReservationTypes } from "./ManageReservations";
 import ConfirmedReservationAction from "./ConfirmedReservationAction";
 import RequestReservationAction from "./RequestReservationAction";
 import type { ReservationPayload } from "../../services/apiReservation";
+import Card from "../../ui/Card";
 
 interface ReservationProps {
   reservation: ReservationTypes;
@@ -21,20 +22,22 @@ export interface ReservationActionProps {
   ) => void;
 }
 
+// box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
 function Reservation({
   reservation,
   reservationType,
   handleUpdate,
 }: ReservationProps) {
   return (
-    <div className="border-1 p-3">
+    <Card>
       <p className="font-semibold">{reservation.tableNumber}</p>
       <p>Reservation Code: {reservation.reservationCode}</p>
       <p>Name: {reservation.name}</p>
       <p>Phone: {reservation.phone}</p>
       <p>
         {format(
-          `${reservation.date} ${reservation.time}`,
+          `${reservation.date.split("T")[0]} ${reservation.time}`,
           "MMMM d, yyyy, h:mm a",
         )}
       </p>
@@ -55,7 +58,7 @@ function Reservation({
           />
         )}
       </div>
-    </div>
+    </Card>
   );
 }
 

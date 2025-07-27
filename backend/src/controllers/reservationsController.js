@@ -10,6 +10,10 @@ export async function getAllReservations(req, res) {
       filter.status = { $nin: excludedStatus };
     }
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    filter.date = { $gte: today };
+
     const reservations = await Reservation.find(filter).sort({ createdAt: -1 });
     res.status(200).json(reservations);
   } catch (error) {

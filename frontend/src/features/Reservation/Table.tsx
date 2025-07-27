@@ -4,6 +4,7 @@ import { generateTimeOptions } from "../../services/helperFunctions";
 import type { TableTypes } from "./Tables";
 import { format, parse } from "date-fns";
 import Button from "../../ui/Button";
+import Card from "../../ui/Card";
 
 interface TableProps {
   selectedTable: string;
@@ -14,16 +15,11 @@ interface TableProps {
 function Table({ selectedTable, setSelectedTable, table }: TableProps) {
   const { dispatch, date, time } = useReservationForm();
   const navigate = useNavigate();
+  // className="flex min-h-48 cursor-pointer flex-col items-baseline gap-1 border-1 p-2"
 
   return (
-    <div
-      className="flex min-h-48 cursor-pointer flex-col items-baseline gap-1 border-1 p-2"
-      style={
-        selectedTable === table._id
-          ? { borderColor: "#c57b57", borderWidth: "2px" }
-          : {}
-      }
-      key={table._id}
+    <Card
+      additionalStyle="cursor-pointer gap-1 flex flex-col items-baseline min-h-48"
       onClick={() => {
         setSelectedTable(table._id);
       }}
@@ -68,7 +64,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
           </div>
         </>
       )}
-    </div>
+    </Card>
   );
 }
 

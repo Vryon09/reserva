@@ -40,7 +40,7 @@ function ReservationSection({
       {!reservations?.length ? (
         <p>No Reservation Today😔</p>
       ) : (
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-4">
           {reservations?.map((reservation) => (
             <Reservation
               reservation={reservation}

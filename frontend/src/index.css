@@ -12,11 +12,13 @@
   --color-brand-800: #75361e;
   --color-brand-900: #592412;
   --color-brand-950: #381207;
+
+  --drop-shadow-cards: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 body {
   font-family: "Quicksand";
-  /* background-color:; */
+  background-color: var(--color-brand-100);
 }
 
 @utility input-normal {

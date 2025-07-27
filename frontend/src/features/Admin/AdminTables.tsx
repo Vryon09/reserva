@@ -5,6 +5,7 @@ import { useDeleteTable, useUpdateTable } from "../../services/apiTable";
 import TableForm from "./TableForm";
 import DeleteForm from "./DeleteForm";
 import Button from "../../ui/Button";
+import Card from "../../ui/Card";
 
 interface AdminTablesProps {
   tables: Table[];
@@ -49,8 +50,8 @@ function AdminTables({ tables }: AdminTablesProps) {
 
   return (
     <div className="grid grid-cols-2 gap-2">
-      {tables?.map((table, i: number) => (
-        <div key={i} className="cursor-pointer border-1 p-2">
+      {tables?.map((table) => (
+        <Card key={table._id}>
           <p>{table.tableNumber}</p>
           <p>{table.notes}</p>
           <p>Party Size: {table.capacity}</p>
@@ -150,7 +151,7 @@ function AdminTables({ tables }: AdminTablesProps) {
                 </Modal>
               )}
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   );

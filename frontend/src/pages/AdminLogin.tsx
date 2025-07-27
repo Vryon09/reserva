@@ -39,6 +39,7 @@ function AdminLogin() {
       <div className="flex w-full flex-col">
         <label>User</label>
         <input
+          required
           type="text"
           className="input-normal w-full"
           value={user}
@@ -48,6 +49,7 @@ function AdminLogin() {
       <div className="flex w-full flex-col">
         <label>Password</label>
         <input
+          required
           type="text"
           className="input-normal w-full"
           value={password}

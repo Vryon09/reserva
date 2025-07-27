@@ -24,8 +24,9 @@ function FindReservation() {
       onSubmit={handleSubmit}
       className="m-auto flex max-w-[400px] flex-col items-baseline gap-2"
     >
-      <div className="flex w-full items-center gap-4">
-        <label className="text-xl">Enter code:</label>
+      <p className="text-2xl font-semibold">View Reservation</p>
+      <div className="mt-2 flex w-full items-center gap-4">
+        <label>Enter code:</label>
         <input
           value={code}
           onChange={(e) => setCode(e.target.value)}
