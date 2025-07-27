@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllReservation } from "../../services/apiReservation";
 import ReservationSection from "./ReservationSection";
+import AllReservationsButton from "./AllReservationsButton";
 
 export interface ReservationTypes {
   _id: string;
@@ -30,13 +31,15 @@ function ManageReservations() {
 
   const { data: requestReservations, isPending: isRequestReservationsPending } =
     useQuery<ReservationTypes[]>({
-      queryKey: ["reservations"],
+      queryKey: ["requestedReservations"],
       queryFn: () =>
         getAllReservation({ queryString: "status", status: "pending" }),
     });
 
   return (
     <div className="space-y-4">
+      <AllReservationsButton />
+
       <ReservationSection
         isReservationPending={isConfirmedReservationsPending}
         reservations={confirmedReservations ?? []}

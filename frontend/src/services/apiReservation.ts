@@ -28,19 +28,19 @@ export async function getAllReservation({
   }
 }
 
-export async function getAllConfirmedReservation() {
-  try {
-    const res = await fetch(`http://localhost:5000/api/reservations/confirmed`);
+// export async function getAllConfirmedReservation() {
+//   try {
+//     const res = await fetch(`http://localhost:5000/api/reservations/confirmed`);
 
-    const data = await res.json();
+//     const data = await res.json();
 
-    console.log("Confirmed Reservations retrieved successfully!");
+//     console.log("Confirmed Reservations retrieved successfully!");
 
-    return data || [];
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     return data || [];
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export interface ReservationPayload {
   _id?: string;
@@ -80,7 +80,7 @@ export function useAddReservation() {
   return useMutation({
     mutationFn: handleAddReservation,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["requestedReservations"] });
     },
   });
 }
@@ -155,7 +155,7 @@ export function useUpdateReservation() {
     mutationFn: handleUpdateReservation,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["reservations"],
+        queryKey: ["requestedReservations"],
       });
       queryClient.invalidateQueries({
         queryKey: ["confirmedReservations"],

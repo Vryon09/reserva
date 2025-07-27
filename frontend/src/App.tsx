@@ -11,6 +11,7 @@ import ReservationForm from "./features/Reservation/ReservationForm";
 import { ReservationFormProvider } from "./contexts/ReservationFormContext";
 import PersonalInformationForm from "./features/Reservation/PersonalInformationForm";
 import AdminLogin from "./pages/AdminLogin";
+import AllReservations from "./features/Admin/AllReservations";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +45,7 @@ function App() {
             <Route path="admin">
               <Route path="login" element={<AdminLogin />} />
               <Route path="dashboard" element={<AdminMode />} />
+              <Route path="reservations" element={<AllReservations />} />
             </Route>
           </Route>
         </Routes>

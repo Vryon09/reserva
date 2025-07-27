@@ -3,16 +3,19 @@ import Reservation from "../models/Reservation.js";
 export async function getAllReservations(req, res) {
   try {
     const filter = {};
-    if (req.query.status) {
+
+    if (req.query.status && req.query.status !== "all") {
       filter.status = req.query.status;
     } else if (req.query.notStatus) {
       const excludedStatus = req.query.notStatus.split(",");
       filter.status = { $nin: excludedStatus };
     }
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    filter.date = { $gte: today };
+    if (req.query.status !== "all") {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      filter.date = { $gte: today };
+    }
 
     const reservations = await Reservation.find(filter).sort({ createdAt: -1 });
     res.status(200).json(reservations);
