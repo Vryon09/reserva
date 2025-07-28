@@ -75,20 +75,25 @@ function PersonalInformationForm() {
         <div className="flex flex-col">
           <label>Name</label>
           <input
+            required
             value={name}
-            onChange={(e) => setName(e.target.value)}
             type="text"
-            className="border-1"
+            onChange={(e) => setName(e.target.value)}
+            className="input-normal"
           />
         </div>
 
         <div className="flex flex-col">
           <label>Phone Number</label>
           <input
+            required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             type="text"
-            className="border-1"
+            pattern="^\d{11,12}$"
+            minLength={11}
+            maxLength={12}
+            className="input-normal"
           />
         </div>
 
