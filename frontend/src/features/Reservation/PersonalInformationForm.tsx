@@ -91,8 +91,6 @@ function PersonalInformationForm() {
             onChange={(e) => setPhone(e.target.value)}
             type="text"
             pattern="^\d{11,12}$"
-            minLength={11}
-            maxLength={12}
             className="input-normal"
           />
         </div>

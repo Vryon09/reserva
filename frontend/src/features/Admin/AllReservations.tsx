@@ -4,18 +4,27 @@ import {
   useUpdateReservation,
   type ReservationPayload,
 } from "../../services/apiReservation";
-import type { ReservationTypes } from "./ManageReservations";
 import Reservation from "./Reservation";
+import Button from "../../ui/Button";
+import { useState } from "react";
+import type { ReservationResponseTypes } from "./ManageReservations";
 
 function AllReservations() {
-  const { data: allReservations, isPending: isReservationsPending } = useQuery<
-    ReservationTypes[]
-  >({
-    queryKey: ["allReservations"],
+  const [limit, setLimit] = useState(4);
+
+  const {
+    data: { reservations: allReservations, total } = {
+      reservations: [],
+      total: 0,
+    },
+    isPending: isReservationsPending,
+  } = useQuery<ReservationResponseTypes>({
+    queryKey: ["allReservations", limit],
     queryFn: () =>
       getAllReservation({
         queryString: "status",
         status: "all",
+        limit: limit,
       }),
   });
 
@@ -50,6 +59,16 @@ function AllReservations() {
               key={reservation._id}
             />
           ))}
+        </div>
+      )}
+      {limit < total && (
+        <div className="flex justify-center">
+          <Button
+            onClick={() => setLimit((limit) => limit + 4)}
+            type="confirmXl"
+          >
+            Load More
+          </Button>
         </div>
       )}
     </div>

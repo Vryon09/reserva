@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllReservation } from "../../services/apiReservation";
 import ReservationSection from "./ReservationSection";
 import AllReservationsButton from "./AllReservationsButton";
-
-export interface ReservationTypes {
+interface ReservationTypes {
   _id: string;
   tableNumber: string;
   name: string;
@@ -14,27 +13,43 @@ export interface ReservationTypes {
   reservationCode: string;
 }
 
+export interface ReservationResponseTypes {
+  reservations: ReservationTypes[];
+  total: number;
+}
+
 // reservation request and today's reservation should be in different section
 
 function ManageReservations() {
   const {
-    data: confirmedReservations,
+    data: { reservations: confirmedReservations } = {
+      reservations: [],
+    },
     isPending: isConfirmedReservationsPending,
-  } = useQuery<ReservationTypes[]>({
+  } = useQuery<ReservationResponseTypes>({
     queryKey: ["confirmedReservations"],
     queryFn: () =>
       getAllReservation({
         queryString: "notStatus",
-        status: "pending,rejected,done",
+        status: "pending,rejected,done,abandoned",
+        limit: 0,
       }),
   });
 
-  const { data: requestReservations, isPending: isRequestReservationsPending } =
-    useQuery<ReservationTypes[]>({
-      queryKey: ["requestedReservations"],
-      queryFn: () =>
-        getAllReservation({ queryString: "status", status: "pending" }),
-    });
+  const {
+    data: { reservations: requestReservations } = {
+      reservations: [],
+    },
+    isPending: isRequestReservationsPending,
+  } = useQuery<ReservationResponseTypes>({
+    queryKey: ["requestedReservations"],
+    queryFn: () =>
+      getAllReservation({
+        queryString: "status",
+        status: "pending",
+        limit: 0,
+      }),
+  });
 
   return (
     <div className="space-y-4">

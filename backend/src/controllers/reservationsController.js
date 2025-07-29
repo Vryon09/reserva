@@ -1,24 +1,31 @@
 import Reservation from "../models/Reservation.js";
 
 export async function getAllReservations(req, res) {
+  const limit = +req.query.limit || 4;
+
   try {
     const filter = {};
+    const { status, notStatus } = req.query;
 
-    if (req.query.status && req.query.status !== "all") {
-      filter.status = req.query.status;
-    } else if (req.query.notStatus) {
-      const excludedStatus = req.query.notStatus.split(",");
+    if (status && status !== "all") {
+      filter.status = status;
+    } else if (notStatus) {
+      const excludedStatus = notStatus.split(",");
       filter.status = { $nin: excludedStatus };
     }
 
-    if (req.query.status !== "all") {
+    if (status !== "all") {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       filter.date = { $gte: today };
     }
 
-    const reservations = await Reservation.find(filter).sort({ createdAt: -1 });
-    res.status(200).json(reservations);
+    const total = await Reservation.countDocuments(filter);
+
+    const reservations = await Reservation.find(filter)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+    res.status(200).json({ reservations, total });
   } catch (error) {
     console.error("Error in getAllReservation controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });

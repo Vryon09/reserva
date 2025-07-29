@@ -9,13 +9,15 @@ import {
 export async function getAllReservation({
   queryString,
   status,
+  limit,
 }: {
   queryString: string;
   status: string;
+  limit: number;
 }) {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/reservations?${queryString}=${status}`,
+      `http://localhost:5000/api/reservations?${queryString}=${status}&limit=${limit}`,
     );
 
     const data = await res.json();
