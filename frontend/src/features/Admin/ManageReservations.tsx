@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllReservation } from "../../services/apiReservation";
 import ReservationSection from "./ReservationSection";
 import AllReservationsButton from "./AllReservationsButton";
-interface ReservationTypes {
+export interface ReservationTypes {
   _id: string;
   tableNumber: string;
   name: string;
@@ -17,8 +17,6 @@ export interface ReservationResponseTypes {
   reservations: ReservationTypes[];
   total: number;
 }
-
-// reservation request and today's reservation should be in different section
 
 function ManageReservations() {
   const {

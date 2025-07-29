@@ -71,34 +71,38 @@ function PersonalInformationForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-2">
-        <div className="flex flex-col">
-          <label>Name</label>
-          <input
-            required
-            value={name}
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            className="input-normal"
-          />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <p className="mb-4 text-2xl font-bold">Personal Information Form</p>
 
-        <div className="flex flex-col">
-          <label>Phone Number</label>
-          <input
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            type="text"
-            pattern="^\d{11,12}$"
-            className="input-normal"
-          />
-        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="flex flex-col">
+            <label>Name:</label>
+            <input
+              required
+              value={name}
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              className="input-normal"
+            />
+          </div>
 
-        <div className="col-span-2 flex justify-end">
-          <Button type="confirm" disabled={isReserved}>
-            Reserve
-          </Button>
+          <div className="flex flex-col">
+            <label>Phone Number:</label>
+            <input
+              required
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              type="text"
+              pattern="^\d{11,12}$"
+              className="input-normal"
+            />
+          </div>
+
+          <div className="col-span-2 flex justify-end">
+            <Button type="confirm" disabled={isReserved}>
+              Reserve
+            </Button>
+          </div>
         </div>
       </form>
     </div>

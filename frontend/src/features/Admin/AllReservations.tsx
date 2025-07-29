@@ -44,10 +44,13 @@ function AllReservations() {
     <div className="space-y-4">
       <p className="text-xl font-semibold">All Reservations</p>
 
-      {isReservationsPending ||
-        (isUpdateReservationPending && <p>Loading...</p>)}
+      {(isReservationsPending || isUpdateReservationPending) && (
+        <div className="flex w-full items-center justify-center">
+          <div className="loader"></div>
+        </div>
+      )}
 
-      {!allReservations?.length ? (
+      {!allReservations?.length && !isReservationsPending ? (
         <p>No Reservation Today😔</p>
       ) : (
         <div className="grid grid-cols-2 gap-4">

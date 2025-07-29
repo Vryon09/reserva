@@ -29,7 +29,9 @@ function ManageTables() {
       <AddTableButton />
 
       {isTablesPending ? (
-        <p>Loading...</p>
+        <div className="flex w-full items-center justify-center">
+          <div className="loader"></div>
+        </div>
       ) : !tables?.length ? (
         <p>No Tables</p>
       ) : (

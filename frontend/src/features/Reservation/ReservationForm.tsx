@@ -30,10 +30,7 @@ function ReservationForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-baseline gap-4"
-    >
+    <form onSubmit={handleSubmit}>
       <p className="mb-4 text-2xl font-bold">Reservation Form</p>
 
       <div className="flex w-full justify-between gap-2">
@@ -68,8 +65,8 @@ function ReservationForm() {
         </div>
       </div>
 
-      <div className="flex w-full justify-end">
-        <Button type="confirmXl">Submit</Button>
+      <div className="mt-2 flex w-full justify-end">
+        <Button type="confirm">Submit</Button>
       </div>
     </form>
   );

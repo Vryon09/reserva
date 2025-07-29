@@ -28,11 +28,16 @@ function Tables() {
     queryKey: ["tables"],
   });
 
-  if (isTablesPending) return <p>Loading...</p>;
+  if (isTablesPending)
+    return (
+      <div className="flex w-full items-center justify-center">
+        <div className="loader"></div>
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-xl font-semibold">Choose Table</p>
+      <p className="text-2xl font-bold">Choose Table</p>
       <div className="grid grid-cols-2 gap-2">
         {tables?.map((table) => (
           <Table
