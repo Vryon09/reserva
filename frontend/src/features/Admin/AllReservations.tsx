@@ -8,6 +8,7 @@ import Reservation from "./Reservation";
 import Button from "../../ui/Button";
 import { useState } from "react";
 import type { ReservationResponseTypes } from "./ManageReservations";
+import Loader from "../../ui/Loader";
 
 function AllReservations() {
   const [limit, setLimit] = useState(4);
@@ -44,16 +45,12 @@ function AllReservations() {
     <div className="space-y-4">
       <p className="text-xl font-semibold">All Reservations</p>
 
-      {(isReservationsPending || isUpdateReservationPending) && (
-        <div className="flex w-full items-center justify-center">
-          <div className="loader"></div>
-        </div>
-      )}
+      {(isReservationsPending || isUpdateReservationPending) && <Loader />}
 
       {!allReservations?.length && !isReservationsPending ? (
         <p>No Reservation Today😔</p>
       ) : (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {allReservations?.map((reservation) => (
             <Reservation
               reservation={reservation}
@@ -66,10 +63,7 @@ function AllReservations() {
       )}
       {limit < total && (
         <div className="flex justify-center">
-          <Button
-            onClick={() => setLimit((limit) => limit + 4)}
-            type="confirmXl"
-          >
+          <Button onClick={() => setLimit((limit) => limit + 4)} type="confirm">
             Load More
           </Button>
         </div>

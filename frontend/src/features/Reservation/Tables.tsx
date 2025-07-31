@@ -4,6 +4,7 @@ import { getAllTables } from "../../services/apiTable";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import { useState } from "react";
 import Table from "./Table";
+import { Loader } from "lucide-react";
 
 //CLEAN THIS SHIT
 
@@ -28,17 +29,12 @@ function Tables() {
     queryKey: ["tables"],
   });
 
-  if (isTablesPending)
-    return (
-      <div className="flex w-full items-center justify-center">
-        <div className="loader"></div>
-      </div>
-    );
+  if (isTablesPending) return <Loader />;
 
   return (
     <div className="flex flex-col gap-4">
       <p className="text-2xl font-bold">Choose Table</p>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
         {tables?.map((table) => (
           <Table
             selectedTable={selectedTable}

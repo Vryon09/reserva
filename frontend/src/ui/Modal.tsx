@@ -50,7 +50,7 @@ function Modal({
 
       <div
         style={modalStyles}
-        className="flex flex-col gap-6 rounded-2xl bg-neutral-50 px-4 py-6"
+        className="flex min-w-72 flex-col gap-6 rounded-2xl bg-neutral-50 px-4 py-6"
       >
         {children}
       </div>

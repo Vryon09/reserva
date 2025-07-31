@@ -2,6 +2,7 @@ import { getAllTables } from "../../services/apiTable";
 import { useQuery } from "@tanstack/react-query";
 import AddTableButton from "./AddTableButton";
 import AdminTables from "./AdminTables";
+import Loader from "../../ui/Loader";
 
 export interface Table {
   tableNumber: string;
@@ -29,9 +30,7 @@ function ManageTables() {
       <AddTableButton />
 
       {isTablesPending ? (
-        <div className="flex w-full items-center justify-center">
-          <div className="loader"></div>
-        </div>
+        <Loader />
       ) : !tables?.length ? (
         <p>No Tables</p>
       ) : (

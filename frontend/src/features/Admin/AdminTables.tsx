@@ -49,7 +49,7 @@ function AdminTables({ tables }: AdminTablesProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
       {tables?.map((table) => (
         <Card key={table._id}>
           <p>{table.tableNumber}</p>

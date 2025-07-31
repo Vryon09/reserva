@@ -8,16 +8,16 @@ function Home() {
   return (
     <div className="flex h-[80dvh] flex-col items-center justify-center gap-2">
       <div className="mb-4 flex flex-col items-center gap-2">
-        <h1 className="text-4xl font-bold">
+        <h1 className="text-center text-3xl font-bold md:text-5xl">
           Book Your Table <span className="text-brand-500">Now</span>
         </h1>
-        <p className="text-justify text-xl">
+        <p className="text-center text-lg md:text-2xl">
           Enjoy a memorable dining experience at Restaurant Name! Booking online
           is quick, easy, and guarantees your table. A small reservation fee
           confirms your spot and will be fully credited to your bill.
         </p>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
         <Button type="primary" onClick={() => navigate("/reserve")}>
           Book a Table
         </Button>

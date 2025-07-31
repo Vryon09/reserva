@@ -6,6 +6,7 @@ import { useReservationForm } from "../../contexts/useReservationForm";
 import { useAddReservationInTable } from "../../services/apiTable";
 import CodeReveal from "./CodeReveal";
 import Button from "../../ui/Button";
+import Loader from "../../ui/Loader";
 
 function PersonalInformationForm() {
   const [name, setName] = useState("");
@@ -64,8 +65,7 @@ function PersonalInformationForm() {
 
   //there should be a new paramater caled reservationCode and it should be also passed in the useQuery key
 
-  if (isAddingPending || isAddingReservationInTablePending)
-    return <p>Wait for your Reservation Code...</p>;
+  if (isAddingPending || isAddingReservationInTablePending) return <Loader />;
 
   if (isReserved) return <CodeReveal reservationCode={reservationCode} />;
 
@@ -93,7 +93,7 @@ function PersonalInformationForm() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               type="text"
-              pattern="^\d{11,12}$"
+              pattern="^(09\d{9}|639\d{9})$"
               className="input-normal"
             />
           </div>

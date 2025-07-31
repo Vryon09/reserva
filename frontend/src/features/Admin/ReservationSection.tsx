@@ -2,6 +2,7 @@ import {
   useUpdateReservation,
   type ReservationPayload,
 } from "../../services/apiReservation";
+import Loader from "../../ui/Loader";
 import type { ReservationTypes } from "./ManageReservations";
 import Reservation from "./Reservation";
 
@@ -33,18 +34,14 @@ function ReservationSection({
       <p className="text-xl font-semibold">
         <span className="capitalize">{reservationType}</span> Reservation
       </p>
-      {(isReservationPending || isUpdateReservationPending) && (
-        <div className="flex w-full items-center justify-center">
-          <div className="loader"></div>
-        </div>
-      )}
+      {(isReservationPending || isUpdateReservationPending) && <Loader />}
 
       {!reservations?.length && !isReservationPending && (
         <p>No Reservation Today😔</p>
       )}
 
       {!isUpdateReservationPending && (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {reservations?.map((reservation) => (
             <Reservation
               reservation={reservation}

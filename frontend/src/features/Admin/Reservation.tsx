@@ -31,8 +31,8 @@ function Reservation({
 }: ReservationProps) {
   return (
     <Card>
-      <p className="font-semibold">{reservation.tableNumber}</p>
-      <p>Reservation Code: {reservation.reservationCode}</p>
+      <p className="font-semibold">Table: {reservation.tableNumber}</p>
+      <p>Code: {reservation.reservationCode}</p>
       <p>Name: {reservation.name}</p>
       <p>Phone: {reservation.phone}</p>
       <p>

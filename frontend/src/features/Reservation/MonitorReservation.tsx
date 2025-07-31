@@ -8,6 +8,7 @@ import Modal from "../../ui/Modal";
 import { useState } from "react";
 import CancelReservation from "./CancelReservation";
 import Button from "../../ui/Button";
+import Loader from "../../ui/Loader";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 
@@ -28,7 +29,7 @@ function MonitorReservation() {
 
   const { mutate: handleDeleteReservation } = useDeleteReservation();
 
-  if (isReservationPending) return <p>Loading...</p>;
+  if (isReservationPending) return <Loader />;
 
   if (isError)
     return (

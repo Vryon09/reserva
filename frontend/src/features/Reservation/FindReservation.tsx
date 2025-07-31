@@ -35,7 +35,7 @@ function FindReservation() {
         />
       </div>
       <div className="flex w-full justify-end">
-        <Button type="confirmXl">Enter</Button>
+        <Button type="confirm">Enter</Button>
       </div>
     </form>
   );
