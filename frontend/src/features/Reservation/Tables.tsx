@@ -4,8 +4,7 @@ import { getAllTables } from "../../services/apiTable";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import { useState } from "react";
 import Table from "./Table";
-import { Loader } from "lucide-react";
-
+import Loader from "../../ui/Loader";
 //CLEAN THIS SHIT
 
 export interface TableTypes {
