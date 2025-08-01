@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 interface TablePayload {
   tableNumber: string;
   capacity: number;
@@ -15,7 +17,7 @@ export async function getAllTables({
 }) {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/tables?${queryString}=${value}`,
+      `${API_BASE_URL}/api/tables?${queryString}=${value}`,
     );
 
     const data = await res.json();
@@ -30,7 +32,7 @@ export async function getAllTables({
 
 async function handleAddTable(newTable: TablePayload) {
   try {
-    await fetch(`http://localhost:5000/api/tables`, {
+    await fetch(`${API_BASE_URL}/api/tables`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +59,7 @@ export function useAddTable() {
 
 async function handleDeleteTable(id: string) {
   try {
-    await fetch(`http://localhost:5000/api/tables/${id}`, {
+    await fetch(`${API_BASE_URL}/api/tables/${id}`, {
       method: "DELETE",
     });
 
@@ -86,7 +88,7 @@ async function handleUpdateTable({
   updatedTable: TablePayload;
 }) {
   try {
-    await fetch(`http://localhost:5000/api/tables/${id}`, {
+    await fetch(`${API_BASE_URL}/api/tables/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedTable),
@@ -118,7 +120,7 @@ async function handleAddReservationInTable({
   date: string;
   time: string;
 }) {
-  const res = await fetch(`http://localhost:5000/api/tables/reservation`, {
+  const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ tableName, date, time }),

@@ -4,6 +4,8 @@ import {
   type QueryFunctionContext,
 } from "@tanstack/react-query";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 //make the confirm button work
 
 export async function getAllReservation({
@@ -17,7 +19,7 @@ export async function getAllReservation({
 }) {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/reservations?${queryString}=${status}&limit=${limit}`,
+      `${API_BASE_URL}/api/reservations?${queryString}=${status}&limit=${limit}`,
     );
 
     const data = await res.json();
@@ -32,7 +34,7 @@ export async function getAllReservation({
 
 // export async function getAllConfirmedReservation() {
 //   try {
-//     const res = await fetch(`http://localhost:5000/api/reservations/confirmed`);
+//     const res = await fetch(`${API_BASE_URL}/api/reservations/confirmed`);
 
 //     const data = await res.json();
 
@@ -57,7 +59,7 @@ export interface ReservationPayload {
 
 export async function handleAddReservation(newReservation: ReservationPayload) {
   try {
-    const res = await fetch(`http://localhost:5000/api/reservations`, {
+    const res = await fetch(`${API_BASE_URL}/api/reservations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +96,7 @@ export async function handleGetReservationByCode(
 
   try {
     const res = await fetch(
-      `http://localhost:5000/api/reservations/${reservationCode}`,
+      `${API_BASE_URL}/api/reservations/${reservationCode}`,
     );
 
     if (!res.ok) throw new Error("No reservation found.");
@@ -109,7 +111,7 @@ export async function handleGetReservationByCode(
 
 async function handleDeleteReservation(id: string) {
   try {
-    await fetch(`http://localhost:5000/api/reservations/${id}`, {
+    await fetch(`${API_BASE_URL}/api/reservations/${id}`, {
       method: "DELETE",
     });
 
@@ -138,7 +140,7 @@ async function handleUpdateReservation({
   updatedReservation: Partial<ReservationPayload>;
 }) {
   try {
-    await fetch(`http://localhost:5000/api/reservations/${id}`, {
+    await fetch(`${API_BASE_URL}/api/reservations/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedReservation),
