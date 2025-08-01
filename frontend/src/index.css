@@ -21,8 +21,15 @@ body {
   background-color: var(--color-brand-100);
 }
 
-@utility input-normal {
+.input-normal {
   @apply h-8 rounded-2xl border-1 px-3;
+}
+
+.disable-highlight {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 /* HTML: <div class="loader"></div> */

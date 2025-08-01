@@ -1,15 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 
 function Logo() {
   const navigate = useNavigate();
 
   return (
-    <h1
-      onClick={() => navigate("/")}
-      className="w-fit cursor-pointer text-3xl font-bold tracking-wider uppercase"
-    >
+    <Button type="logo" onClick={() => navigate("/")}>
       Reserva
-    </h1>
+    </Button>
   );
 }
 

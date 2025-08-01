@@ -8,12 +8,14 @@ interface ButtonProps {
     | "reject"
     | "confirm"
     | "confirmXl"
-    | "neutral";
+    | "neutral"
+    | "logo";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
 }
 
-const buttonDefault = "cursor-pointer rounded-4xl uppercase tracking-wide";
+const buttonDefault =
+  "disable-highlight cursor-pointer rounded-4xl uppercase tracking-wide";
 
 const buttonTypes = {
   primary:
@@ -32,6 +34,7 @@ const buttonTypes = {
   neutral:
     buttonDefault +
     " text-sm font-semibold px-3 py-2 p-2 text-white bg-gray-500",
+  logo: "disable-highlight w-fit cursor-pointer text-3xl font-bold tracking-wider uppercase",
 };
 
 function Button({ children, type, onClick, disabled = false }: ButtonProps) {
