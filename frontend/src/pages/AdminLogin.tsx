@@ -14,7 +14,7 @@ function AdminLogin() {
     const res = await fetch(`${API_BASE_URL}/api/admin/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user, password }),
+      body: JSON.stringify({ user: user.trim(), password: password.trim() }),
     });
 
     const data = await res.json();
