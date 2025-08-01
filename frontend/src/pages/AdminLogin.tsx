@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function AdminLogin() {
   const [user, setUser] = useState<string>("");
@@ -10,13 +11,11 @@ function AdminLogin() {
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/api/admin/login", {
+    const res = await fetch(`${API_BASE_URL}/api/admin/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user, password }),
     });
-
-    console.log(user);
 
     const data = await res.json();
 
