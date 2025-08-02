@@ -7,6 +7,7 @@ import { useAddReservationInTable } from "../../services/apiTable";
 import CodeReveal from "./CodeReveal";
 import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
+import toast from "react-hot-toast";
 
 function PersonalInformationForm() {
   const [name, setName] = useState("");
@@ -53,12 +54,14 @@ function PersonalInformationForm() {
         reservationCode,
       });
 
+      toast.success("Reservation Successfull!");
       setIsReserved(true);
       setName("");
       setPhone("");
       dispatch({ type: "resetForm" });
     } catch (error) {
       console.error(error);
+      toast.error("Reservation Unsuccessfull!");
       navigate("/reserve/tables");
     }
   }

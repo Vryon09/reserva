@@ -9,6 +9,7 @@ import { useState } from "react";
 import CancelReservation from "./CancelReservation";
 import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
+import toast from "react-hot-toast";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 
@@ -77,6 +78,7 @@ function MonitorReservation() {
             handleCloseModal={() => setCancelModal(false)}
             handleConfirm={() => {
               handleDeleteReservation(reservation._id);
+              toast.success("Reservation cancelled successfully!");
               navigate("/");
               setCancelModal(false);
             }}

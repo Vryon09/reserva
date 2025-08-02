@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -22,8 +23,6 @@ export async function getAllTables({
 
     const data = await res.json();
 
-    // console.log("Retrieved Successfully");
-
     return data || [];
   } catch (error) {
     console.log(error);
@@ -39,8 +38,6 @@ async function handleAddTable(newTable: TablePayload) {
       },
       body: JSON.stringify(newTable),
     });
-
-    console.log("Added Successfully");
   } catch (error) {
     console.log(error);
   }
@@ -53,6 +50,10 @@ export function useAddTable() {
     mutationFn: handleAddTable,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tables"] });
+      toast.success("Table added successfully!");
+    },
+    onError: () => {
+      toast.error("Failed to add a table");
     },
   });
 }
@@ -62,8 +63,6 @@ async function handleDeleteTable(id: string) {
     await fetch(`${API_BASE_URL}/api/tables/${id}`, {
       method: "DELETE",
     });
-
-    console.log("Deleted Successfully");
   } catch (error) {
     console.log(error);
   }
@@ -76,6 +75,10 @@ export function useDeleteTable() {
     mutationFn: handleDeleteTable,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tables"] });
+      toast.success("Table deleted successfully!");
+    },
+    onError: () => {
+      toast.error("Failed to delete a table");
     },
   });
 }
@@ -93,8 +96,6 @@ async function handleUpdateTable({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedTable),
     });
-
-    console.log("Updated Successfully!");
   } catch (error) {
     console.log(error);
   }
@@ -107,6 +108,10 @@ export function useUpdateTable() {
     mutationFn: handleUpdateTable,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tables"] });
+      toast.success("Table updated successfully!");
+    },
+    onError: () => {
+      toast.error("Failed to update a table");
     },
   });
 }

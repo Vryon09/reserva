@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 interface Table {
   _id: string;
   tableNumber: string;
@@ -40,4 +42,14 @@ export function generateTimeOptions({
   }
 
   return options;
+}
+
+export async function copyCode({ code }: { code: string }) {
+  try {
+    await navigator.clipboard.writeText(code);
+    toast.success("Copied Successfully!");
+  } catch (error) {
+    console.log(error);
+    toast.error("Failed to copy!");
+  }
 }

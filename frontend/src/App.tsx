@@ -12,6 +12,7 @@ import { ReservationFormProvider } from "./contexts/ReservationFormContext";
 import PersonalInformationForm from "./features/Reservation/PersonalInformationForm";
 import AdminLogin from "./pages/AdminLogin";
 import AllReservations from "./features/Admin/AllReservations";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,6 +50,12 @@ function App() {
             </Route>
           </Route>
         </Routes>
+        <Toaster
+          toastOptions={{
+            success: { duration: 1000 },
+          }}
+          position="top-center"
+        />
       </QueryClientProvider>
     </ReservationFormProvider>
   );

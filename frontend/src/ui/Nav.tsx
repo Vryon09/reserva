@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import Button from "./Button";
+import toast from "react-hot-toast";
 
 function Nav() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function Nav() {
           type="secondary"
           onClick={() => {
             localStorage.setItem("adminToken", "");
+            toast.success("Logout Success!");
             navigate("/admin/login");
           }}
         >

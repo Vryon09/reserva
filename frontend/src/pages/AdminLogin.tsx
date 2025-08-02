@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function AdminLogin() {
@@ -20,9 +21,11 @@ function AdminLogin() {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.message || "Invalid Credentials");
+      toast.error(data.message || "Invalid Credentials");
       return;
     }
+
+    toast.success("Login Success!");
 
     localStorage.setItem("adminToken", data.token);
 
@@ -35,7 +38,7 @@ function AdminLogin() {
       onSubmit={handleLogin}
     >
       <p className="text-xl font-semibold">Admin Login</p>
-      <div className="mb-2 flex w-full flex-col">
+      <div className="mb-2 flex w-full flex-col gap-0.5">
         <label>User</label>
         <input
           required
@@ -45,7 +48,7 @@ function AdminLogin() {
           onChange={(e) => setUser(e.target.value)}
         />
       </div>
-      <div className="flex w-full flex-col">
+      <div className="flex w-full flex-col gap-0.5">
         <label>Password</label>
         <input
           required
