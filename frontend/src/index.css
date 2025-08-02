@@ -13,16 +13,16 @@
   --color-brand-900: #592412;
   --color-brand-950: #381207;
 
-  --drop-shadow-cards: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --drop-shadow-cards: rgba(0, 0, 0, 0.35) 0px 5px 10px;
 }
 
 body {
   font-family: "Quicksand";
-  background-color: var(--color-brand-100);
+  background-color: var(--color-brand-50);
 }
 
 .input-normal {
-  @apply h-8 rounded-2xl border-1 px-3;
+  @apply drop-shadow-cards h-8 rounded-2xl bg-white px-3;
 }
 
 .disable-highlight {
