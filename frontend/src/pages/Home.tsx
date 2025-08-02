@@ -11,7 +11,7 @@ function Home() {
         <h1 className="text-center text-3xl font-bold md:text-5xl">
           Book Your Table <span className="text-brand-500">Now</span>
         </h1>
-        <p className="text-center text-lg md:text-2xl">
+        <p className="text-center text-base md:text-xl">
           Enjoy a memorable dining experience at Restaurant Name! Booking online
           is quick, easy, and guarantees your table. A small reservation fee
           confirms your spot and will be fully credited to your bill.

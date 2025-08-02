@@ -149,3 +149,39 @@ export function useAddReservationInTable() {
     },
   });
 }
+
+async function handleDeleteReservationInTable({
+  tableName,
+  date,
+  time,
+}: {
+  tableName: string;
+  date: string;
+  time: string;
+}) {
+  const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ tableName, date, time }),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message);
+  }
+
+  return await res.json();
+}
+
+export function useDeleteReservationInTable() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: handleDeleteReservationInTable,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tables"] });
+    },
+  });
+}

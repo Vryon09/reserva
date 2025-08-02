@@ -29,7 +29,7 @@ function ManageReservations() {
     queryFn: () =>
       getAllReservation({
         queryString: "notStatus",
-        status: "pending,rejected,done,abandoned",
+        status: "pending,rejected,done,abandoned,cancelled",
         limit: 0,
       }),
   });

@@ -52,7 +52,7 @@ function App() {
         </Routes>
         <Toaster
           toastOptions={{
-            success: { duration: 1000 },
+            success: { duration: 3000 },
           }}
           position="top-center"
         />

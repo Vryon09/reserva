@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   handleGetReservationByCode,
-  useDeleteReservation,
+  // useDeleteReservation,
+  useUpdateReservation,
 } from "../../services/apiReservation";
 import Modal from "../../ui/Modal";
 import { useState } from "react";
@@ -10,6 +11,7 @@ import CancelReservation from "./CancelReservation";
 import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
 import toast from "react-hot-toast";
+import { useDeleteReservationInTable } from "../../services/apiTable";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 
@@ -28,7 +30,13 @@ function MonitorReservation() {
     queryFn: handleGetReservationByCode,
   });
 
-  const { mutate: handleDeleteReservation } = useDeleteReservation();
+  const { mutate: handleUpdateReservation } = useUpdateReservation();
+
+  // const { mutate: handleDeleteReservation } = useDeleteReservation();
+  const { mutate: handleDeleteReservationInTable } =
+    useDeleteReservationInTable();
+
+  console.log(reservation);
 
   if (isReservationPending) return <Loader />;
 
@@ -59,7 +67,9 @@ function MonitorReservation() {
       <p>
         <span className="font-semibold">Status:</span> {reservation.status}
       </p>
-      <p> (You can only cancel if the status is pending.)</p>
+      {reservation.status === "pending" && (
+        <p> (You can only cancel if the status is pending.)</p>
+      )}
       <div className="mt-2 flex w-full justify-end">
         {reservation.status === "pending" && (
           <Button
@@ -77,7 +87,16 @@ function MonitorReservation() {
           <CancelReservation
             handleCloseModal={() => setCancelModal(false)}
             handleConfirm={() => {
-              handleDeleteReservation(reservation._id);
+              handleUpdateReservation({
+                id: reservation._id,
+                updatedReservation: { status: "cancelled" },
+              });
+              // handleDeleteReservation(reservation._id);
+              handleDeleteReservationInTable({
+                tableName: reservation.tableNumber,
+                date: reservation.date.split("T")[0],
+                time: reservation.time,
+              });
               toast.success("Reservation cancelled successfully!");
               navigate("/");
               setCancelModal(false);

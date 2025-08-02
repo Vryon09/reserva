@@ -96,3 +96,26 @@ export async function addReservationInTable(req, res) {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
+
+export async function deleteReservationInTable(req, res) {
+  try {
+    const { tableName, date, time } = req.body;
+    console.log(tableName);
+    console.log(date);
+    console.log(time);
+    const table = await Table.findOne({ tableNumber: tableName });
+
+    if (!table) {
+      return res.status(404).json({ message: "Table not found." });
+    }
+
+    table.reservations = table.reservations.filter(
+      (reservation) => !(reservation.date === date && reservation.time === time)
+    );
+
+    await table.save();
+  } catch (error) {
+    console.error("Error in deleteReservationInTable controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
