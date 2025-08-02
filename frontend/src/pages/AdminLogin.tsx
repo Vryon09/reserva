@@ -35,7 +35,7 @@ function AdminLogin() {
       onSubmit={handleLogin}
     >
       <p className="text-xl font-semibold">Admin Login</p>
-      <div className="flex w-full flex-col">
+      <div className="mb-2 flex w-full flex-col">
         <label>User</label>
         <input
           required

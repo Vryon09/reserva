@@ -12,7 +12,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://reservaa.netlify.app", "http://localhost:5173"],
+    origin: [
+      "https://reservaa.netlify.app",
+      "http://localhost:5173",
+      "http://192.168.18.9:5173",
+    ],
   })
 );
 
