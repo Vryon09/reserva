@@ -33,11 +33,13 @@ function MonitorReservation() {
 
   if (isError)
     return (
-      <div>
-        <p>No reservation found.</p>
-        <button onClick={() => navigate("/")} className="border-1">
-          Go to home
-        </button>
+      <div className="m-auto max-w-[400px] space-y-2">
+        <p className="text-lg">No reservation found🥲</p>
+        <div className="flex w-full justify-end">
+          <Button onClick={() => navigate("/")} type="neutral">
+            Go to home
+          </Button>
+        </div>
       </div>
     );
 

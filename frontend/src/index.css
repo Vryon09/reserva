@@ -22,7 +22,7 @@ body {
 }
 
 .input-normal {
-  @apply drop-shadow-cards h-8 rounded-2xl bg-white px-3;
+  @apply drop-shadow-cards h-8 rounded-2xl bg-white px-3 outline-none focus:ring;
 }
 
 .disable-highlight {
