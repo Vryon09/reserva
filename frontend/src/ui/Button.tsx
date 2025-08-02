@@ -20,20 +20,22 @@ const buttonDefault =
 const buttonTypes = {
   primary:
     buttonDefault +
-    " text-sm md:text-base bg-brand-500 border-2 px-5 py-3 font-bold text-neutral-50 ",
+    " text-sm md:text-base bg-brand-500 hover:bg-brand-600 active:bg-brand-400 border-2 px-5 py-3 font-bold text-neutral-50 ",
   secondary:
-    buttonDefault + " text-sm md:text-base text-brand-500 px-5 py-3 font-bold",
+    buttonDefault +
+    " text-sm md:text-base text-brand-500 hover:text-brand-600 active:text-brand-400 px-5 py-3 font-bold",
   reject:
     buttonDefault +
-    " text-xs md:text-sm font-semibold px-3 py-2 bg-red-600 p-2 text-white",
+    " text-xs md:text-sm font-semibold px-3 py-2 bg-red-600 hover:bg-red-700 active:bg-red-500 p-2 text-white",
   confirm:
     buttonDefault +
-    " text-xs md:text-sm font-semibold px-3 py-2 bg-green-500 p-2 text-white",
+    " text-xs md:text-sm font-semibold px-3 py-2 bg-green-500 hover:bg-green-600 active:bg-green-400 p-2 text-white",
   confirmXl:
-    buttonDefault + " font-semibold px-4 py-2 bg-green-500 p-2 text-white",
+    buttonDefault +
+    " font-semibold px-4 py-2 bg-green-500 hover:bg-green-600 active:bg-green-400 p-2 text-white",
   neutral:
     buttonDefault +
-    " text-sm font-semibold px-3 py-2 p-2 text-white bg-gray-500",
+    " text-sm font-semibold px-3 py-2 p-2 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-400",
   logo: "disable-highlight w-fit cursor-pointer text-3xl font-bold tracking-wider uppercase",
 };
 
