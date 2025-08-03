@@ -5,6 +5,7 @@ import type { TableTypes } from "./Tables";
 import { format, parse } from "date-fns";
 import Button from "../../ui/Button";
 import Card from "../../ui/Card";
+import toast from "react-hot-toast";
 
 interface TableProps {
   selectedTable: string;
@@ -13,7 +14,7 @@ interface TableProps {
 }
 
 function Table({ selectedTable, setSelectedTable, table }: TableProps) {
-  const { dispatch, date, time } = useReservationForm();
+  const { dispatch, date, time, partySize } = useReservationForm();
   const navigate = useNavigate();
   // className="flex min-h-48 cursor-pointer flex-col items-baseline gap-1 border-1 p-2"
 
@@ -45,13 +46,19 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
               ),
             )}
           </select>
+          {table.capacity - +partySize > 5 && (
+            <p className="text-sm text-red-700">
+              ⚠️ This table seats up to {table.capacity} people. You're only
+              booking for {partySize}.
+            </p>
+          )}
 
           <div className="mt-2 flex w-full justify-end">
             <Button
               type="confirm"
               onClick={() => {
                 if (time === "none") {
-                  console.log("Choose time!");
+                  toast.error("Choose time!");
                   return;
                 }
 

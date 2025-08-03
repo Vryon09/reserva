@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import Button from "../../ui/Button";
+import toast from "react-hot-toast";
 
 function ReservationForm() {
   const { dispatch, partySize, date } = useReservationForm();
@@ -17,12 +18,12 @@ function ReservationForm() {
     const now = new Date();
 
     if (selectedDate < now) {
-      alert("Invalid date selection.");
+      toast.error("Invalid date selection.");
       return;
     }
 
     if (partySize === "none" || date === "") {
-      alert("Fill all.");
+      toast.error("Fill all.");
       return;
     }
 

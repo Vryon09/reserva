@@ -32,7 +32,8 @@ function ReservationSection({
   return (
     <div className="space-y-4">
       <p className="text-xl font-semibold">
-        <span className="capitalize">{reservationType}</span> Reservation
+        <span className="capitalize">{reservationType}</span> Reservation (
+        {reservations.length})
       </p>
       {(isReservationPending || isUpdateReservationPending) && <Loader />}
 

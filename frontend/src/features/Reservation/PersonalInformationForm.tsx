@@ -81,6 +81,7 @@ function PersonalInformationForm() {
           <div className="flex flex-col">
             <label>Name:</label>
             <input
+              placeholder="Enter your name"
               required
               value={name}
               type="text"
@@ -92,6 +93,7 @@ function PersonalInformationForm() {
           <div className="flex flex-col">
             <label>Phone Number:</label>
             <input
+              placeholder="Enter your phone number"
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
