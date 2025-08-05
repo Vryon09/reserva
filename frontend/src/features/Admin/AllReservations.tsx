@@ -5,13 +5,14 @@ import {
   type ReservationPayload,
 } from "../../services/apiReservation";
 import Reservation from "./Reservation";
-import Button from "../../ui/Button";
 import { useState } from "react";
 import type { ReservationResponseTypes } from "./ManageReservations";
 import Loader from "../../ui/Loader";
+import Pagination from "../../ui/Pagination";
 
 function AllReservations() {
-  const [limit, setLimit] = useState(4);
+  const [limit, setLimit] = useState(6);
+  const [page, setPage] = useState(1);
 
   const {
     data: { reservations: allReservations, total } = {
@@ -20,12 +21,13 @@ function AllReservations() {
     },
     isPending: isReservationsPending,
   } = useQuery<ReservationResponseTypes>({
-    queryKey: ["allReservations", limit],
+    queryKey: ["allReservations", page],
     queryFn: () =>
       getAllReservation({
         queryString: "status",
         status: "all",
-        limit: limit,
+        limit,
+        page,
       }),
   });
 
@@ -61,13 +63,7 @@ function AllReservations() {
           ))}
         </div>
       )}
-      {limit < total && (
-        <div className="flex justify-center">
-          <Button onClick={() => setLimit((limit) => limit + 4)} type="confirm">
-            Load More
-          </Button>
-        </div>
-      )}
+      <Pagination pages={Math.ceil(total / 6)} page={page} setPage={setPage} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import Reservation from "../models/Reservation.js";
 
 export async function getAllReservations(req, res) {
   const limit = +req.query.limit || 4;
+  const page = +req.query.page || 1;
 
   try {
     const filter = {};
@@ -24,6 +25,7 @@ export async function getAllReservations(req, res) {
 
     const reservations = await Reservation.find(filter)
       .limit(limit)
+      .skip((page - 1) * limit)
       .sort({ createdAt: -1 });
     res.status(200).json({ reservations, total });
   } catch (error) {

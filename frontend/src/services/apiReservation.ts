@@ -12,14 +12,16 @@ export async function getAllReservation({
   queryString,
   status,
   limit,
+  page,
 }: {
   queryString: string;
   status: string;
   limit: number;
+  page: number;
 }) {
   try {
     const res = await fetch(
-      `${API_BASE_URL}/api/reservations?${queryString}=${status}&limit=${limit}`,
+      `${API_BASE_URL}/api/reservations?${queryString}=${status}&limit=${limit}&page=${page}`,
     );
 
     const data = await res.json();
