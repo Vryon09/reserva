@@ -29,6 +29,7 @@ function TableForm({
       <div className="flex flex-col justify-between gap-1">
         <label className="">Table Name: </label>
         <input
+          placeholder="Enter table name"
           className="input-normal w-full"
           value={tableInfo.tableNumber}
           onChange={(e) =>
@@ -43,6 +44,7 @@ function TableForm({
       <div className="flex flex-col justify-between gap-1">
         <label className="">Notes: </label>
         <input
+          placeholder="Enter notes or description"
           value={tableInfo.notes}
           onChange={(e) =>
             setTableInfo((prev) => {
