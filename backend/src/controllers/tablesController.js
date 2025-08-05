@@ -8,7 +8,8 @@ export async function getAllTables(req, res) {
       filter.capacity = { $gte: +req.query.partySize };
     }
 
-    const tables = await Table.find(filter).sort({ createdAt: 1 }); //-1 will sort backwards
+    const tables = await Table.find(filter);
+    // .sort({ createdAt: 1 }); //-1 will sort backwards
     res.status(200).json(tables);
   } catch (error) {
     console.error("Error in getAllTables controller.", error);
