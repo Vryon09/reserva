@@ -31,6 +31,7 @@ function ManageReservations() {
         queryString: "notStatus",
         status: "pending,rejected,done,abandoned,cancelled",
         limit: 0,
+        page: 0,
       }),
   });
 
@@ -46,6 +47,7 @@ function ManageReservations() {
         queryString: "status",
         status: "pending",
         limit: 0,
+        page: 0,
       }),
   });
 
