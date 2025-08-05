@@ -11,8 +11,8 @@ import Loader from "../../ui/Loader";
 import Pagination from "../../ui/Pagination";
 
 function AllReservations() {
-  const [limit, setLimit] = useState(6);
   const [page, setPage] = useState(1);
+  const limit = 6;
 
   const {
     data: { reservations: allReservations, total } = {
