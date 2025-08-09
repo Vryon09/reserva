@@ -9,6 +9,7 @@ interface ButtonProps {
     | "confirm"
     | "confirmXl"
     | "neutral"
+    | "neutralWhite"
     | "logo";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
@@ -36,6 +37,9 @@ const buttonTypes = {
   neutral:
     buttonDefault +
     " text-sm font-semibold px-3 py-2 p-2 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-400",
+  neutralWhite:
+    buttonDefault +
+    " text-sm font-semibold px-3 py-2 p-2 bg-gray-300 hover:bg-gray-400 active:bg-gray-500",
   logo: "disable-highlight w-fit cursor-pointer text-3xl font-bold tracking-wider uppercase",
 };
 

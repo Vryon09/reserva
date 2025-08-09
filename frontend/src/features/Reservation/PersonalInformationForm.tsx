@@ -74,11 +74,14 @@ function PersonalInformationForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className="px-6 py-4 shadow-[0_3px_8px_rgba(0,0,0,0.24)]"
+      >
         <p className="mb-4 text-2xl font-bold">Personal Information Form</p>
 
-        <div className="grid grid-cols-2 gap-2">
-          <div className="flex flex-col">
+        <div className="flex w-full flex-col justify-between gap-4 sm:flex-row">
+          <div className="flex w-full flex-col gap-2 md:w-[50%]">
             <label>Name:</label>
             <input
               placeholder="Enter your name"
@@ -90,7 +93,7 @@ function PersonalInformationForm() {
             />
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex w-full flex-col gap-2 md:w-[50%]">
             <label>Phone Number:</label>
             <input
               placeholder="Enter your phone number"
@@ -102,12 +105,12 @@ function PersonalInformationForm() {
               className="input-normal"
             />
           </div>
+        </div>
 
-          <div className="col-span-2 flex justify-end">
-            <Button type="confirm" disabled={isReserved}>
-              Reserve
-            </Button>
-          </div>
+        <div className="mt-2 flex w-full justify-end">
+          <Button type="confirm" disabled={isReserved}>
+            Reserve
+          </Button>
         </div>
       </form>
     </div>

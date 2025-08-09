@@ -31,11 +31,14 @@ function ReservationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="px-6 py-4 shadow-[0_3px_8px_rgba(0,0,0,0.24)]"
+    >
       <p className="mb-4 text-2xl font-bold">Reservation Form</p>
 
-      <div className="flex w-full justify-between gap-2">
-        <div className="flex w-[50%] flex-col gap-2">
+      <div className="flex w-full flex-col justify-between gap-4 sm:flex-row">
+        <div className="flex w-full flex-col gap-2 md:w-[50%]">
           <label className="font-semibold">Party Size:</label>
           <select
             value={partySize}
@@ -53,14 +56,14 @@ function ReservationForm() {
           </select>
         </div>
 
-        <div className="flex w-[50%] flex-col gap-2">
+        <div className="flex w-full flex-col gap-2 md:w-[50%]">
           <label className="font-semibold">Date:</label>
           <input
             value={date}
             onChange={(e) =>
               dispatch({ type: "setDate", payload: e.target.value })
             }
-            className="input-normal"
+            className="input-normal w-full"
             type="date"
           />
         </div>

@@ -63,7 +63,13 @@ function AllReservations() {
           ))}
         </div>
       )}
-      <Pagination pages={Math.ceil(total / 6)} page={page} setPage={setPage} />
+      {!isReservationsPending && (
+        <Pagination
+          pages={Math.ceil(total / 6)}
+          page={page}
+          setPage={setPage}
+        />
+      )}
     </div>
   );
 }
