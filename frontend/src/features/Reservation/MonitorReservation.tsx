@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   handleGetReservationByCode,
   useUpdateReservation,
@@ -8,6 +8,7 @@ import { useDeleteReservationInTable } from "../../services/apiTable";
 import ReservationCard from "./ReservationCard";
 import Loader from "../../ui/Loader";
 import type { ReservationTypes } from "../Admin/ManageReservations";
+import Button from "../../ui/Button";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 
@@ -29,6 +30,8 @@ function MonitorReservation() {
   const { mutate: handleDeleteReservationInTable, isPending: isDeletePending } =
     useDeleteReservationInTable();
 
+  const navigate = useNavigate();
+
   if (
     isReservationPending ||
     !reservationCode ||
@@ -36,6 +39,20 @@ function MonitorReservation() {
     isDeletePending
   )
     return <Loader />;
+
+  console.log(reservation);
+
+  if (reservationCode.length > 4 && !reservation.length)
+    return (
+      <div className="m-auto max-w-[400px] space-y-2">
+        <p className="text-lg">No reservation found🥲</p>
+        <div className="flex w-full justify-end">
+          <Button onClick={() => navigate("/")} type="neutral">
+            Go to home
+          </Button>
+        </div>
+      </div>
+    );
 
   if (reservationCode.length > 4)
     return (

@@ -41,7 +41,7 @@ function ReservationCard({
     );
 
   return (
-    <div className="card-form m-auto flex min-h-48 max-w-[400px] flex-col items-baseline">
+    <div className="card-form m-auto flex min-h-54 w-full flex-col items-baseline md:max-w-[400px]">
       <p>
         <span className="font-semibold">Code: </span>
         {reservation.reservationCode}
