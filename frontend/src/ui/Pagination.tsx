@@ -100,7 +100,7 @@ function Pagination({
   }
 
   return (
-    <div className="mx-auto flex w-fit items-center gap-2">
+    <div className="mx-auto flex w-fit max-w-full items-center gap-2">
       {page !== 1 && (
         <button
           className="flex w-8 cursor-pointer justify-center"

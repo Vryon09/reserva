@@ -21,13 +21,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
   return (
     <Card
       additionalStyle="cursor-pointer gap-1 flex flex-col items-baseline min-h-48"
-      onClick={() => {
-        if (selectedTable === table._id) {
-          setSelectedTable("");
-          return;
-        }
-        setSelectedTable(table._id);
-      }}
+      onClick={() => setSelectedTable(table._id)}
     >
       <p className="font-semibold">Table {table.tableNumber}</p>
       <p>Description: {table.notes}</p>
