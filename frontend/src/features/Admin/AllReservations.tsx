@@ -52,7 +52,7 @@ function AllReservations() {
       {!allReservations?.length && !isReservationsPending ? (
         <p>No Reservation Today😔</p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {allReservations?.map((reservation) => (
             <Reservation
               reservation={reservation}
@@ -65,7 +65,7 @@ function AllReservations() {
       )}
       {!isReservationsPending && (
         <Pagination
-          pages={Math.ceil(total / 6)}
+          pages={Math.ceil(total / limit)}
           page={page}
           setPage={setPage}
         />

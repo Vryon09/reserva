@@ -74,10 +74,7 @@ function PersonalInformationForm() {
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit}
-        className="px-6 py-4 shadow-[0_3px_8px_rgba(0,0,0,0.24)]"
-      >
+      <form onSubmit={handleSubmit} className="card-form">
         <p className="mb-4 text-2xl font-bold">Personal Information Form</p>
 
         <div className="flex w-full flex-col justify-between gap-4 sm:flex-row">

@@ -22,6 +22,10 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
     <Card
       additionalStyle="cursor-pointer gap-1 flex flex-col items-baseline min-h-48"
       onClick={() => {
+        if (selectedTable === table._id) {
+          setSelectedTable("");
+          return;
+        }
         setSelectedTable(table._id);
       }}
     >

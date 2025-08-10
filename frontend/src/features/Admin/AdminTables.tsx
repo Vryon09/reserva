@@ -49,12 +49,17 @@ function AdminTables({ tables }: AdminTablesProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
       {tables?.map((table) => (
-        <Card key={table._id}>
-          <p>{table.tableNumber}</p>
-          <p>{table.notes}</p>
-          <p>Party Size: {table.capacity}</p>
+        <Card
+          key={table._id}
+          additionalStyle="min-h-40 flex flex-col justify-between"
+        >
+          <div>
+            <p>{table.tableNumber}</p>
+            <p>{table.notes}</p>
+            <p>Party Size: {table.capacity}</p>
+          </div>
 
           <div className="mt-2 flex items-center justify-between gap-4">
             <Button

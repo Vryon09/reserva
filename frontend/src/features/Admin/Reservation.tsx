@@ -30,18 +30,20 @@ function Reservation({
   handleUpdate,
 }: ReservationProps) {
   return (
-    <Card>
-      <p className="font-semibold">Table: {reservation.tableNumber}</p>
-      <p>Code: {reservation.reservationCode}</p>
-      <p>Name: {reservation.name}</p>
-      <p>Phone: {reservation.phone}</p>
-      <p>
-        {format(
-          `${reservation.date.split("T")[0]} ${reservation.time}`,
-          "MMMM d, yyyy, h:mm a",
-        )}
-      </p>
-      <p>Status: {reservation.status}</p>
+    <Card additionalStyle="min-h-48 flex flex-col justify-between">
+      <div>
+        <p className="font-semibold">Table: {reservation.tableNumber}</p>
+        <p>Code: {reservation.reservationCode}</p>
+        <p>Name: {reservation.name}</p>
+        <p>Phone: {reservation.phone}</p>
+        <p>
+          {format(
+            `${reservation.date.split("T")[0]} ${reservation.time}`,
+            "MMMM d, yyyy, h:mm a",
+          )}
+        </p>
+        <p>Status: {reservation.status}</p>
+      </div>
 
       <div className="mt-2 flex items-center justify-between gap-4">
         {reservationType === "confirmed" && (

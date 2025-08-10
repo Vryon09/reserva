@@ -6,7 +6,7 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-[80dvh] flex-col items-center justify-center gap-2">
+    <div className="mx-auto flex h-[80dvh] max-w-2xl flex-col items-center justify-center gap-2">
       <div className="mb-4 flex flex-col items-center gap-2">
         <h1 className="text-center text-3xl font-bold md:text-5xl">
           Book Your Table <span className="text-brand-500">Now</span>

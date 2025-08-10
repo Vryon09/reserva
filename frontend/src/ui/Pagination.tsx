@@ -111,7 +111,13 @@ function Pagination({
       )}
       {generatePages({ page, pages }).map((currPage, i) => (
         <Button
-          type={page === currPage ? "neutral" : "neutralWhite"}
+          type={
+            !currPage
+              ? "ellipsis"
+              : page === currPage
+                ? "neutral"
+                : "neutralWhite"
+          }
           disabled={currPage ? false : true}
           onClick={() => setPage(currPage)}
           key={i}

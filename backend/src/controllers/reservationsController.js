@@ -1,7 +1,7 @@
 import Reservation from "../models/Reservation.js";
 
 export async function getAllReservations(req, res) {
-  const limit = +req.query.limit || 4;
+  const limit = +req.query.limit || 6;
   const page = +req.query.page || 1;
 
   try {

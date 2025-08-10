@@ -26,7 +26,7 @@ function ManageTables() {
 
   return (
     <div className="space-y-4">
-      <p className="text-xl font-semibold">Tables</p>
+      <p className="px-2 text-xl font-semibold">Tables</p>
       <AddTableButton />
 
       {isTablesPending ? (
