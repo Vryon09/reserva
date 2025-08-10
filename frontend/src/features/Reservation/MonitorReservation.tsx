@@ -1,25 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   handleGetReservationByCode,
-  // useDeleteReservation,
   useUpdateReservation,
 } from "../../services/apiReservation";
-import Modal from "../../ui/Modal";
-import { useState } from "react";
-import CancelReservation from "./CancelReservation";
-import Button from "../../ui/Button";
-import Loader from "../../ui/Loader";
-import toast from "react-hot-toast";
 import { useDeleteReservationInTable } from "../../services/apiTable";
+import ReservationCard from "./ReservationCard";
+import Loader from "../../ui/Loader";
+import type { ReservationTypes } from "../Admin/ManageReservations";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 
 function MonitorReservation() {
-  const [cancelModal, setCancelModal] = useState(false);
-
   const { reservationCode } = useParams();
-  const navigate = useNavigate();
 
   const {
     data: reservation,
@@ -30,81 +23,69 @@ function MonitorReservation() {
     queryFn: handleGetReservationByCode,
   });
 
-  const { mutate: handleUpdateReservation } = useUpdateReservation();
+  const { mutate: handleUpdateReservation, isPending: isUpdatePending } =
+    useUpdateReservation();
 
-  // const { mutate: handleDeleteReservation } = useDeleteReservation();
-  const { mutate: handleDeleteReservationInTable } =
+  const { mutate: handleDeleteReservationInTable, isPending: isDeletePending } =
     useDeleteReservationInTable();
 
-  console.log(reservation);
+  if (
+    isReservationPending ||
+    !reservationCode ||
+    isUpdatePending ||
+    isDeletePending
+  )
+    return <Loader />;
 
-  if (isReservationPending) return <Loader />;
-
-  if (isError)
+  if (reservationCode.length > 4)
     return (
-      <div className="m-auto max-w-[400px] space-y-2">
-        <p className="text-lg">No reservation found🥲</p>
-        <div className="flex w-full justify-end">
-          <Button onClick={() => navigate("/")} type="neutral">
-            Go to home
-          </Button>
+      <div className="space-y-4">
+        <p className="mb-4 text-2xl font-bold">Search Results</p>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {reservation.map((res: ReservationTypes) => (
+            <ReservationCard
+              key={res._id}
+              isReservationPending={isReservationPending}
+              isError={isError}
+              reservation={res}
+              handleUpdateReservation={() => {
+                handleUpdateReservation({
+                  id: res._id,
+                  updatedReservation: { status: "cancelled" },
+                });
+              }}
+              handleDeleteReservationInTable={() => {
+                handleDeleteReservationInTable({
+                  tableName: res.tableNumber,
+                  date: res.date.split("T")[0],
+                  time: res.time,
+                });
+              }}
+            />
+          ))}
         </div>
       </div>
     );
 
   return (
-    <div className="m-auto flex max-w-[400px] flex-col items-baseline">
-      <p>
-        <span className="font-semibold">Code: </span>
-        {reservation.reservationCode}
-      </p>
-      <p>
-        <span className="font-semibold">Name:</span> {reservation.name}
-      </p>
-      <p>
-        <span className="font-semibold">Phone:</span> {reservation.phone}
-      </p>
-      <p>
-        <span className="font-semibold">Status:</span> {reservation.status}
-      </p>
-      {reservation.status === "pending" && (
-        <p> (You can only cancel if the status is pending.)</p>
-      )}
-      <div className="mt-2 flex w-full justify-end">
-        {reservation.status === "pending" && (
-          <Button
-            type="reject"
-            onClick={() => {
-              setCancelModal(true);
-            }}
-          >
-            Cancel Reservation
-          </Button>
-        )}
-      </div>
-      {cancelModal && (
-        <Modal setIsOpen={setCancelModal}>
-          <CancelReservation
-            handleCloseModal={() => setCancelModal(false)}
-            handleConfirm={() => {
-              handleUpdateReservation({
-                id: reservation._id,
-                updatedReservation: { status: "cancelled" },
-              });
-              // handleDeleteReservation(reservation._id);
-              handleDeleteReservationInTable({
-                tableName: reservation.tableNumber,
-                date: reservation.date.split("T")[0],
-                time: reservation.time,
-              });
-              toast.success("Reservation cancelled successfully!");
-              navigate("/");
-              setCancelModal(false);
-            }}
-          />
-        </Modal>
-      )}
-    </div>
+    <ReservationCard
+      isReservationPending={isReservationPending}
+      isError={isError}
+      reservation={reservation}
+      handleUpdateReservation={() => {
+        handleUpdateReservation({
+          id: reservation._id,
+          updatedReservation: { status: "cancelled" },
+        });
+      }}
+      handleDeleteReservationInTable={() => {
+        handleDeleteReservationInTable({
+          tableName: reservation.tableNumber,
+          date: reservation.date.split("T")[0],
+          time: reservation.time,
+        });
+      }}
+    />
   );
 }
 

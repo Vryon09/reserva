@@ -13,6 +13,7 @@ import PersonalInformationForm from "./features/Reservation/PersonalInformationF
 import AdminLogin from "./pages/AdminLogin";
 import AllReservations from "./features/Admin/AllReservations";
 import { Toaster } from "react-hot-toast";
+import ForgotCode from "./features/Reservation/ForgotCode";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +42,7 @@ function App() {
                 path="reservation/:reservationCode"
                 element={<MonitorReservation />}
               />
+              <Route path="reservation/forgot" element={<ForgotCode />} />
               <Route path="findReservation" element={<FindReservation />} />
             </Route>
             <Route path="admin">

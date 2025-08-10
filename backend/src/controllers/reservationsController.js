@@ -36,14 +36,28 @@ export async function getAllReservations(req, res) {
 
 export async function getReservationByCode(req, res) {
   try {
-    const reservation = await Reservation.findOne({
-      reservationCode: req.params.reservationCode,
-    });
+    if (req.params.reservationCode.length > 4) {
+      const credentials = req.params.reservationCode.split(",");
+      const userDate = new Date(credentials[2]);
+      const filter = {
+        name: credentials[0],
+        phone: credentials[1],
+        date: userDate.toISOString(),
+      };
+      const reservation = await Reservation.find(filter);
+      res.status(200).json(reservation);
+    }
 
-    if (!reservation)
-      return res.status(404).json({ message: "Reservation not found." });
+    if (req.params.reservationCode.length === 4) {
+      const reservation = await Reservation.findOne({
+        reservationCode: req.params.reservationCode,
+      });
 
-    res.status(200).json(reservation);
+      if (!reservation)
+        return res.status(404).json({ message: "Reservation not found." });
+
+      res.status(200).json(reservation);
+    }
   } catch (error) {
     console.log(error);
   }
