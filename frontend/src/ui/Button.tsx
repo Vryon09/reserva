@@ -37,7 +37,7 @@ const buttonTypes = {
     " font-semibold px-4 py-2 bg-green-500 hover:bg-green-600 active:bg-green-400 p-2 text-white",
   neutral:
     buttonDefault +
-    " text-sm font-semibold px-3 p-2 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-400",
+    " text-xs md:text-sm font-semibold px-3 p-2 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-400",
   neutralWhite:
     buttonDefault +
     " text-sm font-semibold px-3 p-2 bg-gray-300 hover:bg-gray-400 active:bg-gray-500",
