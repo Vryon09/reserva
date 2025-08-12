@@ -12,7 +12,7 @@ import Pagination from "../../ui/Pagination";
 
 function AllReservations() {
   const [page, setPage] = useState(1);
-  const limit = 6;
+  const limit = 12;
 
   const {
     data: { reservations: allReservations, total } = {
@@ -52,7 +52,7 @@ function AllReservations() {
       {!allReservations?.length && !isReservationsPending ? (
         <p>No Reservation Today😔</p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-2 sm:px-4 md:grid-cols-4 lg:grid-cols-6">
           {allReservations?.map((reservation) => (
             <Reservation
               reservation={reservation}

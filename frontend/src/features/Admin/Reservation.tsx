@@ -32,7 +32,7 @@ function Reservation({
   return (
     <Card additionalStyle="min-h-48 flex flex-col justify-between">
       <div>
-        <p className="font-semibold">Table: {reservation.tableNumber}</p>
+        <p className="font-semibold">{reservation.tableNumber}</p>
         <p>Code: {reservation.reservationCode}</p>
         <p>Name: {reservation.name}</p>
         <p>Phone: {reservation.phone}</p>

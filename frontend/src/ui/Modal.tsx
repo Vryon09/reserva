@@ -7,7 +7,7 @@ const overlayStyles: React.CSSProperties = {
   right: 0,
   bottom: 0,
   backgroundColor: "rgba(0,0,0, 0.5)",
-  zIndex: 1000,
+  zIndex: 999,
 };
 
 const modalStyles: React.CSSProperties = {
@@ -23,7 +23,7 @@ type ModalProps = {
   children: React.ReactNode;
   isObjectState?: boolean;
   setIsOpenObject?: () => void;
-  addtionalFunction?: () => void;
+  additionalFunction?: () => void;
 };
 
 function Modal({
@@ -31,19 +31,21 @@ function Modal({
   children,
   isObjectState = false,
   setIsOpenObject,
-  addtionalFunction,
+  additionalFunction,
 }: ModalProps) {
   return createPortal(
     <>
       <div
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
+
           if (!isObjectState) {
             setIsOpen?.(false);
           } else {
             setIsOpenObject?.();
           }
 
-          addtionalFunction?.();
+          additionalFunction?.();
         }}
         style={overlayStyles}
       ></div>

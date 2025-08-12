@@ -49,19 +49,19 @@ function AdminTables({ tables }: AdminTablesProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 px-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 gap-2 sm:px-4 md:grid-cols-4 lg:grid-cols-6">
       {tables?.map((table) => (
         <Card
           key={table._id}
-          additionalStyle="min-h-40 flex flex-col justify-between"
+          additionalStyle="cursor-pointer gap-1 flex flex-col items-baseline min-h-40 justify-between"
         >
-          <div>
-            <p>{table.tableNumber}</p>
-            <p>{table.notes}</p>
-            <p>Party Size: {table.capacity}</p>
+          <div className="gap-1">
+            <p className="text-sm font-semibold">{table.tableNumber}</p>
+            <p className="text-sm">{table.notes}</p>
+            <p className="text-sm">Capacity: {table.capacity}</p>
           </div>
 
-          <div className="mt-2 flex items-center justify-between gap-4">
+          <div className="mt-2 flex w-full items-center justify-between gap-4">
             <Button
               type="confirm"
               onClick={() => {
@@ -90,10 +90,11 @@ function AdminTables({ tables }: AdminTablesProps) {
                     return { ...prev, editModal: false };
                   })
                 }
-                addtionalFunction={() => {
+                additionalFunction={() => {
                   setSelectedTable((prev) => {
                     return { ...prev, editTable: "" };
                   });
+
                   setEditDatas({
                     tableNumber: "",
                     notes: "",
@@ -138,7 +139,7 @@ function AdminTables({ tables }: AdminTablesProps) {
                       return { ...prev, deleteModal: false };
                     })
                   }
-                  addtionalFunction={() => {
+                  additionalFunction={() => {
                     setSelectedTable((prev) => {
                       return { ...prev, deleteTable: "" };
                     });

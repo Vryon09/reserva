@@ -39,7 +39,7 @@ function FindReservation() {
       </div>
       <div className="flex w-full items-center justify-between">
         <p
-          className="cursor-pointer text-sm hover:underline"
+          className="disable-highlight cursor-pointer text-sm hover:underline"
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/reserve/reservation/forgot`);
