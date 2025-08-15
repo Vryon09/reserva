@@ -24,6 +24,7 @@ export function generateTimeOptions({
   date: string;
 }) {
   const options: string[] = [];
+  const now = new Date();
 
   const reservationHours = table.reservations
     .filter((reservation) => reservation.date === date)
@@ -35,9 +36,14 @@ export function generateTimeOptions({
         hour >= reservationHour - 1 && hour < reservationHour + 2,
     );
 
-    if (isBlocked) continue;
+    const formattedHour = hour.toString().length > 1 ? hour : `0${hour}`;
+    const resDate = new Date(`${date}T${formattedHour}:00:00.000`);
+    const resDate12Before = new Date(resDate.getTime() - 12 * 60 * 60 * 1000);
+    const hour12hBeforeRes = now >= resDate12Before;
 
-    const time = `${hour}:00`;
+    if (isBlocked || hour12hBeforeRes) continue;
+
+    const time = `${formattedHour}:00`;
     options.push(time);
   }
 

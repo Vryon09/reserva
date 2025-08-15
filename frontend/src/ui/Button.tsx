@@ -7,7 +7,6 @@ interface ButtonProps {
     | "secondary"
     | "reject"
     | "confirm"
-    | "confirmXl"
     | "neutral"
     | "neutralWhite"
     | "ellipsis"
@@ -32,9 +31,6 @@ const buttonTypes = {
   confirm:
     buttonDefault +
     " text-xs md:text-sm font-semibold px-3 py-2 bg-green-500 hover:bg-green-600 active:bg-green-400 p-2 text-white",
-  confirmXl:
-    buttonDefault +
-    " font-semibold px-4 py-2 bg-green-500 hover:bg-green-600 active:bg-green-400 p-2 text-white",
   neutral:
     buttonDefault +
     " text-xs md:text-sm font-semibold px-3 p-2 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-400",

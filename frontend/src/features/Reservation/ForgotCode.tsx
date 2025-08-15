@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function ForgotCode() {
   const [name, setName] = useState("");
@@ -22,13 +23,20 @@ function ForgotCode() {
 
   function handleFindCode(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    navigate(`/reserve/reservation/${name},${phoneNumber},${date}`);
+
+    if (name === "" || phoneNumber === "" || date === "") {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+    navigate(
+      `/reserve/reservation/${name.trim()},${phoneNumber.trim()},${date}`,
+    );
   }
 
   return (
     <div>
       <form className="card-form" onSubmit={handleFindCode}>
-        <p className="mb-4 text-2xl font-bold">Enter credentials</p>
+        <p className="mb-4 text-2xl font-bold">Find Your Reservation</p>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="flex w-full flex-col gap-2">

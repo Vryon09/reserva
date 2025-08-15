@@ -25,7 +25,7 @@ function AdminLogin() {
       return;
     }
 
-    toast.success("Login Success!");
+    toast.success("Logged in successfully.");
 
     localStorage.setItem("adminToken", data.token);
 

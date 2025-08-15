@@ -23,7 +23,7 @@ function ReservationForm() {
     }
 
     if (partySize === "none" || date === "") {
-      toast.error("Fill all.");
+      toast.error("Please fill in all required fields.");
       return;
     }
 

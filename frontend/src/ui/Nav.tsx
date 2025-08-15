@@ -33,7 +33,7 @@ function Nav() {
           type="secondary"
           onClick={() => {
             localStorage.setItem("adminToken", "");
-            toast.success("Logout Success!");
+            toast.success("Logged out successfully.");
             navigate("/admin/login");
           }}
         >
