@@ -71,7 +71,7 @@ export async function deleteTable(req, res) {
 }
 export async function addReservationInTable(req, res) {
   try {
-    const { tableName, date, time } = req.body;
+    const { tableName, date, time, _id } = req.body;
 
     const table = await Table.findOne({ tableNumber: tableName });
 
@@ -87,7 +87,7 @@ export async function addReservationInTable(req, res) {
       return res.status(404).json({ message: "Table not found" });
     }
 
-    table.reservations.push({ date, time });
+    table.reservations.push({ date, time, _id });
 
     await table.save();
 

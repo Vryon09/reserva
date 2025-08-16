@@ -120,15 +120,17 @@ async function handleAddReservationInTable({
   tableName,
   date,
   time,
+  _id,
 }: {
   tableName: string;
   date: string;
   time: string;
+  _id: string;
 }) {
   const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tableName, date, time }),
+    body: JSON.stringify({ tableName, date, time, _id }),
   });
 
   if (!res.ok) {

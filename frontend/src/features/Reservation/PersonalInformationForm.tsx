@@ -39,19 +39,20 @@ function PersonalInformationForm() {
     }
 
     try {
-      await handleAddReservationInTable({
-        tableName: table,
-        time,
-        date,
-      });
-
-      await handleAddReservation({
+      const createdReservation = await handleAddReservation({
         tableNumber: table,
         name,
         phone,
         date,
         time,
         reservationCode,
+      });
+
+      await handleAddReservationInTable({
+        tableName: table,
+        time,
+        date,
+        _id: createdReservation._id,
       });
 
       toast.success("Reservation Successfull!");
