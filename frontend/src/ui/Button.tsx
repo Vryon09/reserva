@@ -24,7 +24,7 @@ const buttonTypes = {
     " text-sm md:text-base bg-brand-500 hover:bg-brand-600 active:bg-brand-400 border-2 px-5 py-3 font-bold text-neutral-50 ",
   secondary:
     buttonDefault +
-    " text-sm md:text-base text-brand-500 hover:text-brand-600 active:text-brand-400 px-5 py-3 font-bold",
+    " text-sm md:text-base text-brand-500 hover:text-brand-600 active:text-brand-400 py-3 font-bold",
   reject:
     buttonDefault +
     " text-xs md:text-sm font-semibold px-3 py-2 bg-red-600 hover:bg-red-700 active:bg-red-500 p-2 text-white",

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import ManageReservations from "../features/Admin/ManageReservations";
-import ManageTables from "../features/Admin/ManageTables";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import AdminNav from "../ui/AdminNav";
 
 function AdminMode() {
   const navigate = useNavigate();
@@ -16,10 +15,12 @@ function AdminMode() {
   }, [navigate]);
 
   return (
-    <div className="space-y-8">
-      <ManageReservations />
+    <div className="flex">
+      <AdminNav />
 
-      <ManageTables />
+      <div className="w-full px-4">
+        <Outlet />
+      </div>
     </div>
   );
 }

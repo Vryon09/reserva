@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  /* outline: 1px solid yellowgreen; */
+}
+
 @theme {
   --color-brand-50: #fcfaf5;
   --color-brand-100: #faf4eb;
