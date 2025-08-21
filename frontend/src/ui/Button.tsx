@@ -16,7 +16,7 @@ interface ButtonProps {
 }
 
 const buttonDefault =
-  "disable-highlight cursor-pointer rounded-4xl uppercase tracking-wide";
+  "disable-highlight cursor-pointer rounded-4xl uppercase tracking-wide transition-all duration-100";
 
 const buttonTypes = {
   primary:

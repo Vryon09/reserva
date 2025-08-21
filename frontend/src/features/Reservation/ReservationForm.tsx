@@ -18,7 +18,9 @@ function ReservationForm() {
     const now = new Date();
 
     if (selectedDate < now) {
-      toast.error("Reservation date should not be on the same day.");
+      toast.error(
+        "Reservation date should not be on the same day or in the past.",
+      );
       return;
     }
 

@@ -56,10 +56,12 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
                   ),
                 )}
               </select>
-              <p className="text-sm text-red-700">
-                ⚠️ This table seats up to {table.capacity} people. You're only
-                booking for {partySize}.
-              </p>
+              {+partySize <= table.capacity * 0.7 && (
+                <p className="text-sm text-red-700">
+                  ⚠️ This table seats up to {table.capacity} people. You're only
+                  booking for {partySize}.
+                </p>
+              )}
             </div>
 
             <div className="mt-2 flex w-full justify-between">
