@@ -20,7 +20,7 @@ function AdminDrawer({
           ? { transform: "translateX(0)" }
           : { transform: "translateX(100%)" }
       }
-      className="bg-brand-50 fixed inset-0 z-50 h-[100dvh] w-full p-4 transition-all duration-500 md:hidden"
+      className="bg-brand-50 fixed inset-0 z-50 h-[100dvh] w-full px-2 py-4 transition-all duration-500 md:hidden"
     >
       <button
         onClick={() => setIsAdminNavOpen(false)}
