@@ -6,7 +6,10 @@ function AllReservationsButton() {
 
   return (
     <div className="flex justify-end">
-      <Button type="primary" onClick={() => navigate("/admin/reservations")}>
+      <Button
+        type="primary"
+        onClick={() => navigate("/admin/all-reservations")}
+      >
         All Reservations
       </Button>
     </div>

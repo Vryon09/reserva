@@ -3,10 +3,10 @@ import Nav from "./Nav";
 
 function AppLayout() {
   return (
-    <div className="py-3">
+    <div className="pb-3">
       <Nav />
 
-      <div className="mx-auto">
+      <div className="mx-auto px-4 md:px-0">
         <Outlet />
       </div>
     </div>

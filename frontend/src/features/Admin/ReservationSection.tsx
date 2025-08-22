@@ -31,7 +31,7 @@ function ReservationSection({
 
   return (
     <div className="space-y-4">
-      <p className="px-2 text-xl font-semibold">
+      <p className="text-xl font-semibold">
         <span className="capitalize">{reservationType}</span> Reservation (
         {reservations.length})
       </p>
@@ -42,7 +42,7 @@ function ReservationSection({
       )}
 
       {!isUpdateReservationPending && (
-        <div className="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 px-2 sm:grid-cols-2 md:grid-cols-3">
           {reservations?.map((reservation) => (
             <Reservation
               reservation={reservation}

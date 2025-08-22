@@ -17,6 +17,7 @@ import ForgotCode from "./features/Reservation/ForgotCode";
 import AdminDashboard from "./features/Admin/AdminDashboard";
 import ManageReservations from "./features/Admin/ManageReservations";
 import ManageTables from "./features/Admin/ManageTables";
+import AllReservations from "./features/Admin/AllReservations";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,6 +53,7 @@ function App() {
             <Route path="admin" element={<AdminMode />}>
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="reservations" element={<ManageReservations />} />
+              <Route path="all-reservations" element={<AllReservations />} />
               <Route path="tables" element={<ManageTables />} />
             </Route>
           </Route>

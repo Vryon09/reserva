@@ -52,7 +52,7 @@ function AllReservations() {
       {!allReservations?.length && !isReservationsPending ? (
         <p>No Reservation Today😔</p>
       ) : (
-        <div className="grid grid-cols-2 gap-2 sm:px-4 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
           {allReservations?.map((reservation) => (
             <Reservation
               reservation={reservation}

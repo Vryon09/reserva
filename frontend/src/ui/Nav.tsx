@@ -12,7 +12,7 @@ function Nav() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-16 items-center justify-between px-4">
+    <div className="flex h-18 items-center justify-between px-4">
       <Logo />
 
       {location.pathname === "/" && (
@@ -31,7 +31,7 @@ function Nav() {
         </Button>
       )}
 
-      {location.pathname === "/admin/dashboard" && (
+      {location.pathname.startsWith("/admin/") && (
         <>
           <button
             className="cursor-pointer md:hidden"
