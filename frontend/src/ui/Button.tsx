@@ -21,7 +21,7 @@ const buttonDefault =
 const buttonTypes = {
   primary:
     buttonDefault +
-    " text-sm md:text-base bg-brand-500 hover:bg-brand-600 active:bg-brand-400 border-2 px-5 py-3 font-bold text-neutral-50 ",
+    " text-sm md:text-base bg-brand-500 hover:bg-brand-600 active:bg-brand-400 px-5 py-3 font-bold text-neutral-50 ",
   secondary:
     buttonDefault +
     " text-sm md:text-base text-brand-500 hover:text-brand-600 active:text-brand-400 py-3 font-bold",

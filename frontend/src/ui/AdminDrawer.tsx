@@ -1,10 +1,12 @@
 import {
   HandPlatter,
   LayoutDashboard,
+  LogOut,
   RectangleHorizontal,
   X,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import toast from "react-hot-toast";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function AdminDrawer({
   isAdminNavOpen,
@@ -13,6 +15,8 @@ function AdminDrawer({
   isAdminNavOpen: boolean;
   setIsAdminNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const navigate = useNavigate();
+
   return (
     <div
       style={
@@ -29,7 +33,7 @@ function AdminDrawer({
         <X size={30} color="#c57b57" />
       </button>
 
-      <ul className="mt-4">
+      <ul className="mt-4 w-full border-b-1 border-neutral-200 pb-2">
         <NavLink
           onClick={() => setIsAdminNavOpen(false)}
           to="/admin/dashboard"
@@ -66,6 +70,17 @@ function AdminDrawer({
           <RectangleHorizontal /> Tables
         </NavLink>
       </ul>
+      <button
+        onClick={() => {
+          localStorage.setItem("adminToken", "");
+          toast.success("Logged out successfully.");
+          navigate("/admin-login");
+          setIsAdminNavOpen(false);
+        }}
+        className="flex cursor-pointer gap-2 border-l-2 border-transparent pt-2 pb-2 pl-2 text-red-500"
+      >
+        <LogOut /> Log out
+      </button>
     </div>
   );
 }

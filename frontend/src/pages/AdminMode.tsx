@@ -18,7 +18,7 @@ function AdminMode() {
     <div className="flex px-2">
       <AdminNav />
 
-      <div className="w-full py-2">
+      <div className="w-full rounded-2xl bg-neutral-100 px-4 py-8 md:mx-4 md:px-6">
         <Outlet />
       </div>
     </div>
