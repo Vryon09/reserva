@@ -15,10 +15,10 @@ function AdminMode() {
   }, [navigate]);
 
   return (
-    <div className="flex md:px-2">
+    <div className="flex">
       <AdminNav />
 
-      <div className="w-full rounded-2xl p-4 md:mx-4 md:p-6">
+      <div className="w-full rounded-2xl border-t-1 border-neutral-200 p-2 md:mr-4 md:border-1 md:p-6">
         <Outlet />
       </div>
     </div>

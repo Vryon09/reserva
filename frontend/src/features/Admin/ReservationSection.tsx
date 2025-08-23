@@ -42,7 +42,7 @@ function ReservationSection({
       {(isReservationPending || isUpdateReservationPending) && <Loader />}
 
       {!reservations?.length && !isReservationPending && (
-        <p className="px-4">No Reservation Today😔</p>
+        <p className="px-2">No Reservation Today😔</p>
       )}
 
       {!isUpdateReservationPending && (
