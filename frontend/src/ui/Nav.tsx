@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import Button from "./Button";
 import toast from "react-hot-toast";
-import { Menu, UserLock } from "lucide-react";
+import { LogOut, Menu, UserLock } from "lucide-react";
 import { useState } from "react";
 import AdminDrawer from "./AdminDrawer";
 
@@ -51,7 +51,7 @@ function Nav() {
                 navigate("/admin-login");
               }}
             >
-              Log Out
+              <LogOut />
             </Button>
           </div>
         </>

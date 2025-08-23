@@ -18,7 +18,7 @@ function AdminMode() {
     <div className="flex">
       <AdminNav />
 
-      <div className="w-full p-4 md:mr-4 md:rounded-2xl md:border-1 md:border-neutral-200 md:p-6">
+      <div className="w-full p-4 md:mx-4 md:rounded-2xl md:border-1 md:border-neutral-200 md:p-8">
         <Outlet />
       </div>
     </div>

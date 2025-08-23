@@ -4,6 +4,7 @@ import Modal from "../../ui/Modal";
 import type { TableInfo } from "./ManageTables";
 import TableForm from "./TableForm";
 import Button from "../../ui/Button";
+import toast from "react-hot-toast";
 
 const initialTableInfo = {
   tableNumber: "",
@@ -18,6 +19,10 @@ function AddTableButton() {
   const { mutate: handleAddTable } = useAddTable();
 
   function handleSubmit() {
+    if (tableInfo.tableNumber === "" || tableInfo.capacity === 0) {
+      toast.error("Table name and capacity are required.");
+      return;
+    }
     handleAddTable(tableInfo);
 
     setTableInfo(initialTableInfo);

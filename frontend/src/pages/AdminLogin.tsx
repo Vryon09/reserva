@@ -41,35 +41,37 @@ function AdminLogin() {
   }
 
   return (
-    <form
-      className="m-auto flex max-w-[400px] flex-col items-baseline"
-      onSubmit={handleLogin}
-    >
-      <p className="text-xl font-semibold">Admin Login</p>
-      <div className="mb-2 flex w-full flex-col gap-0.5">
-        <label>User</label>
-        <input
-          required
-          type="text"
-          className="input-normal w-full"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
-        />
-      </div>
-      <div className="flex w-full flex-col gap-0.5">
-        <label>Password</label>
-        <input
-          required
-          type="text"
-          className="input-normal w-full"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="mt-2 flex w-full justify-end">
-        <Button type="primary">Login</Button>
-      </div>
-    </form>
+    <div className="px-4">
+      <form
+        className="m-auto flex max-w-[400px] flex-col items-baseline gap-4 rounded-3xl px-6 py-4 shadow-[0_3px_8px_rgba(0,0,0,0.24)]"
+        onSubmit={handleLogin}
+      >
+        <p className="text-xl font-semibold">Admin Login</p>
+        <div className="mb-2 flex w-full flex-col gap-0.5">
+          <label>User</label>
+          <input
+            required
+            type="text"
+            className="input-normal w-full"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+          />
+        </div>
+        <div className="flex w-full flex-col gap-0.5">
+          <label>Password</label>
+          <input
+            required
+            type="text"
+            className="input-normal w-full"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="mt-2 flex w-full justify-end">
+          <Button type="primary">Log In</Button>
+        </div>
+      </form>
+    </div>
   );
 }
 
