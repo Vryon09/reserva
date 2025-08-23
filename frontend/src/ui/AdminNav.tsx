@@ -13,8 +13,8 @@ function AdminNav() {
           to="/admin/dashboard"
           className={({ isActive }) =>
             isActive
-              ? "text-brand-500 flex cursor-pointer gap-2 border-l-2 py-2 pl-2"
-              : "flex cursor-pointer gap-2 border-l-2 border-transparent py-2 pl-2 text-neutral-500"
+              ? "mx-2 flex cursor-pointer gap-2 rounded border-1 border-transparent px-4 py-1 text-neutral-600 shadow-[0_0_4px_rgba(0,0,0,0.24)]"
+              : "mx-2 flex cursor-pointer gap-2 rounded border-1 border-transparent px-4 py-1 text-neutral-400"
           }
         >
           <LayoutDashboard size={24} /> Dashboard
@@ -24,8 +24,8 @@ function AdminNav() {
           to="/admin/reservations"
           className={({ isActive }) =>
             isActive
-              ? "text-brand-500 flex cursor-pointer gap-2 border-l-2 py-2 pl-2"
-              : "flex cursor-pointer gap-2 border-l-2 border-transparent py-2 pl-2 text-neutral-500"
+              ? "mx-2 flex cursor-pointer gap-2 rounded border-1 border-transparent px-4 py-1 text-neutral-600 shadow-[0_0_4px_rgba(0,0,0,0.24)]"
+              : "mx-2 flex cursor-pointer gap-2 rounded border-1 border-transparent px-4 py-1 text-neutral-400"
           }
         >
           <HandPlatter size={24} /> Reservations
@@ -35,8 +35,8 @@ function AdminNav() {
           to="/admin/tables"
           className={({ isActive }) =>
             isActive
-              ? "text-brand-500 flex cursor-pointer gap-2 border-l-2 py-2 pl-2"
-              : "flex cursor-pointer gap-2 border-l-2 border-transparent py-2 pl-2 text-neutral-500"
+              ? "mx-2 flex cursor-pointer gap-2 rounded border-1 border-transparent px-4 py-1 text-neutral-600 shadow-[0_0_4px_rgba(0,0,0,0.24)]"
+              : "mx-2 flex cursor-pointer gap-2 rounded border-1 border-transparent px-4 py-1 text-neutral-400"
           }
         >
           <RectangleHorizontal size={24} /> Tables

@@ -77,7 +77,7 @@ function AdminDrawer({
           navigate("/admin-login");
           setIsAdminNavOpen(false);
         }}
-        className="flex cursor-pointer gap-2 border-l-2 border-transparent pt-2 pb-2 pl-2 text-red-500"
+        className="flex cursor-pointer gap-2 border-l-2 border-transparent pt-2 pb-2 pl-2 text-neutral-500"
       >
         <LogOut /> Log out
       </button>
