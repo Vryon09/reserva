@@ -35,6 +35,7 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<Home />} />
+
             <Route path="reserve" element={<GuestMode />}>
               <Route index element={<ReservationForm />} />
               <Route path="tables" element={<Tables />} />
@@ -49,7 +50,9 @@ function App() {
               <Route path="reservation/forgot" element={<ForgotCode />} />
               <Route path="findReservation" element={<FindReservation />} />
             </Route>
+
             <Route path="admin-login" element={<AdminLogin />} />
+
             <Route path="admin" element={<AdminMode />}>
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="reservations" element={<ManageReservations />} />
