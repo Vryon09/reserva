@@ -34,6 +34,30 @@ export async function getAllReservation({
   }
 }
 
+export async function getTodaysReservation({
+  status,
+  limit,
+  page,
+}: {
+  status: string;
+  limit: number;
+  page: number;
+}) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/today?status=${status}&limit=${limit}&page=${page}`,
+    );
+
+    const data = await res.json();
+
+    console.log("Reservations retrieved successfully!");
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // export async function getAllConfirmedReservation() {
 //   try {
 //     const res = await fetch(`${API_BASE_URL}/api/reservations/confirmed`);

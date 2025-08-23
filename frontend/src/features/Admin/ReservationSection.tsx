@@ -10,12 +10,14 @@ interface ReservationSectionProps {
   isReservationPending: boolean;
   reservations: ReservationTypes[];
   reservationType: string;
+  isTodaysReservation?: boolean;
 }
 
 function ReservationSection({
   isReservationPending,
   reservations,
   reservationType,
+  isTodaysReservation = false,
 }: ReservationSectionProps) {
   const {
     mutate: handleUpdateReservation,
@@ -32,8 +34,10 @@ function ReservationSection({
   return (
     <div className="space-y-4">
       <p className="text-xl font-semibold">
-        <span className="capitalize">{reservationType}</span> Reservation (
-        {reservations.length})
+        <span className="capitalize">
+          {!isTodaysReservation ? reservationType : "Today's"}
+        </span>{" "}
+        Reservation ({reservations.length})
       </p>
       {(isReservationPending || isUpdateReservationPending) && <Loader />}
 

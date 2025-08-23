@@ -75,15 +75,6 @@ function ReservationCard({
           <CancelReservation
             handleCloseModal={() => setCancelModal(false)}
             handleConfirm={() => {
-              // handleUpdateReservation({
-              //   id: reservation._id,
-              //   updatedReservation: { status: "cancelled" },
-              // });
-              // handleDeleteReservationInTable({
-              //   tableName: reservation.tableNumber,
-              //   date: reservation.date.split("T")[0],
-              //   time: reservation.time,
-              // });
               handleUpdateReservation();
               handleDeleteReservationInTable();
               toast.success("Reservation cancelled successfully!");

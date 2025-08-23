@@ -11,14 +11,15 @@ function ConfirmedReservationAction({
 
   return (
     <>
-      {reservation.status === "confirmed" && (
-        <Button
-          type="reject"
-          onClick={() => handleUpdate(reservation._id, { status: "pending" })}
-        >
-          Cancel
-        </Button>
-      )}
+      {reservation.status === "confirmed" &&
+        reservation.date.split("T")[0] !== now && (
+          <Button
+            type="reject"
+            onClick={() => handleUpdate(reservation._id, { status: "pending" })}
+          >
+            Cancel
+          </Button>
+        )}
 
       {reservation.status === "confirmed" &&
         reservation.date.split("T")[0] === now && (

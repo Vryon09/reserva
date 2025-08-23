@@ -5,7 +5,7 @@ const reservationSchema = new mongoose.Schema(
     tableNumber: { type: String, required: true },
     name: { type: String, required: true },
     phone: { type: String, required: true },
-    date: { type: Date, required: true },
+    date: { type: Date, required: true, index: true },
     time: { type: String, required: true, index: true },
     status: { type: String, default: "pending", index: true },
     reservationCode: { type: String, required: true, unique: true },

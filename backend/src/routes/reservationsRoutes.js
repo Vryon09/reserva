@@ -4,12 +4,15 @@ import {
   deleteReservation,
   getAllReservations,
   getReservationByCode,
+  getTodaysReservation,
   updateReservation,
 } from "../controllers/reservationsController.js";
 
 const router = express.Router();
 
 router.get("/", getAllReservations);
+
+router.get("/today", getTodaysReservation);
 
 router.get("/:reservationCode", getReservationByCode);
 

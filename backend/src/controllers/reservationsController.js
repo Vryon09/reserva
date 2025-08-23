@@ -63,6 +63,38 @@ export async function getReservationByCode(req, res) {
   }
 }
 
+export async function getTodaysReservation(req, res) {
+  const limit = +req.query.limit || 6;
+  const page = +req.query.page || 1;
+
+  try {
+    // Start of today
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    // End of today
+    const end = new Date();
+    end.setHours(23, 59, 59, 999);
+    const filter = { date: { $gte: start, $lte: end } };
+    const { status } = req.query;
+
+    if (status !== "all") {
+      filter.status = status;
+    }
+
+    const total = await Reservation.countDocuments(filter);
+
+    const reservations = await Reservation.find(filter)
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .sort({ createdAt: -1 });
+    res.status(200).json({ reservations, total });
+  } catch (error) {
+    console.error("Error in getAllReservation controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
 export async function addReservation(req, res) {
   try {
     const { tableNumber, name, phone, date, time, status, reservationCode } =
