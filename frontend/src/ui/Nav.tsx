@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import Button from "./Button";
 import toast from "react-hot-toast";
-import { Menu } from "lucide-react";
+import { Menu, UserLock } from "lucide-react";
 import { useState } from "react";
 import AdminDrawer from "./AdminDrawer";
 
@@ -12,7 +12,7 @@ function Nav() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-18 items-center justify-between px-4">
+    <div className="flex h-24 items-center justify-between px-4 md:px-8">
       <Logo />
 
       {location.pathname === "/" && (
@@ -27,7 +27,7 @@ function Nav() {
             navigate("/admin-login");
           }}
         >
-          Admin
+          <UserLock />
         </Button>
       )}
 
@@ -51,7 +51,7 @@ function Nav() {
                 navigate("/admin-login");
               }}
             >
-              Logout
+              Log Out
             </Button>
           </div>
         </>

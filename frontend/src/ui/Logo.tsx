@@ -6,7 +6,7 @@ function Logo() {
 
   return (
     <Button type="logo" onClick={() => navigate("/")}>
-      Reserva
+      reserva
     </Button>
   );
 }

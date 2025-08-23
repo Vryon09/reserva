@@ -5,6 +5,9 @@
 }
 
 @theme {
+  --font-logo: "Quicksand", sans-serif;
+  --font-sans: "Montserrat", sans-serif;
+
   --color-brand-50: #fcfaf5;
   --color-brand-100: #faf4eb;
   --color-brand-200: #f0e2ce;
@@ -21,7 +24,6 @@
 }
 
 body {
-  font-family: "Quicksand";
   background-color: var(--color-brand-50);
 }
 

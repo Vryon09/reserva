@@ -16,15 +16,15 @@ interface ButtonProps {
 }
 
 const buttonDefault =
-  "disable-highlight cursor-pointer rounded-4xl uppercase tracking-wide transition-all duration-100";
+  "disable-highlight cursor-pointer rounded-4xl tracking-wide transition-all duration-300";
 
 const buttonTypes = {
   primary:
     buttonDefault +
-    " text-sm md:text-base bg-brand-500 hover:bg-brand-600 active:bg-brand-400 px-5 py-3 font-bold text-neutral-50 ",
+    " text-xs md:text-base bg-brand-500 hover:bg-brand-600 active:bg-brand-400 px-5 py-3 font-bold text-neutral-50 ",
   secondary:
     buttonDefault +
-    " text-sm md:text-base text-brand-500 hover:text-brand-600 active:text-brand-400 py-3 font-bold",
+    " text-xs md:text-base text-brand-500 hover:text-brand-600 active:text-brand-400 py-3  font-bold",
   reject:
     buttonDefault +
     " text-xs md:text-sm font-semibold px-3 py-2 bg-red-600 hover:bg-red-700 active:bg-red-500 p-2 text-white",
@@ -38,7 +38,7 @@ const buttonTypes = {
     buttonDefault +
     " text-sm font-semibold px-3 p-2 bg-gray-300 hover:bg-gray-400 active:bg-gray-500",
   ellipsis: buttonDefault + " text-sm font-semibold",
-  logo: "disable-highlight w-fit cursor-pointer text-3xl font-bold tracking-wider uppercase",
+  logo: "disable-highlight w-fit cursor-pointer text-2xl font-semibold font-logo tracking-wide lowercase",
 };
 
 function Button({ children, type, onClick, disabled = false }: ButtonProps) {
