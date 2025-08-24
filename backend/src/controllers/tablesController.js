@@ -18,9 +18,9 @@ export async function getAllTables(req, res) {
 
 export async function addTable(req, res) {
   try {
-    const { tableNumber, capacity, notes } = req.body;
+    const { tableName, capacity, notes } = req.body;
     const newTable = new Table({
-      tableNumber,
+      tableName,
       capacity,
       notes,
     });
@@ -35,11 +35,11 @@ export async function addTable(req, res) {
 
 export async function updateTable(req, res) {
   try {
-    const { tableNumber, capacity, notes } = req.body;
+    const { tableName, capacity, notes } = req.body;
     const updatedTable = await Table.findByIdAndUpdate(
       req.params.id,
       {
-        tableNumber,
+        tableName,
         capacity,
         notes,
       },
@@ -70,12 +70,12 @@ export async function deleteTable(req, res) {
 }
 export async function addReservationInTable(req, res) {
   try {
-    const { tableName, date, time, _id } = req.body;
+    const { tableName, reservationDate, _id } = req.body;
 
-    const table = await Table.findOne({ tableNumber: tableName });
+    const table = await Table.findOne({ tableName: tableName });
 
     const isDuplicate = table.reservations.some(
-      (reservation) => reservation.date === date && reservation.time === time
+      (reservation) => reservation.date === reservationDate
     );
 
     if (isDuplicate) {
@@ -86,7 +86,7 @@ export async function addReservationInTable(req, res) {
       return res.status(404).json({ message: "Table not found" });
     }
 
-    table.reservations.push({ date, time, _id });
+    table.reservations.push({ reservationDate, _id });
 
     await table.save();
 
@@ -99,21 +99,33 @@ export async function addReservationInTable(req, res) {
 
 export async function deleteReservationInTable(req, res) {
   try {
-    const { tableName, date, time } = req.body;
-    console.log(tableName);
-    console.log(date);
-    console.log(time);
-    const table = await Table.findOne({ tableNumber: tableName });
+    const { tableName, reservationDate } = req.body;
 
-    if (!table) {
-      return res.status(404).json({ message: "Table not found." });
-    }
-
-    table.reservations = table.reservations.filter(
-      (reservation) => !(reservation.date === date && reservation.time === time)
+    const result = await Table.updateOne(
+      { tableName },
+      {
+        $pull: { reservations: { reservationDate: new Date(reservationDate) } },
+      }
     );
 
-    await table.save();
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({
+        message: "No reservation with that date was found in the table.",
+      });
+    }
+    // const table = await Table.findOne({ tableName: tableName });
+
+    // if (!table) {
+    //   return res.status(404).json({ message: "Table not found." });
+    // }
+
+    // table.reservations = table.reservations.filter((reservation) => {
+    //   console.log("filter");
+    //   console.log(reservation.reservationDate);
+    //   return !(reservation.reservationDate.toISOString() === reservationDate);
+    // });
+
+    // await table.save();
   } catch (error) {
     console.error("Error in deleteReservationInTable controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });

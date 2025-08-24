@@ -26,8 +26,6 @@ export async function getAllReservation({
 
     const data = await res.json();
 
-    console.log("Reservations retrieved successfully!");
-
     return data || [];
   } catch (error) {
     console.log(error);
@@ -74,11 +72,10 @@ export async function getTodaysReservation({
 
 export interface ReservationPayload {
   _id?: string;
-  tableNumber: string;
+  tableName: string;
   name: string;
   phone: string;
-  date: string;
-  time: string;
+  reservationDate: string;
   reservationCode?: string;
   status?: string;
 }

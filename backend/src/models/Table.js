@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const reservationSchema = new mongoose.Schema(
   {
-    date: { type: String, required: true },
-    time: { type: String, required: true },
+    reservationDate: { type: Date, required: true },
   },
   {
     timestamps: true,
@@ -12,7 +11,7 @@ const reservationSchema = new mongoose.Schema(
 
 const tableSchema = new mongoose.Schema(
   {
-    tableNumber: {
+    tableName: {
       type: String,
       required: true,
       unique: true,

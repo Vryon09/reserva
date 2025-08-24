@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 interface TablePayload {
-  tableNumber: string;
+  tableName: string;
   capacity: number;
   notes: string;
 }
@@ -118,19 +118,17 @@ export function useUpdateTable() {
 
 async function handleAddReservationInTable({
   tableName,
-  date,
-  time,
+  reservationDate,
   _id,
 }: {
   tableName: string;
-  date: string;
-  time: string;
+  reservationDate: string;
   _id: string;
 }) {
   const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tableName, date, time, _id }),
+    body: JSON.stringify({ tableName, reservationDate, _id }),
   });
 
   if (!res.ok) {
@@ -154,19 +152,17 @@ export function useAddReservationInTable() {
 
 async function handleDeleteReservationInTable({
   tableName,
-  date,
-  time,
+  reservationDate,
 }: {
   tableName: string;
-  date: string;
-  time: string;
+  reservationDate: string;
 }) {
   const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ tableName, date, time }),
+    body: JSON.stringify({ tableName, reservationDate }),
   });
 
   if (!res.ok) {

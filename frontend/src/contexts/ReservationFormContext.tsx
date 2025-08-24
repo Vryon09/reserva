@@ -4,7 +4,7 @@ type ReservationFormState = {
   partySize: string;
   date: string;
   time: string;
-  table: string;
+  tableName: string;
 };
 
 type ReservationFormAction =
@@ -24,7 +24,7 @@ const initialState = {
   partySize: "none",
   date: "",
   time: "none",
-  table: "",
+  tableName: "",
 };
 
 function reducer(
@@ -39,9 +39,15 @@ function reducer(
     case "setTime":
       return { ...state, time: action.payload };
     case "setTable":
-      return { ...state, table: action.payload };
+      return { ...state, tableName: action.payload };
     case "resetForm":
-      return { ...state, partySize: "none", date: "", time: "none", table: "" };
+      return {
+        ...state,
+        partySize: "none",
+        date: "",
+        time: "none",
+        tableName: "",
+      };
     default:
       throw new Error("Unknown Type.");
   }

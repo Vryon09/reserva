@@ -23,7 +23,7 @@ function AdminTables({ tables }: AdminTablesProps) {
   });
 
   const [editDatas, setEditDatas] = useState<TableInfo>({
-    tableNumber: "",
+    tableName: "",
     capacity: 0,
     notes: "",
   });
@@ -56,7 +56,7 @@ function AdminTables({ tables }: AdminTablesProps) {
           additionalStyle="cursor-pointer gap-1 flex flex-col items-baseline min-h-40 justify-between"
         >
           <div className="gap-1">
-            <p className="text-sm font-semibold">{table.tableNumber}</p>
+            <p className="text-sm font-semibold">{table.tableName}</p>
             <p className="text-sm">{table.notes}</p>
             <p className="text-sm">Capacity: {table.capacity}</p>
           </div>
@@ -74,7 +74,7 @@ function AdminTables({ tables }: AdminTablesProps) {
                 });
 
                 setEditDatas({
-                  tableNumber: table.tableNumber,
+                  tableName: table.tableName,
                   notes: table.notes,
                   capacity: table.capacity,
                 });
@@ -96,7 +96,7 @@ function AdminTables({ tables }: AdminTablesProps) {
                   });
 
                   setEditDatas({
-                    tableNumber: "",
+                    tableName: "",
                     notes: "",
                     capacity: 0,
                   });

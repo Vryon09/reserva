@@ -5,7 +5,7 @@ import AdminTables from "./AdminTables";
 import Loader from "../../ui/Loader";
 
 export interface Table {
-  tableNumber: string;
+  tableName: string;
   capacity: number;
   notes: string;
   status: string;
@@ -13,7 +13,7 @@ export interface Table {
 }
 
 export interface TableInfo {
-  tableNumber: string;
+  tableName: string;
   capacity: number;
   notes: string;
 }

@@ -7,7 +7,7 @@ import Button from "../../ui/Button";
 import toast from "react-hot-toast";
 
 const initialTableInfo = {
-  tableNumber: "",
+  tableName: "",
   capacity: 0,
   notes: "",
 };
@@ -19,10 +19,11 @@ function AddTableButton() {
   const { mutate: handleAddTable } = useAddTable();
 
   function handleSubmit() {
-    if (tableInfo.tableNumber === "" || tableInfo.capacity === 0) {
+    if (tableInfo.tableName === "" || tableInfo.capacity === 0) {
       toast.error("Table name and capacity are required.");
       return;
     }
+
     handleAddTable(tableInfo);
 
     setTableInfo(initialTableInfo);

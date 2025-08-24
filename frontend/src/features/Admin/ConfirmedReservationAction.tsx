@@ -5,14 +5,12 @@ function ConfirmedReservationAction({
   reservation,
   handleUpdate,
 }: ReservationActionProps) {
-  const now = new Date().toISOString().split("T")[0];
-
-  console.log(reservation.date.split("T")[0], now);
+  const now = new Date().toISOString();
 
   return (
     <>
       {reservation.status === "confirmed" &&
-        reservation.date.split("T")[0] !== now && (
+        reservation.reservationDate !== now && (
           <Button
             type="reject"
             onClick={() => handleUpdate(reservation._id, { status: "pending" })}
@@ -22,7 +20,7 @@ function ConfirmedReservationAction({
         )}
 
       {reservation.status === "confirmed" &&
-        reservation.date.split("T")[0] === now && (
+        reservation.reservationDate === now && (
           <Button
             type="confirm"
             onClick={() => handleUpdate(reservation._id, { status: "seated" })}

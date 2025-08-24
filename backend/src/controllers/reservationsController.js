@@ -1,4 +1,10 @@
 import Reservation from "../models/Reservation.js";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export async function getAllReservations(req, res) {
   const limit = +req.query.limit || 6;
@@ -16,9 +22,10 @@ export async function getAllReservations(req, res) {
     }
 
     if (status !== "all") {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      filter.date = { $gte: today };
+      const nowPH = dayjs().tz("Asia/Manila").startOf("day");
+      const nowUTC = nowPH.toDate();
+
+      filter.reservationDate = { $gte: nowUTC };
     }
 
     const total = await Reservation.countDocuments(filter);
@@ -27,6 +34,7 @@ export async function getAllReservations(req, res) {
       .limit(limit)
       .skip((page - 1) * limit)
       .sort({ createdAt: -1 });
+
     res.status(200).json({ reservations, total });
   } catch (error) {
     console.error("Error in getAllReservation controller.", error);
@@ -59,7 +67,7 @@ export async function getReservationByCode(req, res) {
       res.status(200).json(reservation);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -68,14 +76,10 @@ export async function getTodaysReservation(req, res) {
   const page = +req.query.page || 1;
 
   try {
-    // Start of today
-    const start = new Date();
-    start.setHours(0, 0, 0, 0);
+    const start = dayjs().tz("Asia/Manila").startOf("day").toDate();
+    const end = dayjs().tz("Asia/Manila").endOf("day").toDate();
 
-    // End of today
-    const end = new Date();
-    end.setHours(23, 59, 59, 999);
-    const filter = { date: { $gte: start, $lte: end } };
+    const filter = { reservationDate: { $gte: start, $lte: end } };
     const { status } = req.query;
 
     if (status !== "all") {
@@ -97,14 +101,13 @@ export async function getTodaysReservation(req, res) {
 
 export async function addReservation(req, res) {
   try {
-    const { tableNumber, name, phone, date, time, status, reservationCode } =
+    const { tableName, name, phone, reservationDate, status, reservationCode } =
       req.body;
     const newReservation = new Reservation({
-      tableNumber,
+      tableName,
       name,
       phone,
-      date,
-      time,
+      reservationDate,
       status,
       reservationCode,
     });
@@ -119,10 +122,10 @@ export async function addReservation(req, res) {
 
 export async function updateReservation(req, res) {
   try {
-    const { tableNumber, name, phone, time, status } = req.body;
+    const { tableName, name, phone, time, status } = req.body;
     const updatedReservation = await Reservation.findByIdAndUpdate(
       req.params.id,
-      { tableNumber, name, phone, time, status },
+      { tableName, name, phone, time, status },
       { new: true }
     );
 
@@ -138,7 +141,6 @@ export async function updateReservation(req, res) {
 
 export async function deleteReservation(req, res) {
   try {
-    // const { tableNumber, name, phone, time, status } = req.body;
     const deletedReservation = await Reservation.findByIdAndDelete(
       req.params.id
     );

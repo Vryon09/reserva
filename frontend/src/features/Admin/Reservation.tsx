@@ -32,16 +32,11 @@ function Reservation({
   return (
     <Card additionalStyle="min-h-48 flex flex-col justify-between">
       <div>
-        <p className="font-semibold">{reservation.tableNumber}</p>
+        <p className="font-semibold">{reservation.tableName}</p>
         <p>Code: {reservation.reservationCode}</p>
         <p>Name: {reservation.name}</p>
         <p>Phone: {reservation.phone}</p>
-        <p>
-          {format(
-            `${reservation.date.split("T")[0]} ${reservation.time}`,
-            "MMMM d, yyyy, h:mm a",
-          )}
-        </p>
+        <p>{format(reservation.reservationDate, "MMMM d, yyyy, h:mm a")}</p>
         <p>Status: {reservation.status}</p>
       </div>
 

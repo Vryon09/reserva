@@ -73,9 +73,8 @@ function MonitorReservation() {
               }}
               handleDeleteReservationInTable={() => {
                 handleDeleteReservationInTable({
-                  tableName: res.tableNumber,
-                  date: res.date.split("T")[0],
-                  time: res.time,
+                  tableName: res.tableName,
+                  reservationDate: res.reservationDate,
                 });
               }}
             />
@@ -97,9 +96,8 @@ function MonitorReservation() {
       }}
       handleDeleteReservationInTable={() => {
         handleDeleteReservationInTable({
-          tableName: reservation.tableNumber,
-          date: reservation.date.split("T")[0],
-          time: reservation.time,
+          tableName: reservation.tableName,
+          reservationDate: reservation.reservationDate,
         });
       }}
     />

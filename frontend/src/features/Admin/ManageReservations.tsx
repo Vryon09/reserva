@@ -4,11 +4,10 @@ import ReservationSection from "./ReservationSection";
 import AllReservationsButton from "./AllReservationsButton";
 export interface ReservationTypes {
   _id: string;
-  tableNumber: string;
+  tableName: string;
   name: string;
   phone: string;
-  date: string;
-  time: string;
+  reservationDate: string;
   status: string;
   reservationCode: string;
 }

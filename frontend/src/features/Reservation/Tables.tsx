@@ -6,17 +6,16 @@ import { useEffect, useState } from "react";
 import Table from "./Table";
 import Loader from "../../ui/Loader";
 import { useNavigate } from "react-router-dom";
-//CLEAN THIS SHIT
+//FIX THIS SHIT
 
 export interface TableTypes {
   _id: string;
-  tableNumber: string;
+  tableName: string;
   capacity: number;
   notes: string;
   status: string;
   reservations: {
-    date: string;
-    time: string;
+    reservationDate: string;
   }[];
 }
 

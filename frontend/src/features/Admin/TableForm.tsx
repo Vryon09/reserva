@@ -31,10 +31,10 @@ function TableForm({
         <input
           placeholder="Enter table name"
           className="input-normal w-full"
-          value={tableInfo.tableNumber}
+          value={tableInfo.tableName}
           onChange={(e) =>
             setTableInfo((prev) => {
-              return { ...prev, tableNumber: e.target.value };
+              return { ...prev, tableName: e.target.value };
             })
           }
           type="text"

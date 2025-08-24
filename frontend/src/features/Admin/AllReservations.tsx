@@ -31,6 +31,8 @@ function AllReservations() {
       }),
   });
 
+  console.log(new Date());
+
   const {
     mutate: handleUpdateReservation,
     isPending: isUpdateReservationPending,

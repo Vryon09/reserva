@@ -23,7 +23,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
       additionalStyle="cursor-pointer gap-1 flex flex-col items-baseline min-h-40"
       onClick={() => setSelectedTable(table._id)}
     >
-      <p className="text-sm font-semibold">{table.tableNumber}</p>
+      <p className="text-sm font-semibold">{table.tableName}</p>
       <p className="text-sm">{table.notes}</p>
       <p className="text-sm">Capacity: {table.capacity}</p>
 
@@ -34,7 +34,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
         >
           <div className="flex max-w-[430px] flex-col gap-4">
             <div className="space-y-1">
-              <p className="font-semibold">{table.tableNumber}</p>
+              <p className="font-semibold">{table.tableName}</p>
               <p>{table.notes}</p>
               <p>Capacity: {table.capacity}</p>
             </div>
@@ -83,7 +83,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
                     return;
                   }
 
-                  dispatch({ type: "setTable", payload: table.tableNumber });
+                  dispatch({ type: "setTable", payload: table.tableName });
                   navigate(`/reserve/personal-information`);
                 }}
               >
@@ -127,7 +127,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
                   return;
                 }
 
-                dispatch({ type: "setTable", payload: table.tableNumber });
+                dispatch({ type: "setTable", payload: table.tableName });
                 navigate(`/reserve/personal-information`);
               }}
             >

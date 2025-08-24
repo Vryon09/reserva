@@ -8,15 +8,25 @@ import CodeReveal from "./CodeReveal";
 import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
 import toast from "react-hot-toast";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 function PersonalInformationForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const { dispatch, time, date, table } = useReservationForm();
+  const { dispatch, time, date, tableName } = useReservationForm();
   // const [time, setTime] = useState("");
   const [isReserved, setIsReserved] = useState(false);
   const [reservationCode, setReservationCode] = useState("");
   const navigate = useNavigate();
+
+  const combinedDateTime = dayjs(`${date} ${time}`, "YYYY-MM-DD HH:mm").tz(
+    "Asia/Manila",
+  );
 
   useEffect(() => {
     setReservationCode(nanoid(4));
@@ -33,25 +43,23 @@ function PersonalInformationForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (table === undefined) {
+    if (tableName === undefined) {
       console.log("Table number not found");
       return;
     }
 
     try {
       const createdReservation = await handleAddReservation({
-        tableNumber: table,
+        tableName,
         name,
         phone,
-        date,
-        time,
+        reservationDate: combinedDateTime.format(),
         reservationCode,
       });
 
       await handleAddReservationInTable({
-        tableName: table,
-        time,
-        date,
+        tableName,
+        reservationDate: combinedDateTime.format(),
         _id: createdReservation._id,
       });
 
