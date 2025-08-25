@@ -11,6 +11,7 @@ import type { ReservationTypes } from "../Admin/ManageReservations";
 import Button from "../../ui/Button";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
+//FIX THE Monitor Reservation Component
 
 function MonitorReservation() {
   const { reservationCode } = useParams();

@@ -47,10 +47,18 @@ export async function getReservationByCode(req, res) {
     if (req.params.reservationCode.length > 4) {
       const credentials = req.params.reservationCode.split(",");
       const userDate = new Date(credentials[2]);
+
+      const start = dayjs(credentials[2])
+        .tz("Asia/Manila")
+        .startOf("day")
+        .toDate();
+      const end = dayjs(credentials[2]).tz("Asia/Manila").endOf("day").toDate();
+      console.log(start, end);
+
       const filter = {
         name: credentials[0],
         phone: credentials[1],
-        date: userDate.toISOString(),
+        reservationDate: { $gte: start, $lte: end },
       };
       const reservation = await Reservation.find(filter);
       res.status(200).json(reservation);
