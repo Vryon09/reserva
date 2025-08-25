@@ -59,7 +59,7 @@ function MonitorReservation() {
     return (
       <div className="space-y-4">
         <p className="mb-4 text-2xl font-bold">Search Results</p>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {reservation.map((res: ReservationTypes) => (
             <ReservationCard
               key={res._id}
