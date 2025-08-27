@@ -1,26 +1,8 @@
 import { format } from "date-fns";
-import type { ReservationTypes } from "./ManageReservations";
 import ConfirmedReservationAction from "./ConfirmedReservationAction";
 import RequestReservationAction from "./RequestReservationAction";
-import type { ReservationPayload } from "../../services/apiReservation";
 import Card from "../../ui/Card";
-
-interface ReservationProps {
-  reservation: ReservationTypes;
-  reservationType: string;
-  handleUpdate: (
-    id: string,
-    updatedReservation: Partial<ReservationPayload>,
-  ) => void;
-}
-
-export interface ReservationActionProps {
-  reservation: ReservationTypes;
-  handleUpdate: (
-    id: string,
-    updatedReservation: Partial<ReservationPayload>,
-  ) => void;
-}
+import type { ReservationProps } from "./types";
 
 // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 

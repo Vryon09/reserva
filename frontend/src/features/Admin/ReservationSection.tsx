@@ -1,17 +1,7 @@
-import {
-  useUpdateReservation,
-  type ReservationPayload,
-} from "../../services/apiReservation";
+import { useUpdateReservation } from "../../services/apiReservation";
 import Loader from "../../ui/Loader";
-import type { ReservationTypes } from "./ManageReservations";
 import Reservation from "./Reservation";
-
-interface ReservationSectionProps {
-  isReservationPending: boolean;
-  reservations: ReservationTypes[];
-  reservationType: string;
-  isTodaysReservation?: boolean;
-}
+import type { ReservationPayload, ReservationSectionProps } from "./types";
 
 function ReservationSection({
   isReservationPending,

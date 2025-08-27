@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Modal from "../../ui/Modal";
-import type { Table, TableInfo } from "./ManageTables";
 import { useDeleteTable, useUpdateTable } from "../../services/apiTable";
 import TableForm from "./TableForm";
 import DeleteForm from "./DeleteForm";
 import Button from "../../ui/Button";
 import Card from "../../ui/Card";
+import type { Table } from "./types";
 
 interface AdminTablesProps {
   tables: Table[];
@@ -22,7 +22,7 @@ function AdminTables({ tables }: AdminTablesProps) {
     editTable: "",
   });
 
-  const [editDatas, setEditDatas] = useState<TableInfo>({
+  const [editDatas, setEditDatas] = useState<Partial<Table>>({
     tableName: "",
     capacity: 0,
     notes: "",

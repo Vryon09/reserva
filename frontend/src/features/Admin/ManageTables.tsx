@@ -3,20 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import AddTableButton from "./AddTableButton";
 import AdminTables from "./AdminTables";
 import Loader from "../../ui/Loader";
-
-export interface Table {
-  tableName: string;
-  capacity: number;
-  notes: string;
-  status: string;
-  _id: string;
-}
-
-export interface TableInfo {
-  tableName: string;
-  capacity: number;
-  notes: string;
-}
+import type { Table } from "./types";
 
 function ManageTables() {
   const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({

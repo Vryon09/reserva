@@ -4,8 +4,8 @@ import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import CancelReservation from "./CancelReservation";
 import toast from "react-hot-toast";
-import type { ReservationTypes } from "../Admin/ManageReservations";
 import { useState } from "react";
+import type { ReservationTypes } from "../Admin/types";
 
 interface ReservationCardProps {
   isReservationPending: boolean;

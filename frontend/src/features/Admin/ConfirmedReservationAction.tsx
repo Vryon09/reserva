@@ -1,5 +1,5 @@
 import Button from "../../ui/Button";
-import type { ReservationActionProps } from "./Reservation";
+import type { ReservationActionProps } from "./types";
 
 function ConfirmedReservationAction({
   reservation,

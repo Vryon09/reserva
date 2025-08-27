@@ -14,7 +14,7 @@ import AdminLogin from "./pages/AdminLogin";
 // import AllReservations from "./features/Admin/AllReservations";
 import { Toaster } from "react-hot-toast";
 import ForgotCode from "./features/Reservation/ForgotCode";
-import AdminDashboard from "./features/Admin/AdminDashboard";
+import AdminDashboard from "./features/Admin/Dashboard/AdminDashboard";
 import ManageReservations from "./features/Admin/ManageReservations";
 import ManageTables from "./features/Admin/ManageTables";
 import AllReservations from "./features/Admin/AllReservations";

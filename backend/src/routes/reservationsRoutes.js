@@ -4,7 +4,8 @@ import {
   deleteReservation,
   getAllReservations,
   getReservationByCode,
-  getTodaysReservation,
+  getResNextXHrs,
+  getTodaysStats,
   updateReservation,
 } from "../controllers/reservationsController.js";
 
@@ -12,7 +13,9 @@ const router = express.Router();
 
 router.get("/", getAllReservations);
 
-router.get("/today", getTodaysReservation);
+router.get("/stats", getTodaysStats);
+
+router.get("/reservation-hour", getResNextXHrs);
 
 router.get("/:reservationCode", getReservationByCode);
 

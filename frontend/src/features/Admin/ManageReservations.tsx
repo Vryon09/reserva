@@ -2,20 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllReservation } from "../../services/apiReservation";
 import ReservationSection from "./ReservationSection";
 import AllReservationsButton from "./AllReservationsButton";
-export interface ReservationTypes {
-  _id: string;
-  tableName: string;
-  name: string;
-  phone: string;
-  reservationDate: string;
-  status: string;
-  reservationCode: string;
-}
-
-export interface ReservationResponseTypes {
-  reservations: ReservationTypes[];
-  total: number;
-}
+import type { ReservationResponseTypes } from "./types";
 
 function ManageReservations() {
   const {

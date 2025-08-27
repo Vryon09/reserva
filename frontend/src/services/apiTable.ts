@@ -1,13 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import type { Table } from "../features/Admin/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-interface TablePayload {
-  tableName: string;
-  capacity: number;
-  notes: string;
-}
 
 export async function getAllTables({
   queryString,
@@ -29,7 +24,7 @@ export async function getAllTables({
   }
 }
 
-async function handleAddTable(newTable: TablePayload) {
+async function handleAddTable(newTable: Partial<Table>) {
   try {
     await fetch(`${API_BASE_URL}/api/tables`, {
       method: "POST",
@@ -88,7 +83,7 @@ async function handleUpdateTable({
   updatedTable,
 }: {
   id: string;
-  updatedTable: TablePayload;
+  updatedTable: Partial<Table>;
 }) {
   try {
     await fetch(`${API_BASE_URL}/api/tables/${id}`, {

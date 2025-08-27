@@ -7,6 +7,15 @@ import {
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 //make the confirm button work
+interface ReservationPayload {
+  _id?: string;
+  tableName: string;
+  name: string;
+  phone: string;
+  reservationDate: string;
+  reservationCode?: string;
+  status?: string;
+}
 
 export async function getAllReservation({
   queryString,
@@ -32,23 +41,25 @@ export async function getAllReservation({
   }
 }
 
-export async function getTodaysReservation({
-  status,
-  limit,
-  page,
-}: {
-  status: string;
-  limit: number;
-  page: number;
-}) {
+export async function getTodaysStats() {
   try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/reservations/today?status=${status}&limit=${limit}&page=${page}`,
-    );
+    const res = await fetch(`${API_BASE_URL}/api/reservations/stats`);
 
     const data = await res.json();
 
-    console.log("Reservations retrieved successfully!");
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getResNextXHrs({ hours }: { hours: number }) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/reservation-hour?hours=${hours}`,
+    );
+
+    const data = await res.json();
 
     return data || [];
   } catch (error) {
@@ -69,16 +80,6 @@ export async function getTodaysReservation({
 //     console.log(error);
 //   }
 // }
-
-export interface ReservationPayload {
-  _id?: string;
-  tableName: string;
-  name: string;
-  phone: string;
-  reservationDate: string;
-  reservationCode?: string;
-  status?: string;
-}
 
 export async function handleAddReservation(newReservation: ReservationPayload) {
   try {

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useAddTable } from "../../services/apiTable";
 import Modal from "../../ui/Modal";
-import type { TableInfo } from "./ManageTables";
 import TableForm from "./TableForm";
 import Button from "../../ui/Button";
 import toast from "react-hot-toast";
+import type { Table } from "./types";
 
 const initialTableInfo = {
   tableName: "",
@@ -14,7 +14,7 @@ const initialTableInfo = {
 
 function AddTableButton() {
   const [isAddTableOpen, setIsAddTableOpen] = useState<boolean>(false);
-  const [tableInfo, setTableInfo] = useState<TableInfo>(initialTableInfo);
+  const [tableInfo, setTableInfo] = useState<Partial<Table>>(initialTableInfo);
 
   const { mutate: handleAddTable } = useAddTable();
 

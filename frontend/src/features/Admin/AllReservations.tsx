@@ -2,13 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getAllReservation,
   useUpdateReservation,
-  type ReservationPayload,
 } from "../../services/apiReservation";
 import Reservation from "./Reservation";
 import { useState } from "react";
-import type { ReservationResponseTypes } from "./ManageReservations";
 import Loader from "../../ui/Loader";
 import Pagination from "../../ui/Pagination";
+import type { ReservationPayload, ReservationResponseTypes } from "./types";
 
 function AllReservations() {
   const [page, setPage] = useState(1);

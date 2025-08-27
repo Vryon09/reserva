@@ -7,8 +7,8 @@ import {
 import { useDeleteReservationInTable } from "../../services/apiTable";
 import ReservationCard from "./ReservationCard";
 import Loader from "../../ui/Loader";
-import type { ReservationTypes } from "../Admin/ManageReservations";
 import Button from "../../ui/Button";
+import type { ReservationTypes } from "../Admin/types";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 //FIX THE Monitor Reservation Component

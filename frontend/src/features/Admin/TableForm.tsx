@@ -1,13 +1,5 @@
 import Button from "../../ui/Button";
-import type { TableInfo } from "./ManageTables";
-
-interface TableFormProps {
-  handleSubmit: () => void;
-  tableInfo: TableInfo;
-  setTableInfo: React.Dispatch<React.SetStateAction<TableInfo>>;
-  action: string;
-  handleCloseModal: () => void;
-}
+import type { TableFormProps } from "./types";
 
 const tableSeatsArray = [2, 4, 6, 8, 10, 15, 20, 30, 50];
 

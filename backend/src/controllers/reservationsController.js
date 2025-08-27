@@ -79,30 +79,76 @@ export async function getReservationByCode(req, res) {
   }
 }
 
-export async function getTodaysReservation(req, res) {
-  const limit = +req.query.limit || 6;
-  const page = +req.query.page || 1;
-
+export async function getTodaysStats(req, res) {
   try {
     const start = dayjs().tz("Asia/Manila").startOf("day").toDate();
     const end = dayjs().tz("Asia/Manila").endOf("day").toDate();
 
-    const filter = { reservationDate: { $gte: start, $lte: end } };
-    const { status } = req.query;
+    const tomStart = dayjs()
+      .tz("Asia/Manila")
+      .add(1, "day")
+      .startOf("day")
+      .toDate();
+    const tomEnd = dayjs()
+      .tz("Asia/Manila")
+      .add(1, "day")
+      .endOf("day")
+      .toDate();
 
-    if (status !== "all") {
-      filter.status = status;
-    }
+    const stats = await Reservation.aggregate([
+      {
+        $match: {
+          reservationDate: { $gte: start, $lte: end },
+          status: { $in: ["confirmed", "rejected", "seated", "done"] },
+        },
+      },
+      {
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
 
-    const total = await Reservation.countDocuments(filter);
+    const pendingTom = await Reservation.countDocuments({
+      reservationDate: { $gte: tomStart, $lte: tomEnd },
+      status: "pending",
+    });
 
-    const reservations = await Reservation.find(filter)
-      .limit(limit)
-      .skip((page - 1) * limit)
-      .sort({ createdAt: -1 });
-    res.status(200).json({ reservations, total });
+    const statuses = ["confirmed", "rejected", "seated", "done"];
+    const result = [];
+    statuses.forEach((status) => {
+      const found = stats.find((s) => s._id === status);
+      result.push({ status, count: found ? found.count : 0 });
+    });
+
+    result.push({ status: "pending", count: pendingTom });
+
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error in getAllReservation controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
+export async function getResNextXHrs(req, res) {
+  try {
+    const { hours } = req.query;
+
+    const start = dayjs().tz("Asia/Manila").toDate();
+    const end = dayjs().tz("Asia/Manila").add(+hours, "hour").toDate();
+
+    console.log("Start: " + start);
+    console.log("End: " + end);
+
+    const reservations = await Reservation.find({
+      status: "confirmed",
+      reservationDate: { $gte: start, $lte: end },
+    });
+
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error("Error in getResNextXHrs controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
