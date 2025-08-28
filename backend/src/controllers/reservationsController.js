@@ -46,14 +46,13 @@ export async function getReservationByCode(req, res) {
   try {
     if (req.params.reservationCode.length > 4) {
       const credentials = req.params.reservationCode.split(",");
-      const userDate = new Date(credentials[2]);
+      // const userDate = new Date(credentials[2]);
 
       const start = dayjs(credentials[2])
         .tz("Asia/Manila")
         .startOf("day")
         .toDate();
       const end = dayjs(credentials[2]).tz("Asia/Manila").endOf("day").toDate();
-      console.log(start, end);
 
       const filter = {
         name: credentials[0],
@@ -138,15 +137,16 @@ export async function getResNextXHrs(req, res) {
     const start = dayjs().tz("Asia/Manila").toDate();
     const end = dayjs().tz("Asia/Manila").add(+hours, "hour").toDate();
 
-    console.log("Start: " + start);
-    console.log("End: " + end);
-
-    const reservations = await Reservation.find({
+    const filter = {
       status: "confirmed",
       reservationDate: { $gte: start, $lte: end },
-    });
+    };
 
-    res.status(200).json(reservations);
+    const reservations = await Reservation.find(filter);
+
+    const total = await Reservation.countDocuments(filter);
+
+    res.status(200).json({ reservations, total });
   } catch (error) {
     console.error("Error in getResNextXHrs controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });

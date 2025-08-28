@@ -20,7 +20,7 @@ function TodaysStats() {
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold">Today's Stats</h2>
-      <div className="lg: mx-2 grid grid-cols-3 gap-4 lg:grid-cols-3">
+      <div className="mx-2 grid grid-cols-2 gap-4 md:grid-cols-3">
         {todaysStats?.map((stat) => <Stat stat={stat} key={stat.status} />)}
       </div>
     </div>
