@@ -35,6 +35,9 @@ function ResNextXHours() {
           ))}
         </div>
       )}
+      {!total && (
+        <p className="text-sm">No one will arrive in the next 3 hours😥</p>
+      )}
     </div>
   );
 }
