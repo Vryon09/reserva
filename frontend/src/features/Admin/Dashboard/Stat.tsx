@@ -7,22 +7,22 @@ function Stat({ stat }: { stat: StatsTypes }) {
       style={{
         backgroundColor:
           stat.status === "confirmed"
-            ? "oklch(72.3% 0.219 149.579)" // green
+            ? "#22c55e" // green-500
             : stat.status === "rejected"
-              ? "oklch(57.7% 0.245 27.325)" // red
+              ? "#ef4444" // red-500
               : stat.status === "seated"
-                ? "oklch(54.6% 0.245 262.881)" // blue
+                ? "#3b82f6" // blue-500
                 : stat.status === "done"
-                  ? "oklch(43.9% 0 0)" // gray
+                  ? "#6b7280" // gray-500
                   : stat.status === "pending"
-                    ? "oklch(70.5% 0.213 47.604)" // orange (next day)
-                    : "#FFFFFF", // default (white)
+                    ? "#f97316" // orange-500
+                    : "#ffffff", // default (white)
       }}
     >
       <p>
         {stat.status}
         {stat.status === "pending" && (
-          <span className="text-xs text-orange-600">(Next Day)</span>
+          <span className="text-xs">(Next Day)</span>
         )}
       </p>
       <p className="text-2xl font-semibold">{stat.count}</p>
