@@ -24,7 +24,7 @@ function ReservationForm() {
       toast.error(
         "Reservation date should not be on the same day or in the past.",
       );
-      return;
+      // return;
     }
 
     if (partySize === "none" || date === "") {

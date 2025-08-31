@@ -9,10 +9,7 @@ dayjs.extend(timezone);
 export async function getAllTables(req, res) {
   try {
     const filter = {};
-
-    if (req.query.partySize) {
-      filter.capacity = { $gte: +req.query.partySize };
-    }
+    let tables;
 
     if (req.query.nexthours) {
       const start = dayjs(new Date()).startOf("hour").add(1, "hour").toDate();
@@ -22,12 +19,34 @@ export async function getAllTables(req, res) {
         .add(req.query.nexthours, "hour")
         .toDate();
 
-      filter["reservations.reservationDate"] = { $gte: start, $lte: end };
+      tables = await Table.aggregate([
+        {
+          $project: {
+            tableName: 1,
+            reservations: {
+              $filter: {
+                input: "$reservations",
+                as: "r",
+                cond: {
+                  $and: [
+                    { $gte: ["$$r.reservationDate", start] },
+                    {
+                      $lte: ["$$r.reservationDate", end],
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      ]);
     }
 
-    console.log(filter);
+    if (req.query.partySize) {
+      filter.capacity = { $gte: +req.query.partySize };
+      tables = await Table.find(filter).sort({ capacity: 1 });
+    }
 
-    const tables = await Table.find(filter).sort({ capacity: 1 });
     res.status(200).json(tables);
   } catch (error) {
     console.error("Error in getAllTables controller.", error);
