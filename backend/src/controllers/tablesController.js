@@ -1,4 +1,10 @@
 import Table from "../models/Table.js";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export async function getAllTables(req, res) {
   try {
@@ -7,6 +13,19 @@ export async function getAllTables(req, res) {
     if (req.query.partySize) {
       filter.capacity = { $gte: +req.query.partySize };
     }
+
+    if (req.query.nexthours) {
+      const start = dayjs(new Date()).startOf("hour").add(1, "hour").toDate();
+
+      const end = dayjs(new Date())
+        .startOf("hour")
+        .add(req.query.nexthours, "hour")
+        .toDate();
+
+      filter["reservations.reservationDate"] = { $gte: start, $lte: end };
+    }
+
+    console.log(filter);
 
     const tables = await Table.find(filter).sort({ capacity: 1 });
     res.status(200).json(tables);
@@ -70,7 +89,7 @@ export async function deleteTable(req, res) {
 }
 export async function addReservationInTable(req, res) {
   try {
-    const { tableName, reservationDate, _id } = req.body;
+    const { tableName, name, phone, reservationDate, _id } = req.body;
 
     const table = await Table.findOne({ tableName: tableName });
 
@@ -86,7 +105,7 @@ export async function addReservationInTable(req, res) {
       return res.status(404).json({ message: "Table not found" });
     }
 
-    table.reservations.push({ reservationDate, _id });
+    table.reservations.push({ reservationDate, name, phone, _id });
 
     await table.save();
 
@@ -113,19 +132,6 @@ export async function deleteReservationInTable(req, res) {
         message: "No reservation with that date was found in the table.",
       });
     }
-    // const table = await Table.findOne({ tableName: tableName });
-
-    // if (!table) {
-    //   return res.status(404).json({ message: "Table not found." });
-    // }
-
-    // table.reservations = table.reservations.filter((reservation) => {
-    //   console.log("filter");
-    //   console.log(reservation.reservationDate);
-    //   return !(reservation.reservationDate.toISOString() === reservationDate);
-    // });
-
-    // await table.save();
   } catch (error) {
     console.error("Error in deleteReservationInTable controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });

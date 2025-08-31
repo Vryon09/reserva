@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 const reservationSchema = new mongoose.Schema(
   {
     reservationDate: { type: Date, required: true },
+    name: { type: String, required: true },
+    phone: { type: String, required: true },
   },
   {
     timestamps: true,

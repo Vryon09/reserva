@@ -18,6 +18,7 @@ export interface Table {
   capacity: number;
   notes: string;
   status: string;
+  reservations: Partial<ReservationTypes[]>;
   _id: string;
 }
 

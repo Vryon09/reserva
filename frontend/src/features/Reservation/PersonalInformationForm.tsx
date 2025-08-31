@@ -59,6 +59,8 @@ function PersonalInformationForm() {
 
       await handleAddReservationInTable({
         tableName,
+        name,
+        phone,
         reservationDate: combinedDateTime.format(),
         _id: createdReservation._id,
       });
