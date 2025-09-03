@@ -125,7 +125,57 @@ export async function getTodaysStats(req, res) {
 
     res.status(200).json(result);
   } catch (error) {
-    console.error("Error in getAllReservation controller.", error);
+    console.error("Error in getTodaysStats controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
+export async function getReservationEachDay(req, res) {
+  try {
+    const { status } = req.query;
+
+    const pipeline = [];
+
+    if (status && status !== "all") {
+      pipeline.push({
+        $match: {
+          status: status,
+        },
+      });
+    }
+
+    pipeline.push({
+      $group: {
+        _id: { $dayOfWeek: "$reservationDate" },
+        reservationDates: { $push: "$reservationDate" },
+      },
+    });
+
+    const reservationDatas = await Reservation.aggregate(pipeline);
+
+    const reservationEachDay = [];
+    const dayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    dayNames.forEach((day, i) => {
+      const currDay = reservationDatas.find((data) => data._id - 1 === i);
+      const currDayObj = {
+        _id: day,
+        reservationDates: currDay ? currDay.reservationDates.length : 0,
+      };
+      reservationEachDay.push(currDayObj);
+    });
+
+    res.status(200).json(reservationEachDay);
+  } catch (err) {
+    console.error("Error in getReservationEachDay controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }

@@ -4,6 +4,7 @@ import {
   deleteReservation,
   getAllReservations,
   getReservationByCode,
+  getReservationEachDay,
   getResNextXHrs,
   getTodaysStats,
   updateReservation,
@@ -16,6 +17,8 @@ router.get("/", getAllReservations);
 router.get("/stats", getTodaysStats);
 
 router.get("/reservation-hour", getResNextXHrs);
+
+router.get("/eachday", getReservationEachDay);
 
 router.get("/:reservationCode", getReservationByCode);
 

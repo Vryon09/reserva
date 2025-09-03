@@ -67,6 +67,20 @@ export async function getResNextXHrs({ hours }: { hours: number }) {
   }
 }
 
+export async function getReservationEachDay({ status }: { status: string }) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/eachday?status=${status}`,
+    );
+
+    const data = await res.json();
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // export async function getAllConfirmedReservation() {
 //   try {
 //     const res = await fetch(`${API_BASE_URL}/api/reservations/confirmed`);

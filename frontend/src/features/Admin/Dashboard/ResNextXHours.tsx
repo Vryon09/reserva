@@ -23,7 +23,7 @@ function ResNextXHours() {
     );
   });
 
-  console.log(hours);
+  // console.log(hours);
 
   const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({
     queryKey: ["tables"],
@@ -61,7 +61,7 @@ function ResNextXHours() {
                 <div
                   key={reservation?._id}
                   style={{ gridColumnStart: start + 2 }}
-                  className="col-span-1 rounded-2xl bg-yellow-500 text-center text-white"
+                  className="rounded-2xl bg-yellow-500 text-center text-white"
                 >
                   <p className="line-clamp-1">{reservation?.name}</p>
                 </div>
