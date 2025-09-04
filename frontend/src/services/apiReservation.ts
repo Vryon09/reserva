@@ -67,7 +67,11 @@ export async function getResNextXHrs({ hours }: { hours: number }) {
   }
 }
 
-export async function getReservationEachDay({ status }: { status: string }) {
+export async function getReservationCountsByDay({
+  status,
+}: {
+  status: string;
+}) {
   try {
     const res = await fetch(
       `${API_BASE_URL}/api/reservations/eachday?status=${status}`,

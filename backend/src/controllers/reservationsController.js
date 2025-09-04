@@ -130,31 +130,35 @@ export async function getTodaysStats(req, res) {
   }
 }
 
-export async function getReservationEachDay(req, res) {
+export async function getReservationCountsByDay(req, res) {
   try {
     const { status } = req.query;
-
-    const pipeline = [];
+    const filter = {};
 
     if (status && status !== "all") {
-      pipeline.push({
-        $match: {
-          status: status,
-        },
-      });
+      filter.status = status;
     }
+    // const pipeline = [];
 
-    pipeline.push({
-      $group: {
-        _id: { $dayOfWeek: "$reservationDate" },
-        reservationDates: { $push: "$reservationDate" },
-      },
-    });
+    // if (status && status !== "all") {
+    //   pipeline.push({
+    //     $match: {
+    //       status: status,
+    //     },
+    //   });
+    // }
 
-    const reservationDatas = await Reservation.aggregate(pipeline);
+    // pipeline.push({
+    //   $group: {
+    //     _id: { $dayOfWeek: "$reservationDate" },
+    //     reservationDates: { $push: "$reservationDate" },
+    //   },
+    // });
 
-    const reservationEachDay = [];
-    const dayNames = [
+    // const reservationDatas = await Reservation.aggregate(pipeline);
+
+    const resp = [];
+    const dayNamess = [
       "Sunday",
       "Monday",
       "Tuesday",
@@ -164,18 +168,62 @@ export async function getReservationEachDay(req, res) {
       "Saturday",
     ];
 
-    dayNames.forEach((day, i) => {
-      const currDay = reservationDatas.find((data) => data._id - 1 === i);
-      const currDayObj = {
-        _id: day,
-        reservationDates: currDay ? currDay.reservationDates.length : 0,
-      };
-      reservationEachDay.push(currDayObj);
+    const allReservations = await Reservation.find(filter);
+
+    const allReservationDates = allReservations.map(
+      (reservation) => reservation.reservationDate
+    );
+
+    dayNamess.forEach((day) => {
+      const currDayDates = allReservationDates.filter(
+        (date) => day === dayjs(date).tz("Asia/Manila").format("dddd")
+      ).length;
+
+      resp.push({ _id: day, reservationDates: currDayDates });
     });
 
-    res.status(200).json(reservationEachDay);
+    console.log(resp);
+    // const allReservations = [];
+
+    // reservationDatas.forEach((data) => {
+    //   allReservations.push(...data.reservationDates);
+    // });
+
+    // const allReservationsDay = allReservations.map((date) => {
+    //   return dayjs(date).format("dddd");
+    // });
+
+    // const allReservationsDayPH = allReservations.map((day) =>
+    //   dayjs(day).tz("Asia/Manila").format("dddd")
+    // );
+
+    // console.log(allReservationsDay);
+    // console.log(allReservationsDayPH);
+    // console.log(reservationDatas);
+
+    // const reservationEachDay = [];
+    // const dayNames = [
+    //   "Sunday",
+    //   "Monday",
+    //   "Tuesday",
+    //   "Wednesday",
+    //   "Thursday",
+    //   "Friday",
+    //   "Saturday",
+    // ];
+
+    // dayNames.forEach((day, i) => {
+    //   const currDay = reservationDatas.find((data) => data._id - 1 === i);
+    //   const currDayObj = {
+    //     _id: day,
+    //     reservationDates: currDay ? currDay.reservationDates.length : 0,
+    //   };
+    //   reservationEachDay.push(currDayObj);
+    // });
+
+    res.status(200).json(resp);
   } catch (err) {
-    console.error("Error in getReservationEachDay controller.", error);
+    console.error("Error in getReservationEachDay controller.", err);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
