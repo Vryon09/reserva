@@ -50,7 +50,7 @@ function ReservationCountsByDay() {
             {
               data: reservationCountsByDay?.map((day) => day.reservationDates),
               area: true,
-              color: "#39ff14",
+              color: "rgb(59, 131, 246, 0.3)",
             },
           ]}
           grid={{ vertical: true, horizontal: true }}

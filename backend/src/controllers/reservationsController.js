@@ -182,7 +182,7 @@ export async function getReservationCountsByDay(req, res) {
       resp.push({ _id: day, reservationDates: currDayDates });
     });
 
-    console.log(resp);
+    // console.log(resp);
     // const allReservations = [];
 
     // reservationDatas.forEach((data) => {

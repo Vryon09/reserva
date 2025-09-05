@@ -38,15 +38,18 @@ function ResNextXHours() {
         Arriving in the next {nextHours} hours
       </h2>
       <div className="w-[1000px] overflow-x-scroll lg:w-auto">
-        <div className="grid grid-cols-7 text-sm">
-          <p>Hour</p>
+        <div className="grid grid-cols-7 border-b border-neutral-300 py-2 text-sm">
+          <p className="font-semibold">Hour</p>
           {hours.map((hour) => (
             <p key={hour}>{hour}</p>
           ))}
         </div>
         {tables?.map((table) => (
-          <div key={table.tableName} className="grid grid-cols-7 text-sm">
-            <p>{table.tableName}</p>
+          <div
+            key={table.tableName}
+            className="grid grid-cols-7 border-b border-neutral-300 py-2 text-sm"
+          >
+            <p className="font-semibold">{table.tableName}</p>
             {table.reservations.map((reservation) => {
               const start = hours.findIndex(
                 (hour) =>
@@ -57,11 +60,22 @@ function ResNextXHours() {
                   ),
               );
 
+              const colStart = start + 2;
+
               return (
                 <div
                   key={reservation?._id}
-                  style={{ gridColumnStart: start + 2 }}
-                  className="rounded-2xl bg-yellow-500 text-center text-white"
+                  title={`${reservation?.name} (${table.tableName})`}
+                  style={{
+                    gridColumnStart: colStart,
+                    backgroundColor:
+                      colStart <= 3
+                        ? "#ef4444"
+                        : colStart <= 5
+                          ? "#f97316"
+                          : "#22c55e",
+                  }}
+                  className="rounded px-4 text-center text-white"
                 >
                   <p className="line-clamp-1">{reservation?.name}</p>
                 </div>

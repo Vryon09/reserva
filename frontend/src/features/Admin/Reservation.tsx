@@ -18,9 +18,7 @@ function Reservation({
         <p>Code: {reservation.reservationCode}</p>
         <p>Name: {reservation.name}</p>
         <p>Phone: {reservation.phone}</p>
-        <p>
-          {format(reservation.reservationDate, "MMMM d, yyyy, h:mm a, EEEE")}
-        </p>
+        <p>{format(reservation.reservationDate, "MMMM d, yyyy, h:mm a")}</p>
         <p>Status: {reservation.status}</p>
       </div>
 
