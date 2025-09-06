@@ -1,3 +1,4 @@
+import { useSyncTableStatus } from "../../services/apiTable";
 import Button from "../../ui/Button";
 import type { ReservationActionProps } from "./types";
 
@@ -5,6 +6,8 @@ function ConfirmedReservationAction({
   reservation,
   handleUpdate,
 }: ReservationActionProps) {
+  const { mutate: handleSyncTableStatus } = useSyncTableStatus();
+
   const now = new Date().toISOString().split("T")[0];
 
   return (
@@ -23,7 +26,14 @@ function ConfirmedReservationAction({
         reservation.reservationDate.split("T")[0] === now && (
           <Button
             type="confirm"
-            onClick={() => handleUpdate(reservation._id, { status: "seated" })}
+            onClick={() => {
+              handleUpdate(reservation._id, { status: "seated" });
+              handleSyncTableStatus({
+                tableName: reservation.tableName,
+                reservationId: reservation._id,
+                status: "seated",
+              });
+            }}
           >
             Seated
           </Button>
@@ -32,7 +42,14 @@ function ConfirmedReservationAction({
       {reservation.status === "seated" && (
         <Button
           type="confirm"
-          onClick={() => handleUpdate(reservation._id, { status: "done" })}
+          onClick={() => {
+            handleUpdate(reservation._id, { status: "done" });
+            handleSyncTableStatus({
+              tableName: reservation.tableName,
+              reservationId: reservation._id,
+              status: "done",
+            });
+          }}
         >
           Done
         </Button>
