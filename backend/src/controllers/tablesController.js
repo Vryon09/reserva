@@ -19,6 +19,7 @@ export async function getAllTables(req, res) {
         .add(req.query.nexthours, "hour")
         .toDate();
 
+      //add a status in table reservation for this to fix
       tables = await Table.aggregate([
         {
           $project: {
@@ -32,6 +33,9 @@ export async function getAllTables(req, res) {
                     { $gte: ["$$r.reservationDate", start] },
                     {
                       $lte: ["$$r.reservationDate", end],
+                    },
+                    {
+                      $eq: ["$$r.status", "confirmed"],
                     },
                   ],
                 },
@@ -50,6 +54,21 @@ export async function getAllTables(req, res) {
     res.status(200).json(tables);
   } catch (error) {
     console.error("Error in getAllTables controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
+export async function getTableByName(req, res) {
+  try {
+    const tableName = req.params.tableName;
+
+    const table = await Table.findOne({ tableName: tableName });
+
+    if (!table) return res.status(404).json({ message: "Table not found." });
+
+    res.status(200).json(table);
+  } catch (error) {
+    console.error("Error in getTableByName controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
@@ -73,13 +92,14 @@ export async function addTable(req, res) {
 
 export async function updateTable(req, res) {
   try {
-    const { tableName, capacity, notes } = req.body;
+    const { tableName, capacity, notes, reservations } = req.body;
     const updatedTable = await Table.findByIdAndUpdate(
       req.params.id,
       {
         tableName,
         capacity,
         notes,
+        reservations,
       },
       { new: true }
     );
@@ -153,6 +173,41 @@ export async function deleteReservationInTable(req, res) {
     }
   } catch (error) {
     console.error("Error in deleteReservationInTable controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
+export async function deleteAllTablesReservations(req, res) {
+  try {
+    const result = await Table.updateMany({}, { $set: { reservations: [] } });
+
+    res.status(200).json({
+      message: "All reservations deleted from all tables",
+      modifiedCount: result.modifiedCount,
+    });
+  } catch (error) {
+    console.error("Error in deleteAllTablesReservations controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
+export async function syncTableStatus(req, res) {
+  try {
+    const { tableName, reservationId } = req.params;
+    const { status } = req.body;
+
+    const result = await Table.updateOne(
+      { tableName: tableName, "reservations._id": reservationId },
+      { $set: { "reservations.$.status": status } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "Reservation not found." });
+    }
+
+    res.status(200).json({ message: "Status updated successfully" });
+  } catch (error) {
+    console.error("Error in syncTableStatus controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }

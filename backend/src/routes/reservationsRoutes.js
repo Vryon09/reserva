@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addReservation,
+  deleteAllReservations,
   deleteReservation,
   getAllReservations,
   getReservationByCode,
@@ -21,6 +22,8 @@ router.get("/reservation-hour", getResNextXHrs);
 router.get("/eachday", getReservationCountsByDay);
 
 router.get("/:reservationCode", getReservationByCode);
+
+router.delete("/deleteallres", deleteAllReservations);
 
 router.post("/", addReservation);
 

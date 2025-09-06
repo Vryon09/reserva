@@ -306,3 +306,16 @@ export async function deleteReservation(req, res) {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
+
+export async function deleteAllReservations(req, res) {
+  try {
+    const result = await Reservation.deleteMany({});
+    res.status(200).json({
+      message: "All reservations deleted successfully",
+      deletedCount: result.deletedCount,
+    });
+  } catch (error) {
+    console.error("Error in deleteAllReservations controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}

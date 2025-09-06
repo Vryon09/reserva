@@ -24,6 +24,20 @@ export async function getAllTables({
   }
 }
 
+export async function handleGetTableByName(tableName: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/tables/${tableName}`);
+
+    if (!res.ok) throw new Error("No reservation found.");
+
+    const data = await res.json();
+
+    return data || {};
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function handleAddTable(newTable: Partial<Table>) {
   try {
     await fetch(`${API_BASE_URL}/api/tables`, {
@@ -179,6 +193,44 @@ export function useDeleteReservationInTable() {
     mutationFn: handleDeleteReservationInTable,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tables"] });
+    },
+  });
+}
+
+async function handleSyncTableStatus({
+  tableName,
+  reservationId,
+  status,
+}: {
+  tableName: string;
+  reservationId: string;
+  status: string;
+}) {
+  try {
+    await fetch(
+      `${API_BASE_URL}/api/tables/${tableName}/reservations/${reservationId}/status`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function useSyncTableStatus() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: handleSyncTableStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tables"] });
+      toast.success("Table synced successfully!");
+    },
+    onError: () => {
+      toast.error("Failed to sync a table reservation status");
     },
   });
 }

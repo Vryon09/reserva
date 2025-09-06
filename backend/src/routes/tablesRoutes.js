@@ -2,9 +2,12 @@ import express from "express";
 import {
   addReservationInTable,
   addTable,
+  deleteAllTablesReservations,
   deleteReservationInTable,
   deleteTable,
   getAllTables,
+  getTableByName,
+  syncTableStatus,
   updateTable,
 } from "../controllers/tablesController.js";
 
@@ -14,11 +17,17 @@ const router = express.Router();
 
 router.get("/", getAllTables);
 
+router.get("/:tableName", getTableByName);
+
 router.post("/", addTable);
 
 router.post("/reservation", addReservationInTable);
 
 router.delete("/reservation", deleteReservationInTable);
+
+router.delete("/deleteallres", deleteAllTablesReservations);
+
+router.patch("/:tableName/reservations/:reservationId/status", syncTableStatus);
 
 router.patch("/:id", updateTable);
 
