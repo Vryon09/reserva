@@ -19,12 +19,7 @@ function Stat({ stat }: { stat: StatsTypes }) {
                     : "#ffffff", // default (white)
       }}
     >
-      <p>
-        {stat.status}
-        {stat.status === "pending" && (
-          <span className="text-xs">(Next Day)</span>
-        )}
-      </p>
+      <p>{stat.status}</p>
       <p className="text-2xl font-semibold">{stat.count}</p>
     </div>
   );

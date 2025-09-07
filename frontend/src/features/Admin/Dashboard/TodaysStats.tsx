@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTodaysStats } from "../../../services/apiReservation";
 import Loader from "../../../ui/Loader";
 import Stat from "./Stat";
+import Card from "../../../ui/Card";
 
 export interface StatsTypes {
   status: string;
@@ -18,12 +19,12 @@ function TodaysStats() {
 
   if (isTodaysStatsPending) return <Loader />;
   return (
-    <div>
+    <Card>
       <h2 className="mb-4 text-lg font-semibold">Today's Stats</h2>
-      <div className="mx-2 grid grid-cols-2 gap-2 md:grid-cols-3">
+      <div className="mx-2 grid grid-cols-2 gap-2 xl:grid-cols-3">
         {todaysStats?.map((stat) => <Stat stat={stat} key={stat.status} />)}
       </div>
-    </div>
+    </Card>
   );
 }
 

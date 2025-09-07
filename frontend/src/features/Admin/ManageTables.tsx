@@ -12,16 +12,20 @@ function ManageTables() {
   });
 
   return (
-    <div className="space-y-4">
-      <AddTableButton />
+    <div>
+      <h2 className="mb-4 text-3xl font-semibold">Tables</h2>
 
-      {isTablesPending ? (
-        <Loader />
-      ) : !tables?.length ? (
-        <p>No Tables</p>
-      ) : (
-        <AdminTables tables={tables} />
-      )}
+      <div className="space-y-4">
+        <AddTableButton />
+
+        {isTablesPending ? (
+          <Loader />
+        ) : !tables?.length ? (
+          <p>No Tables</p>
+        ) : (
+          <AdminTables tables={tables} />
+        )}
+      </div>
     </div>
   );
 }

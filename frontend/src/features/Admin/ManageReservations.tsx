@@ -38,20 +38,24 @@ function ManageReservations() {
   });
 
   return (
-    <div className="space-y-4">
-      <AllReservationsButton />
+    <div>
+      <h2 className="mb-4 text-3xl font-semibold">Reservations</h2>
 
-      <ReservationSection
-        isReservationPending={isConfirmedReservationsPending}
-        reservations={confirmedReservations ?? []}
-        reservationType="confirmed"
-      />
+      <div className="space-y-4">
+        <AllReservationsButton />
 
-      <ReservationSection
-        isReservationPending={isRequestReservationsPending}
-        reservations={requestReservations ?? []}
-        reservationType="requested"
-      />
+        <ReservationSection
+          isReservationPending={isConfirmedReservationsPending}
+          reservations={confirmedReservations ?? []}
+          reservationType="confirmed"
+        />
+
+        <ReservationSection
+          isReservationPending={isRequestReservationsPending}
+          reservations={requestReservations ?? []}
+          reservationType="requested"
+        />
+      </div>
     </div>
   );
 }

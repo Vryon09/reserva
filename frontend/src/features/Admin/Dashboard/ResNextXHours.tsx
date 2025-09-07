@@ -6,12 +6,13 @@ import { getAllTables } from "../../../services/apiTable";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
+import Card from "../../../ui/Card";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 function ResNextXHours() {
-  const nextHours = 6;
+  const nextHours = 3;
 
   const hours = Array.from({ length: nextHours }, (_, i) => {
     return format(
@@ -26,65 +27,76 @@ function ResNextXHours() {
   // console.log(hours);
 
   const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({
-    queryKey: ["tables"],
-    queryFn: () => getAllTables({ queryString: "nexthours", value: "6" }),
+    queryKey: ["tables", nextHours],
+    queryFn: () =>
+      getAllTables({ queryString: "nexthours", value: `${nextHours}` }),
   });
 
   if (isTablesPending) return <Loader />;
 
   return (
-    <div className="max-w-full overflow-x-auto pb-4">
-      <h2 className="mb-4 text-lg font-semibold">
-        Arriving in the next {nextHours} hours
-      </h2>
-      <div className="w-[1000px] overflow-x-scroll lg:w-auto">
-        <div className="grid grid-cols-7 border-b border-neutral-300 py-2 text-sm">
-          <p className="font-semibold">Hour</p>
-          {hours.map((hour) => (
-            <p key={hour}>{hour}</p>
+    <Card>
+      <div className="max-w-full overflow-x-auto pb-4">
+        <h2 className="mb-4 text-lg font-semibold">
+          Arriving in the next {nextHours} hours
+        </h2>
+        <div className="overflow-x-scroll lg:w-auto">
+          <div
+            style={{
+              gridTemplateColumns: `repeat(${nextHours + 1}, minmax(0, 1fr))`,
+            }}
+            className="grid border-b border-neutral-300 py-2 text-sm"
+          >
+            <p className="font-semibold">Hour</p>
+            {hours.map((hour) => (
+              <p key={hour}>{hour}</p>
+            ))}
+          </div>
+          {tables?.map((table) => (
+            <div
+              key={table.tableName}
+              style={{
+                gridTemplateColumns: `repeat(${nextHours + 1}, minmax(0, 1fr))`,
+              }}
+              className="grid border-b border-neutral-300 py-2 text-sm"
+            >
+              <p className="font-semibold">{table.tableName}</p>
+              {table.reservations.map((reservation) => {
+                const start = hours.findIndex(
+                  (hour) =>
+                    hour ===
+                    format(
+                      dayjs(reservation?.reservationDate).toDate(),
+                      "h:mm a",
+                    ),
+                );
+
+                const colStart = start + 2;
+
+                return (
+                  <div
+                    key={reservation?._id}
+                    title={`${reservation?.name} (${table.tableName})`}
+                    style={{
+                      gridColumnStart: colStart,
+                      backgroundColor:
+                        colStart <= 3
+                          ? "#ef4444"
+                          : colStart <= 5
+                            ? "#f97316"
+                            : "#22c55e",
+                    }}
+                    className="rounded px-4 text-center text-white"
+                  >
+                    <p className="line-clamp-1">{reservation?.name}</p>
+                  </div>
+                );
+              })}
+            </div>
           ))}
         </div>
-        {tables?.map((table) => (
-          <div
-            key={table.tableName}
-            className="grid grid-cols-7 border-b border-neutral-300 py-2 text-sm"
-          >
-            <p className="font-semibold">{table.tableName}</p>
-            {table.reservations.map((reservation) => {
-              const start = hours.findIndex(
-                (hour) =>
-                  hour ===
-                  format(
-                    dayjs(reservation?.reservationDate).toDate(),
-                    "h:mm a",
-                  ),
-              );
-
-              const colStart = start + 2;
-
-              return (
-                <div
-                  key={reservation?._id}
-                  title={`${reservation?.name} (${table.tableName})`}
-                  style={{
-                    gridColumnStart: colStart,
-                    backgroundColor:
-                      colStart <= 3
-                        ? "#ef4444"
-                        : colStart <= 5
-                          ? "#f97316"
-                          : "#22c55e",
-                  }}
-                  className="rounded px-4 text-center text-white"
-                >
-                  <p className="line-clamp-1">{reservation?.name}</p>
-                </div>
-              );
-            })}
-          </div>
-        ))}
       </div>
-    </div>
+    </Card>
   );
 }
 

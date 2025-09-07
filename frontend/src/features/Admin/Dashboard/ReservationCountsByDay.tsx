@@ -3,6 +3,7 @@ import { getReservationCountsByDay } from "../../../services/apiReservation";
 import { LineChart } from "@mui/x-charts";
 import Loader from "../../../ui/Loader";
 import { useState } from "react";
+import Card from "../../../ui/Card";
 
 interface ReservationCountsByDayType {
   _id: string;
@@ -21,13 +22,13 @@ function ReservationCountsByDay() {
 
   if (isReservationCountsByDayPending) return <Loader />;
   return (
-    <div>
+    <Card>
       <div className="mb-4 flex justify-between">
         <h2 className="text-lg font-semibold">Reservation Counts By Day</h2>
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className=""
+          className="rounded-xl border-1 px-2 text-sm font-semibold"
         >
           <option value="all">All</option>
           <option value="confirmed">Confirmed</option>
@@ -43,7 +44,7 @@ function ReservationCountsByDay() {
           xAxis={[
             {
               scaleType: "band",
-              data: reservationCountsByDay?.map((day) => day._id),
+              data: reservationCountsByDay?.map((day) => day._id.slice(0, 3)),
             },
           ]}
           series={[
@@ -57,7 +58,7 @@ function ReservationCountsByDay() {
           className="h-full w-full"
         />
       </div>
-    </div>
+    </Card>
   );
 }
 

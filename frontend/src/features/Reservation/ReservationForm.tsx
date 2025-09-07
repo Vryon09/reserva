@@ -7,7 +7,7 @@ function ReservationForm() {
   const { dispatch, partySize, date } = useReservationForm();
 
   //use useReducer and useContext for handling these states
-  const item = Array.from({ length: 30 }, (_, i) => i);
+  const item = Array.from({ length: 50 }, (_, i) => i);
 
   const navigate = useNavigate();
 
