@@ -23,12 +23,12 @@ function ReservationCountsByDay() {
   if (isReservationCountsByDayPending) return <Loader />;
   return (
     <Card>
-      <div className="mb-4 flex justify-between">
+      <div className="mb-4 flex items-center justify-between gap-8">
         <h2 className="text-lg font-semibold">Reservation Counts By Day</h2>
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="rounded-xl border-1 px-2 text-sm font-semibold"
+          className="rounded-xl border-1 px-2 py-1 text-sm font-semibold"
         >
           <option value="all">All</option>
           <option value="confirmed">Confirmed</option>
