@@ -6,7 +6,7 @@ interface CardProps {
 
 function Card({ children, onClick, additionalStyle = "" }: CardProps) {
   const style =
-    "rounded-xl bg-neutral-50 px-4 py-3 drop-shadow-[0_0_4px_rgba(0,0,0,0.24)] " +
+    "rounded-xl bg-neutral-50 px-4 py-4 drop-shadow-[0_0_4px_rgba(0,0,0,0.24)] " +
     additionalStyle;
 
   return (

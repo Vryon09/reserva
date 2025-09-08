@@ -1,7 +1,9 @@
 import { useUpdateReservation } from "../../services/apiReservation";
-import Loader from "../../ui/Loader";
+// import Loader from "../../ui/Loader";
 import Reservation from "./Reservation";
 import type { ReservationPayload, ReservationSectionProps } from "./types";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function ReservationSection({
   isReservationPending,
@@ -29,24 +31,30 @@ function ReservationSection({
         </span>{" "}
         Reservation ({reservations.length})
       </p>
-      {(isReservationPending || isUpdateReservationPending) && <Loader />}
+      {/* {(isReservationPending || isUpdateReservationPending) && <Loader />} */}
 
       {!reservations?.length && !isReservationPending && (
         <p className="px-2">No Reservation Today😔</p>
       )}
 
-      {!isUpdateReservationPending && (
-        <div className="grid grid-cols-1 gap-4 px-2 sm:grid-cols-2 lg:grid-cols-3">
-          {reservations?.map((reservation) => (
-            <Reservation
-              reservation={reservation}
-              reservationType={reservationType}
-              handleUpdate={handleUpdate}
-              key={reservation._id}
-            />
-          ))}
-        </div>
-      )}
+      {/* {!isUpdateReservationPending && ( */}
+      <div className="grid grid-cols-1 gap-4 px-2 sm:grid-cols-2 lg:grid-cols-3">
+        {isReservationPending || isUpdateReservationPending
+          ? Array.from({ length: 3 }, (_, i) => (
+              <div key={i}>
+                <Skeleton height={220} />
+              </div>
+            ))
+          : reservations?.map((reservation) => (
+              <Reservation
+                reservation={reservation}
+                reservationType={reservationType}
+                handleUpdate={handleUpdate}
+                key={reservation._id}
+              />
+            ))}
+      </div>
+      {/* )} */}
     </div>
   );
 }

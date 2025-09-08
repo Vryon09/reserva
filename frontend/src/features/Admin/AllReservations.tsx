@@ -5,9 +5,11 @@ import {
 } from "../../services/apiReservation";
 import Reservation from "./Reservation";
 import { useState } from "react";
-import Loader from "../../ui/Loader";
+// import Loader from "../../ui/Loader";
 import Pagination from "../../ui/Pagination";
 import type { ReservationPayload, ReservationResponseTypes } from "./types";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function AllReservations() {
   const [page, setPage] = useState(1);
@@ -48,20 +50,26 @@ function AllReservations() {
     <div className="space-y-4">
       <p className="text-xl font-semibold">All Reservations</p>
 
-      {(isReservationsPending || isUpdateReservationPending) && <Loader />}
+      {/* {(isReservationsPending || isUpdateReservationPending) && <Loader />} */}
 
       {!allReservations?.length && !isReservationsPending ? (
         <p>No Reservation Today😔</p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {allReservations?.map((reservation) => (
-            <Reservation
-              reservation={reservation}
-              reservationType={"all"}
-              handleUpdate={handleUpdate}
-              key={reservation._id}
-            />
-          ))}
+          {isReservationsPending || isUpdateReservationPending
+            ? Array.from({ length: 6 }, (_, i) => (
+                <div key={i}>
+                  <Skeleton height={220} />
+                </div>
+              ))
+            : allReservations?.map((reservation) => (
+                <Reservation
+                  reservation={reservation}
+                  reservationType={"all"}
+                  handleUpdate={handleUpdate}
+                  key={reservation._id}
+                />
+              ))}
         </div>
       )}
       {!isReservationsPending && (
