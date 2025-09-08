@@ -32,7 +32,6 @@ function ReservationCountsByDay() {
         >
           <option value="all">All</option>
           <option value="confirmed">Confirmed</option>
-          <option value="rejected">Rejected</option>
           <option value="seated">Seated</option>
           <option value="done">Done</option>
           <option value="pending">Pending</option>

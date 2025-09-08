@@ -1,4 +1,7 @@
-import { useUpdateReservationStatus } from "../../services/apiTable";
+import {
+  useDeleteReservation,
+  useUpdateReservationStatus,
+} from "../../services/apiTable";
 import Button from "../../ui/Button";
 import type { ReservationActionProps } from "./types";
 
@@ -8,6 +11,8 @@ function RequestReservationAction({
 }: ReservationActionProps) {
   const { mutate: handleUpdateReservationStatus } =
     useUpdateReservationStatus();
+
+  const { mutate: handleDeleteReservation } = useDeleteReservation();
   return (
     <>
       <Button
@@ -18,6 +23,11 @@ function RequestReservationAction({
             tableId: reservation.tableId,
             reservationId: reservation._id,
             status: "rejected",
+          });
+
+          handleDeleteReservation({
+            tableId: reservation.tableId,
+            reservationId: reservation._id,
           });
         }}
       >

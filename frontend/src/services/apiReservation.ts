@@ -31,64 +31,6 @@ export async function getAllReservation({
   }
 }
 
-export async function getTodaysStats() {
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/reservations/stats`);
-
-    const data = await res.json();
-
-    return data || [];
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function getResNextXHrs({ hours }: { hours: number }) {
-  try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/reservations/reservation-hour?hours=${hours}`,
-    );
-
-    const data = await res.json();
-
-    return data || [];
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function getReservationCountsByDay({
-  status,
-}: {
-  status: string;
-}) {
-  try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/reservations/eachday?status=${status}`,
-    );
-
-    const data = await res.json();
-
-    return data || [];
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// export async function getAllConfirmedReservation() {
-//   try {
-//     const res = await fetch(`${API_BASE_URL}/api/reservations/confirmed`);
-
-//     const data = await res.json();
-
-//     console.log("Confirmed Reservations retrieved successfully!");
-
-//     return data || [];
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 export async function handleAddReservation(
   newReservation: Partial<ReservationTypes>,
 ) {
@@ -130,7 +72,7 @@ export async function handleGetReservationByCode(
 
   try {
     const res = await fetch(
-      `${API_BASE_URL}/api/reservations/${reservationCode}`,
+      `${API_BASE_URL}/api/reservations/code/${reservationCode}`,
     );
 
     if (!res.ok) throw new Error("No reservation found.");
@@ -200,4 +142,48 @@ export function useUpdateReservation() {
       });
     },
   });
+}
+
+export async function getTodaysStats() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/reservations/stats/today`);
+
+    const data = await res.json();
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getResNextXHrs({ hours }: { hours: number }) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/next-hours?hours=${hours}`,
+    );
+
+    const data = await res.json();
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getReservationCountsByDay({
+  status,
+}: {
+  status: string;
+}) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/stats/by-day?status=${status}`,
+    );
+
+    const data = await res.json();
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
 }

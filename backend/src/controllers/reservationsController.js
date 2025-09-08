@@ -132,7 +132,7 @@ export async function getTodaysStats(req, res) {
 
 export async function getReservationCountsByDay(req, res) {
   try {
-    const { status } = req.query;
+    const status = req.query.status || "all";
     const filter = {};
 
     if (status && status !== "all") {
@@ -282,10 +282,9 @@ export async function addReservation(req, res) {
 
 export async function updateReservation(req, res) {
   try {
-    const { tableName, name, phone, time, status } = req.body;
     const updatedReservation = await Reservation.findByIdAndUpdate(
       req.params.id,
-      { tableName, name, phone, time, status },
+      req.body,
       { new: true }
     );
 

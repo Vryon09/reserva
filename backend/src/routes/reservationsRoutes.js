@@ -14,21 +14,16 @@ import {
 const router = express.Router();
 
 router.get("/", getAllReservations);
-
-router.get("/stats", getTodaysStats);
-
-router.get("/reservation-hour", getResNextXHrs);
-
-router.get("/eachday", getReservationCountsByDay);
-
-router.get("/:reservationCode", getReservationByCode);
-
-router.delete("/deleteallres", deleteAllReservations);
-
 router.post("/", addReservation);
+router.delete("/", deleteAllReservations);
+
+router.get("/stats/today", getTodaysStats);
+router.get("/stats/next-hours", getResNextXHrs);
+router.get("/stats/by-day", getReservationCountsByDay);
+
+router.get("/code/:reservationCode", getReservationByCode);
 
 router.patch("/:id", updateReservation);
-
 router.delete("/:id", deleteReservation);
 
 export default router;
