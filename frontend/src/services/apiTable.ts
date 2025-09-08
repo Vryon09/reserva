@@ -24,9 +24,9 @@ export async function getAllTables({
   }
 }
 
-export async function handleGetTableByName(tableName: string) {
+export async function handleGetTable(tableId: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/tables/${tableName}`);
+    const res = await fetch(`${API_BASE_URL}/api/tables/${tableId}`);
 
     if (!res.ok) throw new Error("No reservation found.");
 
@@ -126,13 +126,13 @@ export function useUpdateTable() {
 }
 
 async function handleAddReservationInTable({
-  tableName,
+  tableId,
   name,
   phone,
   reservationDate,
   _id,
 }: {
-  tableName: string;
+  tableId: string;
   name: string;
   phone: string;
   reservationDate: string;
@@ -141,7 +141,7 @@ async function handleAddReservationInTable({
   const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tableName, name, phone, reservationDate, _id }),
+    body: JSON.stringify({ tableId, name, phone, reservationDate, _id }),
   });
 
   if (!res.ok) {
@@ -163,20 +163,20 @@ export function useAddReservationInTable() {
   });
 }
 
-async function handleDeleteReservationInTable({
-  tableName,
-  reservationDate,
+//Search: handleDeleteReservationInTable
+async function handleDeleteReservation({
+  tableId,
+  reservationId,
 }: {
-  tableName: string;
-  reservationDate: string;
+  tableId: string;
+  reservationId: string;
 }) {
-  const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
+  const res = await fetch(
+    `${API_BASE_URL}/api/tables/${tableId}/reservations/${reservationId}`,
+    {
+      method: "DELETE",
     },
-    body: JSON.stringify({ tableName, reservationDate }),
-  });
+  );
 
   if (!res.ok) {
     const error = await res.json();
@@ -186,29 +186,29 @@ async function handleDeleteReservationInTable({
   return await res.json();
 }
 
-export function useDeleteReservationInTable() {
+export function useDeleteReservation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: handleDeleteReservationInTable,
+    mutationFn: handleDeleteReservation,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tables"] });
     },
   });
 }
 
-async function handleSyncTableStatus({
-  tableName,
+async function handleUpdateReservationStatus({
+  tableId,
   reservationId,
   status,
 }: {
-  tableName: string;
+  tableId: string;
   reservationId: string;
   status: string;
 }) {
   try {
     await fetch(
-      `${API_BASE_URL}/api/tables/${tableName}/reservations/${reservationId}/status`,
+      `${API_BASE_URL}/api/tables/${tableId}/reservations/${reservationId}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -220,11 +220,11 @@ async function handleSyncTableStatus({
   }
 }
 
-export function useSyncTableStatus() {
+export function useUpdateReservationStatus() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: handleSyncTableStatus,
+    mutationFn: handleUpdateReservationStatus,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tables"] });
       toast.success("Table synced successfully!");

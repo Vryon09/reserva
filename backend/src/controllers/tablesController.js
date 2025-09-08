@@ -58,11 +58,11 @@ export async function getAllTables(req, res) {
   }
 }
 
-export async function getTableByName(req, res) {
+export async function getTable(req, res) {
   try {
-    const tableName = req.params.tableName;
+    const _id = req.params.id;
 
-    const table = await Table.findOne({ tableName: tableName });
+    const table = await Table.findById(_id);
 
     if (!table) return res.status(404).json({ message: "Table not found." });
 
@@ -126,11 +126,12 @@ export async function deleteTable(req, res) {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
-export async function addReservationInTable(req, res) {
-  try {
-    const { tableName, name, phone, reservationDate, _id } = req.body;
 
-    const table = await Table.findOne({ tableName: tableName });
+export async function addReservation(req, res) {
+  try {
+    const { tableId, name, phone, reservationDate, _id } = req.body;
+
+    const table = await Table.findById(tableId);
 
     const isDuplicate = table.reservations.some(
       (reservation) => reservation.date === reservationDate
@@ -155,14 +156,14 @@ export async function addReservationInTable(req, res) {
   }
 }
 
-export async function deleteReservationInTable(req, res) {
+export async function deleteReservation(req, res) {
   try {
-    const { tableName, reservationDate } = req.body;
+    const { id, reservationId } = req.params;
 
     const result = await Table.updateOne(
-      { tableName },
+      { _id: id },
       {
-        $pull: { reservations: { reservationDate: new Date(reservationDate) } },
+        $pull: { reservations: { _id: reservationId } },
       }
     );
 
@@ -191,13 +192,13 @@ export async function deleteAllTablesReservations(req, res) {
   }
 }
 
-export async function syncTableStatus(req, res) {
+export async function updateReservationStatus(req, res) {
   try {
-    const { tableName, reservationId } = req.params;
+    const { id, reservationId } = req.params;
     const { status } = req.body;
 
     const result = await Table.updateOne(
-      { tableName: tableName, "reservations._id": reservationId },
+      { _id: id, "reservations._id": reservationId },
       { $set: { "reservations.$.status": status } }
     );
 
@@ -207,7 +208,7 @@ export async function syncTableStatus(req, res) {
 
     res.status(200).json({ message: "Status updated successfully" });
   } catch (error) {
-    console.error("Error in syncTableStatus controller.", error);
+    console.error("Error in updateReservationStatus controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }

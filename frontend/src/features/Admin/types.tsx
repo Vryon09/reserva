@@ -1,4 +1,5 @@
 export interface ReservationTypes {
+  tableId: string;
   _id: string;
   tableName: string;
   name: string;
@@ -44,16 +45,6 @@ export interface ReservationProps {
     id: string,
     updatedReservation: Partial<ReservationPayload>,
   ) => void;
-}
-
-export interface ReservationPayload {
-  _id?: string;
-  tableName: string;
-  name: string;
-  phone: string;
-  reservationDate: string;
-  reservationCode?: string;
-  status?: string;
 }
 
 export interface ReservationActionProps {

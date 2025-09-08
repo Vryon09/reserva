@@ -1,13 +1,13 @@
 import express from "express";
 import {
-  addReservationInTable,
+  addReservation,
   addTable,
   deleteAllTablesReservations,
-  deleteReservationInTable,
+  deleteReservation,
   deleteTable,
   getAllTables,
-  getTableByName,
-  syncTableStatus,
+  getTable,
+  updateReservationStatus,
   updateTable,
 } from "../controllers/tablesController.js";
 
@@ -15,19 +15,21 @@ const router = express.Router();
 
 //the more specific urls should be on the top because the not specific one can be triggered if the specific one match the pattern of the non specific one
 
+//Reservations
+router.post("/reservation", addReservation);
+
+router.delete("/reservations", deleteAllTablesReservations);
+
+router.delete("/:id/reservations/:reservationId", deleteReservation);
+
+router.patch("/:id/reservations/:reservationId", updateReservationStatus);
+
+//Tables
 router.get("/", getAllTables);
 
-router.get("/:tableName", getTableByName);
+router.get("/:id", getTable);
 
 router.post("/", addTable);
-
-router.post("/reservation", addReservationInTable);
-
-router.delete("/reservation", deleteReservationInTable);
-
-router.delete("/deleteallres", deleteAllTablesReservations);
-
-router.patch("/:tableName/reservations/:reservationId/status", syncTableStatus);
 
 router.patch("/:id", updateTable);
 

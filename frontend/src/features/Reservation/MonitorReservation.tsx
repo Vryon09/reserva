@@ -4,7 +4,7 @@ import {
   handleGetReservationByCode,
   useUpdateReservation,
 } from "../../services/apiReservation";
-import { useDeleteReservationInTable } from "../../services/apiTable";
+import { useDeleteReservation } from "../../services/apiTable";
 import ReservationCard from "./ReservationCard";
 import Loader from "../../ui/Loader";
 import Button from "../../ui/Button";
@@ -28,8 +28,8 @@ function MonitorReservation() {
   const { mutate: handleUpdateReservation, isPending: isUpdatePending } =
     useUpdateReservation();
 
-  const { mutate: handleDeleteReservationInTable, isPending: isDeletePending } =
-    useDeleteReservationInTable();
+  const { mutate: handleDeleteReservation, isPending: isDeletePending } =
+    useDeleteReservation();
 
   const navigate = useNavigate();
 
@@ -73,9 +73,9 @@ function MonitorReservation() {
                 });
               }}
               handleDeleteReservationInTable={() => {
-                handleDeleteReservationInTable({
-                  tableName: res.tableName,
-                  reservationDate: res.reservationDate,
+                handleDeleteReservation({
+                  tableId: res.tableId,
+                  reservationId: res._id,
                 });
               }}
             />
@@ -96,9 +96,9 @@ function MonitorReservation() {
         });
       }}
       handleDeleteReservationInTable={() => {
-        handleDeleteReservationInTable({
-          tableName: reservation.tableName,
-          reservationDate: reservation.reservationDate,
+        handleDeleteReservation({
+          tableId: reservation.tableId,
+          reservationId: reservation._id,
         });
       }}
     />

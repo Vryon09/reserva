@@ -253,9 +253,17 @@ export async function getResNextXHrs(req, res) {
 
 export async function addReservation(req, res) {
   try {
-    const { tableName, name, phone, reservationDate, status, reservationCode } =
-      req.body;
+    const {
+      tableId,
+      tableName,
+      name,
+      phone,
+      reservationDate,
+      status,
+      reservationCode,
+    } = req.body;
     const newReservation = new Reservation({
+      tableId,
       tableName,
       name,
       phone,

@@ -84,6 +84,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
                   }
 
                   dispatch({ type: "setTable", payload: table.tableName });
+                  dispatch({ type: "setTableId", payload: table._id });
                   navigate(`/reserve/personal-information`);
                 }}
               >

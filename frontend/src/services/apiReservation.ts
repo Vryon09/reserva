@@ -3,19 +3,9 @@ import {
   useQueryClient,
   type QueryFunctionContext,
 } from "@tanstack/react-query";
+import type { ReservationTypes } from "../features/Admin/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-//make the confirm button work
-interface ReservationPayload {
-  _id?: string;
-  tableName: string;
-  name: string;
-  phone: string;
-  reservationDate: string;
-  reservationCode?: string;
-  status?: string;
-}
 
 export async function getAllReservation({
   queryString,
@@ -99,7 +89,9 @@ export async function getReservationCountsByDay({
 //   }
 // }
 
-export async function handleAddReservation(newReservation: ReservationPayload) {
+export async function handleAddReservation(
+  newReservation: Partial<ReservationTypes>,
+) {
   try {
     const res = await fetch(`${API_BASE_URL}/api/reservations`, {
       method: "POST",
@@ -179,7 +171,7 @@ async function handleUpdateReservation({
   updatedReservation,
 }: {
   id: string;
-  updatedReservation: Partial<ReservationPayload>;
+  updatedReservation: Partial<ReservationTypes>;
 }) {
   try {
     await fetch(`${API_BASE_URL}/api/reservations/${id}`, {

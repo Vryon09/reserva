@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 
 const reservationSchema = new mongoose.Schema(
   {
+    tableId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Table",
+      required: true,
+      index: true,
+    },
     tableName: { type: String, required: true },
     name: { type: String, required: true },
     phone: { type: String, required: true },

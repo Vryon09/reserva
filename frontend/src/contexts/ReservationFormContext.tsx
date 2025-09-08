@@ -5,6 +5,7 @@ type ReservationFormState = {
   date: string;
   time: string;
   tableName: string;
+  tableId: string;
 };
 
 type ReservationFormAction =
@@ -12,6 +13,7 @@ type ReservationFormAction =
   | { type: "setDate"; payload: string }
   | { type: "setTime"; payload: string }
   | { type: "setTable"; payload: string }
+  | { type: "setTableId"; payload: string }
   | { type: "resetForm" };
 
 type ReservationFormContextType = ReservationFormState & {
@@ -25,6 +27,7 @@ const initialState = {
   date: "",
   time: "none",
   tableName: "",
+  tableId: "",
 };
 
 function reducer(
@@ -40,6 +43,8 @@ function reducer(
       return { ...state, time: action.payload };
     case "setTable":
       return { ...state, tableName: action.payload };
+    case "setTableId":
+      return { ...state, tableId: action.payload };
     case "resetForm":
       return {
         ...state,

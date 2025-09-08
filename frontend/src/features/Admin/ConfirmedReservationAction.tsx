@@ -1,4 +1,4 @@
-import { useSyncTableStatus } from "../../services/apiTable";
+import { useUpdateReservationStatus } from "../../services/apiTable";
 import Button from "../../ui/Button";
 import type { ReservationActionProps } from "./types";
 
@@ -6,7 +6,8 @@ function ConfirmedReservationAction({
   reservation,
   handleUpdate,
 }: ReservationActionProps) {
-  const { mutate: handleSyncTableStatus } = useSyncTableStatus();
+  const { mutate: handleUpdateReservationStatus } =
+    useUpdateReservationStatus();
 
   const now = new Date().toISOString().split("T")[0];
 
@@ -16,7 +17,14 @@ function ConfirmedReservationAction({
         reservation.reservationDate.split("T")[0] !== now && (
           <Button
             type="reject"
-            onClick={() => handleUpdate(reservation._id, { status: "pending" })}
+            onClick={() => {
+              handleUpdate(reservation._id, { status: "pending" });
+              handleUpdateReservationStatus({
+                tableId: reservation.tableId,
+                reservationId: reservation._id,
+                status: "pending",
+              });
+            }}
           >
             Cancel
           </Button>
@@ -28,8 +36,8 @@ function ConfirmedReservationAction({
             type="confirm"
             onClick={() => {
               handleUpdate(reservation._id, { status: "seated" });
-              handleSyncTableStatus({
-                tableName: reservation.tableName,
+              handleUpdateReservationStatus({
+                tableId: reservation.tableId,
                 reservationId: reservation._id,
                 status: "seated",
               });
@@ -44,8 +52,8 @@ function ConfirmedReservationAction({
           type="confirm"
           onClick={() => {
             handleUpdate(reservation._id, { status: "done" });
-            handleSyncTableStatus({
-              tableName: reservation.tableName,
+            handleUpdateReservationStatus({
+              tableId: reservation.tableId,
               reservationId: reservation._id,
               status: "done",
             });

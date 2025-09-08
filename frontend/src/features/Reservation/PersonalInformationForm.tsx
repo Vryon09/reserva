@@ -18,7 +18,7 @@ dayjs.extend(timezone);
 function PersonalInformationForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const { dispatch, time, date, tableName } = useReservationForm();
+  const { dispatch, time, date, tableName, tableId } = useReservationForm();
   // const [time, setTime] = useState("");
   const [isReserved, setIsReserved] = useState(false);
   const [reservationCode, setReservationCode] = useState("");
@@ -50,6 +50,7 @@ function PersonalInformationForm() {
 
     try {
       const createdReservation = await handleAddReservation({
+        tableId,
         tableName,
         name,
         phone,
@@ -58,7 +59,7 @@ function PersonalInformationForm() {
       });
 
       await handleAddReservationInTable({
-        tableName,
+        tableId,
         name,
         phone,
         reservationDate: combinedDateTime.format(),
