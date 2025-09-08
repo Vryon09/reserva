@@ -19,8 +19,8 @@ function Stat({ stat }: { stat: StatsTypes }) {
                     : "#ffffff", // default (white)
       }}
     >
-      <p>{stat.status}</p>
-      <p className="text-2xl font-semibold">{stat.count}</p>
+      <p className="text-sm md:text-base">{stat.status}</p>
+      <p className="text-2xl font-semibold md:text-3xl">{stat.count}</p>
     </div>
   );
 }
