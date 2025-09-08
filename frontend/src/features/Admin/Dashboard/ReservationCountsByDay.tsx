@@ -42,7 +42,7 @@ function ReservationCountsByDay() {
 
       <div className="h-60 w-full">
         {isReservationCountsByDayPending ? (
-          <Skeleton height={240} />
+          <Skeleton height={240} borderRadius={12} />
         ) : (
           <LineChart
             xAxis={[

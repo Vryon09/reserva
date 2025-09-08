@@ -24,7 +24,7 @@ function TodaysStats() {
       <div className="mx-2 grid grid-cols-2 gap-2 xl:grid-cols-3">
         {isTodaysStatsPending
           ? Array.from({ length: 5 }, (_, i) => (
-              <Skeleton height={86} key={i} />
+              <Skeleton height={86} borderRadius={12} key={i} />
             ))
           : todaysStats?.map((stat) => <Stat stat={stat} key={stat.status} />)}
       </div>

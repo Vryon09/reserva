@@ -70,7 +70,7 @@ function AdminTables() {
       {isTablesPending || isDeletingTable || isUpdatingTable
         ? Array.from({ length: 6 }, (_, i) => (
             <div key={i}>
-              <Skeleton height={160} />
+              <Skeleton height={160} borderRadius={12} />
             </div>
           ))
         : tables?.map((table) => (
