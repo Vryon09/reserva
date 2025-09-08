@@ -24,7 +24,7 @@ function FindReservation() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="m-auto flex max-w-[400px] flex-col items-baseline gap-4 rounded-3xl px-6 py-4 shadow-[0_3px_8px_rgba(0,0,0,0.24)]"
+      className="m-auto flex max-w-[480px] flex-col items-baseline gap-4 rounded-3xl px-6 py-4 shadow-[0_3px_8px_rgba(0,0,0,0.24)]"
     >
       <p className="text-2xl font-bold">View Reservation</p>
       <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">

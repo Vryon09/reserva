@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getReservationCountsByDay } from "../../../services/apiReservation";
 import { LineChart } from "@mui/x-charts";
-import Loader from "../../../ui/Loader";
+// import Loader from "../../../ui/Loader";
 import { useState } from "react";
 import Card from "../../../ui/Card";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface ReservationCountsByDayType {
   _id: string;
@@ -20,7 +22,7 @@ function ReservationCountsByDay() {
     queryFn: () => getReservationCountsByDay({ status: status }),
   });
 
-  if (isReservationCountsByDayPending) return <Loader />;
+  // if (isReservationCountsByDayPending) return <Loader />;
   return (
     <Card>
       <div className="mb-4 flex items-center justify-between gap-8">
@@ -39,23 +41,29 @@ function ReservationCountsByDay() {
       </div>
 
       <div className="h-60 w-full">
-        <LineChart
-          xAxis={[
-            {
-              scaleType: "band",
-              data: reservationCountsByDay?.map((day) => day._id.slice(0, 3)),
-            },
-          ]}
-          series={[
-            {
-              data: reservationCountsByDay?.map((day) => day.reservationDates),
-              area: true,
-              color: "rgb(59, 131, 246, 0.3)",
-            },
-          ]}
-          grid={{ vertical: true, horizontal: true }}
-          className="h-full w-full"
-        />
+        {isReservationCountsByDayPending ? (
+          <Skeleton height={240} />
+        ) : (
+          <LineChart
+            xAxis={[
+              {
+                scaleType: "band",
+                data: reservationCountsByDay?.map((day) => day._id.slice(0, 3)),
+              },
+            ]}
+            series={[
+              {
+                data: reservationCountsByDay?.map(
+                  (day) => day.reservationDates,
+                ),
+                area: true,
+                color: "rgb(59, 131, 246, 0.3)",
+              },
+            ]}
+            grid={{ vertical: true, horizontal: true }}
+            className="h-full w-full"
+          />
+        )}
       </div>
     </Card>
   );
