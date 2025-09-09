@@ -42,7 +42,7 @@ function ReservationSection({
         {isReservationPending || isUpdateReservationPending
           ? Array.from({ length: 3 }, (_, i) => (
               <div key={i}>
-                <Skeleton height={220} borderRadius={12} />
+                <Skeleton height={220} borderRadius={12} baseColor="#d4d4d4" />
               </div>
             ))
           : reservations?.map((reservation) => (

@@ -53,7 +53,7 @@ function ResNextXHours() {
             {isTablesPending
               ? Array.from({ length: nextHours }, (_, i) => (
                   <div className="mx-2" key={i}>
-                    <Skeleton />
+                    <Skeleton baseColor="#d4d4d4" />
                   </div>
                 ))
               : hours.map((hour) => <p key={hour}>{hour}</p>)}
@@ -61,7 +61,7 @@ function ResNextXHours() {
           {isTablesPending
             ? Array.from({ length: 10 }, (_, i) => (
                 <div className="grid border-b border-neutral-300 py-2" key={i}>
-                  <Skeleton />
+                  <Skeleton baseColor="#d4d4d4" />
                 </div>
               ))
             : tables?.map((table) => (

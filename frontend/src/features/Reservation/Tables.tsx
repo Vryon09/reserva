@@ -4,9 +4,10 @@ import { getAllTables } from "../../services/apiTable";
 import { useReservationForm } from "../../contexts/useReservationForm";
 import { useEffect, useState } from "react";
 import Table from "./Table";
-import Loader from "../../ui/Loader";
+// import Loader from "../../ui/Loader";
 import { useNavigate } from "react-router-dom";
-//FIX THIS SHIT
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export interface TableTypes {
   _id: string;
@@ -40,20 +41,29 @@ function Tables() {
     queryKey: ["tables", partySize],
   });
 
-  if (isTablesPending) return <Loader />;
+  // if (isTablesPending) return <Loader />;
 
   return (
     <div className="flex flex-col gap-4">
       <p className="text-2xl font-bold sm:px-2">Choose Table</p>
-      <div className="grid grid-cols-2 gap-2 sm:px-4 md:grid-cols-4 lg:grid-cols-6">
-        {tables?.map((table) => (
-          <Table
-            selectedTable={selectedTable}
-            setSelectedTable={setSelectedTable}
-            table={table}
-            key={table._id}
-          />
-        ))}
+      <div className="grid grid-cols-2 gap-4 sm:px-4 md:grid-cols-4 lg:grid-cols-6">
+        {isTablesPending
+          ? Array.from({ length: 6 }, (_, i) => (
+              <Skeleton
+                height={160}
+                borderRadius={12}
+                key={i}
+                baseColor="#d4d4d4"
+              />
+            ))
+          : tables?.map((table) => (
+              <Table
+                selectedTable={selectedTable}
+                setSelectedTable={setSelectedTable}
+                table={table}
+                key={table._id}
+              />
+            ))}
       </div>
     </div>
   );
