@@ -16,7 +16,9 @@ function Stat({ stat }: { stat: StatsTypes }) {
                   ? "#6b7280" // gray-500
                   : stat.status === "pending"
                     ? "#f97316" // orange-500
-                    : "#ffffff", // default (white)
+                    : stat.status === "cancelled"
+                      ? "oklch(79.5% 0.184 86.047)" // orange-500
+                      : "#ffffff", // default (white)
       }}
     >
       <p className="text-sm md:text-base">{stat.status}</p>

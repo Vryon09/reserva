@@ -59,7 +59,11 @@ function AllReservations() {
           {isReservationsPending || isUpdateReservationPending
             ? Array.from({ length: 6 }, (_, i) => (
                 <div key={i}>
-                  <Skeleton height={220} borderRadius={12} />
+                  <Skeleton
+                    height={220}
+                    borderRadius={12}
+                    baseColor="#d4d4d4"
+                  />
                 </div>
               ))
             : allReservations?.map((reservation) => (

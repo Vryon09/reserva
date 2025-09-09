@@ -1,5 +1,6 @@
 import ReservationCountsByDay from "./ReservationCountsByDay";
 import ResNextXHours from "./ResNextXHours";
+import TableOccupancy from "./TableOccupancy";
 import TodaysStats from "./TodaysStats";
 
 function AdminDashboard() {
@@ -12,6 +13,7 @@ function AdminDashboard() {
           <ReservationCountsByDay />
         </div>
         <ResNextXHours />
+        <TableOccupancy />
       </div>
     </div>
   );

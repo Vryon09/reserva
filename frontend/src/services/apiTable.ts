@@ -234,3 +234,15 @@ export function useUpdateReservationStatus() {
     },
   });
 }
+
+export async function getTableOccupancy() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/tables/stats/table-occupancy`);
+
+    const data = await res.json();
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}

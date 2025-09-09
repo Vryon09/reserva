@@ -23,7 +23,7 @@ function TodaysStats() {
       <h2 className="mb-4 text-lg font-semibold">Today's Stats</h2>
       <div className="mx-2 grid grid-cols-2 gap-2 xl:grid-cols-3">
         {isTodaysStatsPending
-          ? Array.from({ length: 5 }, (_, i) => (
+          ? Array.from({ length: 6 }, (_, i) => (
               <Skeleton
                 height={86}
                 borderRadius={12}

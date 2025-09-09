@@ -7,6 +7,7 @@ import {
   deleteTable,
   getAllTables,
   getTable,
+  getTableOccupancy,
   updateReservationStatus,
   updateTable,
 } from "../controllers/tablesController.js";
@@ -23,6 +24,9 @@ router.delete("/reservations", deleteAllTablesReservations);
 router.delete("/:id/reservations/:reservationId", deleteReservation);
 
 router.patch("/:id/reservations/:reservationId", updateReservationStatus);
+
+//Stats
+router.get("/stats/table-occupancy", getTableOccupancy);
 
 //Tables
 router.get("/", getAllTables);

@@ -212,3 +212,24 @@ export async function updateReservationStatus(req, res) {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
+
+export async function getTableOccupancy(req, res) {
+  try {
+    const start = dayjs(new Date())
+      .startOf("hour")
+      .subtract(1, "hour")
+      .toDate();
+    const end = dayjs(new Date()).startOf("hour").add(1, "hour").toDate();
+
+    const tableCount = await Table.countDocuments();
+    const occupiedCount = await Table.countDocuments({
+      "reservations.status": { $in: ["confirmed", "seated"] },
+      "reservations.reservationDate": { $gte: start, $lte: end },
+    });
+
+    res.status(200).json({ tableCount, occupiedCount });
+  } catch (error) {
+    console.error("Error in getTableOccupancy controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
