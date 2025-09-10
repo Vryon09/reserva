@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import { Copy } from "lucide-react";
 import { copyCode } from "../../services/helperFunctions";
+import Card from "../../ui/Card";
 
 interface CodeRevealProps {
   reservationCode: string;
@@ -11,7 +12,7 @@ function CodeReveal({ reservationCode }: CodeRevealProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="m-auto flex max-w-[400px] flex-col items-baseline">
+    <Card additionalStyle="m-auto flex max-w-[450px] flex-col items-baseline">
       <div className="flex gap-2">
         <p className="text-lg">
           <span className="font-semibold">Code:</span> {reservationCode}
@@ -32,7 +33,7 @@ function CodeReveal({ reservationCode }: CodeRevealProps) {
           Monitor your reservation
         </Button>
       </div>
-    </div>
+    </Card>
   );
 }
 
