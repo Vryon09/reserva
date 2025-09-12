@@ -93,7 +93,7 @@ export function generateTimeOptions({
     const resDate = new Date(`${date}T${formattedHour}:00:00.000`);
     const resDate12Before = new Date(resDate.getTime() - 12 * 60 * 60 * 1000);
     const hour12hBeforeRes = now >= resDate12Before;
-    if (isBlocked || hour12hBeforeRes) continue;
+    if (isBlocked) continue;
 
     const time = `${formattedHour}:00`;
     options.push(time);

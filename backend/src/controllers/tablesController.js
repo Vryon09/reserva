@@ -222,9 +222,17 @@ export async function getTableOccupancy(req, res) {
     const end = dayjs(new Date()).startOf("hour").add(1, "hour").toDate();
 
     const tableCount = await Table.countDocuments();
+    // const occupiedCount = await Table.countDocuments({
+    //   "reservations.status": { $in: ["confirmed", "seated"] },
+    //   "reservations.reservationDate": { $gte: start, $lte: end },
+    // }); //this is wrong
     const occupiedCount = await Table.countDocuments({
-      "reservations.status": { $in: ["confirmed", "seated"] },
-      "reservations.reservationDate": { $gte: start, $lte: end },
+      reservations: {
+        $elemMatch: {
+          status: { $in: ["confirmed", "seated"] },
+          reservationDate: { $gte: start, $lte: end },
+        },
+      },
     });
 
     res.status(200).json({ tableCount, occupiedCount });
