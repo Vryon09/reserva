@@ -18,10 +18,15 @@ function TopTables() {
   return (
     <Card>
       <h2 className="mb-4 text-lg font-semibold">Top Tables</h2>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
         {isPending
           ? Array.from({ length: 3 }, (_, i) => (
-              <Skeleton baseColor="#d4d4d4" borderRadius={12} key={i} />
+              <Skeleton
+                baseColor="#d4d4d4"
+                borderRadius={12}
+                key={i}
+                height={86}
+              />
             ))
           : topTables.map((table, i) => (
               <div
