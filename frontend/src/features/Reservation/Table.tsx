@@ -48,7 +48,7 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
                 }
               >
                 <option value="none">Time</option>
-                {generateTimeOptions({ start: 1, end: 24, table, date }).map(
+                {generateTimeOptions({ start: 8, end: 22, table, date }).map(
                   (time) => (
                     <option key={time} value={time}>
                       {format(parse(time, "HH:mm", new Date()), "h:mm a")}
