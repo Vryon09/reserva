@@ -8,6 +8,7 @@ import {
   getAllTables,
   getTable,
   getTableOccupancy,
+  getTopTables,
   updateReservationStatus,
   updateTable,
 } from "../controllers/tablesController.js";
@@ -27,6 +28,7 @@ router.patch("/:id/reservations/:reservationId", updateReservationStatus);
 
 //Stats
 router.get("/stats/table-occupancy", getTableOccupancy);
+router.get("/stats/top-tables", getTopTables);
 
 //Tables
 router.get("/", getAllTables);

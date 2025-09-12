@@ -246,3 +246,15 @@ export async function getTableOccupancy() {
     console.log(error);
   }
 }
+
+export async function getTopTables() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/tables/stats/top-tables`);
+
+    const data = await res.json();
+
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}

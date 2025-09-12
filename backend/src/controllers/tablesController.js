@@ -233,3 +233,19 @@ export async function getTableOccupancy(req, res) {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
+
+export async function getTopTables(req, res) {
+  try {
+    const top3Tables = await Table.aggregate([
+      { $addFields: { reservationCount: { $size: "$reservations" } } },
+      { $sort: { reservationCount: -1 } },
+      { $limit: 3 },
+      { $project: { tableName: 1, reservationCount: 1 } },
+    ]);
+
+    res.status(200).json(top3Tables);
+  } catch (error) {
+    console.error("Error in getTopTables controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}

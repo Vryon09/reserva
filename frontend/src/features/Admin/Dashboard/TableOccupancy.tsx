@@ -30,7 +30,7 @@ function TableOccupancy() {
         </>
       ) : (
         <>
-          <div className="h-10 w-full overflow-hidden rounded-3xl bg-neutral-400">
+          <div className="mb-2 h-10 w-full overflow-hidden rounded-3xl bg-neutral-400">
             <div
               style={{ width: `${(occupiedCount / tableCount) * 100}%` }}
               className="h-full w-10 rounded bg-neutral-800"
@@ -38,7 +38,7 @@ function TableOccupancy() {
           </div>
           <div className="flex justify-end">
             <p className="text-lg font-semibold">
-              {((occupiedCount / tableCount) * 100).toFixed(2)}%
+              {occupiedCount}/{tableCount}
             </p>
           </div>
         </>
