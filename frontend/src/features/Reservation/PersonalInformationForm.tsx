@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
+import Modal from "../../ui/Modal";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -19,9 +20,9 @@ function PersonalInformationForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const { dispatch, time, date, tableName, tableId } = useReservationForm();
-  // const [time, setTime] = useState("");
   const [isReserved, setIsReserved] = useState(false);
   const [reservationCode, setReservationCode] = useState("");
+  const [isConfirming, setIsConfirming] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const combinedDateTime = dayjs(`${date} ${time}`, "YYYY-MM-DD HH:mm").tz(
@@ -40,9 +41,7 @@ function PersonalInformationForm() {
     isPending: isAddingReservationInTablePending,
   } = useAddReservationInTable();
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  async function handleSubmit() {
     if (tableName === undefined) {
       console.log("Table number not found");
       return;
@@ -86,7 +85,13 @@ function PersonalInformationForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="card-form">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setIsConfirming(true);
+        }}
+        className="card-form"
+      >
         <p className="mb-4 text-2xl font-bold">Personal Information Form</p>
 
         <div className="flex w-full flex-col justify-between gap-4 sm:flex-row">
@@ -122,6 +127,27 @@ function PersonalInformationForm() {
           </Button>
         </div>
       </form>
+      {isConfirming && (
+        <Modal>
+          <form>
+            <p>Are you sure you want to reserve a table?</p>
+            <div className="mt-4 flex justify-between">
+              <Button type="neutral" onClick={() => setIsConfirming(false)}>
+                Cancel
+              </Button>
+              <Button
+                type="confirm"
+                onClick={() => {
+                  handleSubmit();
+                  setIsConfirming(false);
+                }}
+              >
+                Confirm
+              </Button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </div>
   );
 }

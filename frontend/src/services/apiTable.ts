@@ -227,7 +227,6 @@ export function useUpdateReservationStatus() {
     mutationFn: handleUpdateReservationStatus,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tables"] });
-      toast.success("Table synced successfully!");
     },
     onError: () => {
       toast.error("Failed to sync a table reservation status");

@@ -94,49 +94,6 @@ function Table({ selectedTable, setSelectedTable, table }: TableProps) {
           </div>
         </Modal>
       )}
-      {/* {selectedTable === table._id && (
-        <>
-          <select
-            className="input-normal w-full"
-            value={time}
-            onChange={(e) =>
-              dispatch({ type: "setTime", payload: e.target.value })
-            }
-          >
-            <option value="none">Time</option>
-            {generateTimeOptions({ start: 8, end: 22, table, date }).map(
-              (time) => (
-                <option key={time} value={time}>
-                  {format(parse(time, "HH:mm", new Date()), "h:mm a")}
-                </option>
-              ),
-            )}
-          </select>
-          {table.capacity - +partySize > 5 && (
-            <p className="text-sm text-red-700">
-              ⚠️ This table seats up to {table.capacity} people. You're only
-              booking for {partySize}.
-            </p>
-          )}
-
-          <div className="mt-2 flex w-full justify-end">
-            <Button
-              type="confirm"
-              onClick={() => {
-                if (time === "none") {
-                  toast.error("Choose time!");
-                  return;
-                }
-
-                dispatch({ type: "setTable", payload: table.tableName });
-                navigate(`/reserve/personal-information`);
-              }}
-            >
-              Choose
-            </Button>
-          </div>
-        </>
-      )} */}
     </Card>
   );
 }
