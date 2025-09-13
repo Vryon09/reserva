@@ -30,7 +30,7 @@ function TableOccupancy() {
         </>
       ) : (
         <>
-          <div className="mb-2 h-10 w-full overflow-hidden rounded-3xl bg-neutral-400">
+          <div className="mb-2 h-10 w-full overflow-hidden rounded-3xl bg-neutral-300">
             <div
               style={{ width: `${(occupiedCount / tableCount) * 100}%` }}
               className="h-full w-10 rounded bg-neutral-800"

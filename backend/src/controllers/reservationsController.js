@@ -2,6 +2,7 @@ import Reservation from "../models/Reservation.js";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -79,8 +80,28 @@ export async function updateReservation(req, res) {
       { new: true }
     );
 
-    if (!updatedReservation)
+    const reservation = await Reservation.findById(req.params.id);
+
+    if (!updatedReservation || !reservation)
       return res.status(404).json({ message: "No reservation found." });
+
+    await sendEmail({
+      to: reservation.email,
+      subject: `Reservation Update – Status: ${reservation.status.toUpperCase()}`,
+      text: `Hi ${reservation.name}, your reservation for ${dayjs(
+        reservation.reservationDate
+      ).format("MMMM DD, YYYY at h:mm a")} (${
+        reservation.tableName
+      }) is now marked as: ${reservation.status}.`,
+      html: `
+      <p>Hi <b>${reservation.name}</b>,</p>
+      <p>Your reservation for <b>${dayjs(reservation.reservationDate).format(
+        "MMMM DD, YYYY, h:mm a"
+      )}</b> (Table <b>${reservation.tableName}</b>) is now marked as:</p>
+      <h2 style="color:#333;">${reservation.status.toUpperCase()}</h2>
+      <p>Thank you for choosing our restaurant!</p>
+    `,
+    });
 
     res.status(200).json(updatedReservation);
   } catch (error) {

@@ -1,12 +1,10 @@
+import "dotenv/config";
 import express from "express";
 import tablesRoutes from "./routes/tablesRoutes.js";
 import reservationsRoutes from "./routes/reservationsRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import { connectDB } from "./config/db.js";
-import dotenv from "dotenv";
 import cors from "cors";
-
-dotenv.config();
 
 const app = express();
 
