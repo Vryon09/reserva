@@ -128,7 +128,7 @@ function PersonalInformationForm() {
         </div>
       </form>
       {isConfirming && (
-        <Modal>
+        <Modal setIsOpen={setIsConfirming}>
           <form>
             <p>Are you sure you want to reserve a table?</p>
             <div className="mt-4 flex justify-between">
