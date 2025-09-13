@@ -90,14 +90,18 @@ export async function updateReservation(req, res) {
       subject: `Reservation Update – Status: ${reservation.status.toUpperCase()}`,
       text: `Hi ${reservation.name}, your reservation for ${dayjs(
         reservation.reservationDate
-      ).format("MMMM DD, YYYY at h:mm a")} (${
+      )
+        .tz("Asia/Manila")
+        .format("MMMM DD, YYYY, h:mm a")} (${
         reservation.tableName
       }) is now marked as: ${reservation.status}.`,
       html: `
       <p>Hi <b>${reservation.name}</b>,</p>
-      <p>Your reservation for <b>${dayjs(reservation.reservationDate).format(
-        "MMMM DD, YYYY, h:mm a"
-      )}</b> (Table <b>${reservation.tableName}</b>) is now marked as:</p>
+      <p>Your reservation for <b>${dayjs(reservation.reservationDate)
+        .tz("Asia/Manila")
+        .format("MMMM DD, YYYY, h:mm a")}</b> (Table <b>${
+        reservation.tableName
+      }</b>) is now marked as:</p>
       <h2 style="color:#333;">${reservation.status.toUpperCase()}</h2>
       <p>Thank you for choosing our restaurant!</p>
     `,
