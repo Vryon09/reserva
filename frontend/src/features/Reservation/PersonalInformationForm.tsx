@@ -18,7 +18,7 @@ dayjs.extend(timezone);
 
 function PersonalInformationForm() {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const { dispatch, time, date, tableName, tableId } = useReservationForm();
   const [isReserved, setIsReserved] = useState(false);
   const [reservationCode, setReservationCode] = useState("");
@@ -52,7 +52,7 @@ function PersonalInformationForm() {
         tableId,
         tableName,
         name,
-        phone,
+        email,
         reservationDate: combinedDateTime.format(),
         reservationCode,
       });
@@ -60,7 +60,7 @@ function PersonalInformationForm() {
       await handleAddReservationInTable({
         tableId,
         name,
-        phone,
+        email,
         reservationDate: combinedDateTime.format(),
         _id: createdReservation._id,
       });
@@ -68,7 +68,7 @@ function PersonalInformationForm() {
       toast.success("Reservation Successfull!");
       setIsReserved(true);
       setName("");
-      setPhone("");
+      setEmail("");
       dispatch({ type: "resetForm" });
     } catch (error) {
       console.error(error);
@@ -108,14 +108,14 @@ function PersonalInformationForm() {
           </div>
 
           <div className="flex w-full flex-col gap-2 md:w-[50%]">
-            <label>Phone Number:</label>
+            <label>Email:</label>
             <input
-              placeholder="Enter your phone number"
+              placeholder="Enter your email number"
               required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              type="tel"
-              pattern="^(09\d{9}|639\d{9})$"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              // pattern="^(09\d{9}|639\d{9})$"
               className="input-normal"
             />
           </div>

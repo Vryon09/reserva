@@ -50,7 +50,7 @@ function ReservationCard({
         <span className="font-semibold">Name:</span> {reservation.name}
       </p>
       <p>
-        <span className="font-semibold">Phone:</span> {reservation.phone}
+        <span className="font-semibold">Email:</span> {reservation.email}
       </p>
       <p>
         <span className="font-semibold">Status:</span> {reservation.status}

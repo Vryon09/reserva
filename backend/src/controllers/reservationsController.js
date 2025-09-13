@@ -48,7 +48,7 @@ export async function addReservation(req, res) {
       tableId,
       tableName,
       name,
-      phone,
+      email,
       reservationDate,
       status,
       reservationCode,
@@ -57,7 +57,7 @@ export async function addReservation(req, res) {
       tableId,
       tableName,
       name,
-      phone,
+      email,
       reservationDate,
       status,
       reservationCode,
@@ -132,7 +132,7 @@ export async function getReservationByCode(req, res) {
 
       const filter = {
         name: credentials[0],
-        phone: credentials[1],
+        email: credentials[1],
         reservationDate: { $gte: start, $lte: end },
       };
       const reservation = await Reservation.find(filter);

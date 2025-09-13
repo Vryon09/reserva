@@ -17,7 +17,7 @@ function Reservation({
         <p className="font-semibold">{reservation.tableName}</p>
         <p>Code: {reservation.reservationCode}</p>
         <p>Name: {reservation.name}</p>
-        <p>Phone: {reservation.phone}</p>
+        <p>Email: {reservation.email}</p>
         <p>{format(reservation.reservationDate, "MMMM d, yyyy, h:mm a")}</p>
         <p>Status: {reservation.status}</p>
       </div>

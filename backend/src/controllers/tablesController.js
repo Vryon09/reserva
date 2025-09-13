@@ -129,7 +129,7 @@ export async function deleteTable(req, res) {
 
 export async function addReservation(req, res) {
   try {
-    const { tableId, name, phone, reservationDate, _id } = req.body;
+    const { tableId, name, email, reservationDate, _id } = req.body;
 
     const table = await Table.findById(tableId);
 
@@ -145,7 +145,7 @@ export async function addReservation(req, res) {
       return res.status(404).json({ message: "Table not found" });
     }
 
-    table.reservations.push({ reservationDate, name, phone, _id });
+    table.reservations.push({ reservationDate, name, email, _id });
 
     await table.save();
 

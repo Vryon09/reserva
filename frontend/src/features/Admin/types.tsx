@@ -3,7 +3,7 @@ export interface ReservationTypes {
   _id: string;
   tableName: string;
   name: string;
-  phone: string;
+  email: string;
   reservationDate: string;
   status: string;
   reservationCode: string;
@@ -59,7 +59,7 @@ export interface ReservationPayload {
   _id?: string;
   tableName: string;
   name: string;
-  phone: string;
+  email: string;
   reservationDate: string;
   reservationCode?: string;
   status?: string;

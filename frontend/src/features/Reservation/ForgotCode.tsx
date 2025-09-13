@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 function ForgotCode() {
   const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const navigate = useNavigate();
 
@@ -13,8 +13,8 @@ function ForgotCode() {
     setName(e.target.value);
   };
 
-  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhoneNumber(e.target.value);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,13 +24,11 @@ function ForgotCode() {
   function handleFindCode(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (name === "" || phoneNumber === "" || date === "") {
+    if (name === "" || email === "" || date === "") {
       toast.error("Please fill in all required fields.");
       return;
     }
-    navigate(
-      `/reserve/reservation/${name.trim()},${phoneNumber.trim()},${date}`,
-    );
+    navigate(`/reserve/reservation/${name.trim()},${email.trim()},${date}`);
   }
 
   return (
@@ -52,15 +50,15 @@ function ForgotCode() {
           </div>
 
           <div className="flex w-full flex-col gap-2">
-            <label>Phone Number:</label>
+            <label>Email:</label>
             <input
-              placeholder="Enter your phone number"
+              placeholder="Enter your email"
               required
-              type="text"
-              pattern="^(09\d{9}|639\d{9})$"
+              type="email"
+              // pattern="^(09\d{9}|639\d{9})$" //change pattern to email pattern
               className="input-normal w-full"
-              value={phoneNumber}
-              onChange={handlePhoneNumberChange}
+              value={email}
+              onChange={handleEmailChange}
             />
           </div>
 

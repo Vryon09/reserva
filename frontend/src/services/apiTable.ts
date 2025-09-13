@@ -128,20 +128,20 @@ export function useUpdateTable() {
 async function handleAddReservationInTable({
   tableId,
   name,
-  phone,
+  email,
   reservationDate,
   _id,
 }: {
   tableId: string;
   name: string;
-  phone: string;
+  email: string;
   reservationDate: string;
   _id: string;
 }) {
   const res = await fetch(`${API_BASE_URL}/api/tables/reservation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tableId, name, phone, reservationDate, _id }),
+    body: JSON.stringify({ tableId, name, email, reservationDate, _id }),
   });
 
   if (!res.ok) {
