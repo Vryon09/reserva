@@ -114,7 +114,7 @@ function PersonalInformationForm() {
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              type="text"
+              type="tel"
               pattern="^(09\d{9}|639\d{9})$"
               className="input-normal"
             />
