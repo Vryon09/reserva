@@ -5,21 +5,21 @@ import { useEffect } from "react";
 export function useSocket() {
   const queryClient = useQueryClient();
 
-  const invalidateReservationQueries = () => {
-    queryClient.invalidateQueries({ queryKey: ["requestedReservations"] });
-    queryClient.invalidateQueries({ queryKey: ["confirmedReservations"] });
-    queryClient.invalidateQueries({ queryKey: ["todaysStats"] });
-    queryClient.invalidateQueries({ queryKey: ["reservationEachDay"] });
-  };
-
-  const invalidateTableQueries = () => {
-    queryClient.invalidateQueries({ queryKey: ["tables"] });
-    queryClient.invalidateQueries({ queryKey: ["tableOccupancy"] });
-    queryClient.invalidateQueries({ queryKey: ["topTables"] });
-  };
-
   useEffect(() => {
     const socket = io(import.meta.env.VITE_API_URL);
+
+    const invalidateReservationQueries = () => {
+      queryClient.invalidateQueries({ queryKey: ["requestedReservations"] });
+      queryClient.invalidateQueries({ queryKey: ["confirmedReservations"] });
+      queryClient.invalidateQueries({ queryKey: ["todaysStats"] });
+      queryClient.invalidateQueries({ queryKey: ["reservationEachDay"] });
+    };
+
+    const invalidateTableQueries = () => {
+      queryClient.invalidateQueries({ queryKey: ["tables"] });
+      queryClient.invalidateQueries({ queryKey: ["tableOccupancy"] });
+      queryClient.invalidateQueries({ queryKey: ["topTables"] });
+    };
 
     //RESERVATION
     socket.on("reservationAdded", invalidateReservationQueries);
