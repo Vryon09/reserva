@@ -3,8 +3,11 @@ import { getAllReservation } from "../../services/apiReservation";
 import ReservationSection from "./ReservationSection";
 import AllReservationsButton from "./AllReservationsButton";
 import type { ReservationResponseTypes } from "./types";
+import { useReservationSocket } from "../../hooks/useReservationSocket";
 
 function ManageReservations() {
+  useReservationSocket();
+
   const {
     data: { reservations: confirmedReservations } = {
       reservations: [],

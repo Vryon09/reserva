@@ -103,7 +103,12 @@ export function useDeleteReservation() {
   return useMutation({
     mutationFn: handleDeleteReservation,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      queryClient.invalidateQueries({
+        queryKey: ["requestedReservations"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["confirmedReservations"],
+      });
     },
   });
 }

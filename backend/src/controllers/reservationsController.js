@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
 import { sendEmail } from "../utils/sendEmail.js";
+import { notify } from "../server.js";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -54,6 +55,7 @@ export async function addReservation(req, res) {
       status,
       reservationCode,
     } = req.body;
+
     const newReservation = new Reservation({
       tableId,
       tableName,
@@ -65,6 +67,9 @@ export async function addReservation(req, res) {
     });
 
     const savedReservation = await newReservation.save();
+
+    notify("reservationAdded", savedReservation);
+
     res.status(201).json(savedReservation);
   } catch (error) {
     console.error("Error in addReservation controller.", error);
