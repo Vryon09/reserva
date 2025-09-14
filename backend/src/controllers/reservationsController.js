@@ -112,6 +112,7 @@ export async function updateReservation(req, res) {
     `,
     });
 
+    notify("reservationUpdated", updatedReservation);
     res.status(200).json(updatedReservation);
   } catch (error) {
     console.error("Error in updateReservation controller.", error);
@@ -128,6 +129,7 @@ export async function deleteReservation(req, res) {
     if (!deletedReservation)
       return res.status(404).json({ message: "No reservation found." });
 
+    notify("reservationDeleted", deletedReservation);
     res.status(200).json(deletedReservation);
   } catch (error) {
     console.error("Error in updateReservation controller.", error);

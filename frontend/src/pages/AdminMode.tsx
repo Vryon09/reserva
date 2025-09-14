@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import AdminNav from "../ui/AdminNav";
+import { useSocket } from "../hooks/useSocket";
 
 function AdminMode() {
   const navigate = useNavigate();
+  useSocket();
 
   useEffect(() => {
     async function fetchDashboard() {

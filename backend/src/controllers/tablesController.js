@@ -2,6 +2,7 @@ import Table from "../models/Table.js";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
+import { notify } from "../server.js";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -83,6 +84,8 @@ export async function addTable(req, res) {
     });
 
     const savedTable = await newTable.save();
+
+    notify("tableAdded", savedTable);
     res.status(201).json(savedTable);
   } catch (error) {
     console.error("Error in addTable controller.", error);
@@ -107,6 +110,7 @@ export async function updateTable(req, res) {
     if (!updateTable)
       return res.status(404).json({ message: "Table not found" });
 
+    notify("tableUpdated", updateTable);
     res.status(200).json(updatedTable);
   } catch (error) {
     console.error("Error in updateTable controller.", error);
@@ -120,6 +124,7 @@ export async function deleteTable(req, res) {
     if (!deletedTable)
       return res.status(404).json({ message: "Table not found" });
 
+    notify("tableDeleted", deletedTable);
     res.status(200).json({ message: "Table deleted successfully" });
   } catch (error) {
     console.error("Error in deleteTable controller.", error);
@@ -149,6 +154,7 @@ export async function addReservation(req, res) {
 
     await table.save();
 
+    notify("tableReservationAdded", table);
     res.status(200).json({ message: "Reservation added", table });
   } catch (error) {
     console.error("Error in addReservationInTable controller.", error);
@@ -172,22 +178,11 @@ export async function deleteReservation(req, res) {
         message: "No reservation with that date was found in the table.",
       });
     }
+
+    notify("tableReservationDeleted", result);
+    res.status(200).json({ message: "Reservation deleted successfully" });
   } catch (error) {
     console.error("Error in deleteReservationInTable controller.", error);
-    res.status(500).json({ message: "Internal Server Error!" });
-  }
-}
-
-export async function deleteAllTablesReservations(req, res) {
-  try {
-    const result = await Table.updateMany({}, { $set: { reservations: [] } });
-
-    res.status(200).json({
-      message: "All reservations deleted from all tables",
-      modifiedCount: result.modifiedCount,
-    });
-  } catch (error) {
-    console.error("Error in deleteAllTablesReservations controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }
@@ -206,9 +201,24 @@ export async function updateReservationStatus(req, res) {
       return res.status(404).json({ message: "Reservation not found." });
     }
 
+    notify("tableReservationUpdated", result);
     res.status(200).json({ message: "Status updated successfully" });
   } catch (error) {
     console.error("Error in updateReservationStatus controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
+export async function deleteAllTablesReservations(req, res) {
+  try {
+    const result = await Table.updateMany({}, { $set: { reservations: [] } });
+
+    res.status(200).json({
+      message: "All reservations deleted from all tables",
+      modifiedCount: result.modifiedCount,
+    });
+  } catch (error) {
+    console.error("Error in deleteAllTablesReservations controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 }

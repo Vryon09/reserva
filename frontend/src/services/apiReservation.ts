@@ -31,6 +31,26 @@ export async function getAllReservation({
   }
 }
 
+export async function handleGetReservationByCode( //invalidate this later
+  context: QueryFunctionContext,
+) {
+  const reservationCode = context.queryKey[1] as string;
+
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/code/${reservationCode}`,
+    );
+
+    if (!res.ok) throw new Error("No reservation found.");
+
+    const data = await res.json();
+
+    return data || {};
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function handleAddReservation(
   newReservation: Partial<ReservationTypes>,
 ) {
@@ -63,26 +83,6 @@ export function useAddReservation() {
       queryClient.invalidateQueries({ queryKey: ["requestedReservations"] });
     },
   });
-}
-
-export async function handleGetReservationByCode(
-  context: QueryFunctionContext,
-) {
-  const reservationCode = context.queryKey[1] as string;
-
-  try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/reservations/code/${reservationCode}`,
-    );
-
-    if (!res.ok) throw new Error("No reservation found.");
-
-    const data = await res.json();
-
-    return data || {};
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 async function handleDeleteReservation(id: string) {
