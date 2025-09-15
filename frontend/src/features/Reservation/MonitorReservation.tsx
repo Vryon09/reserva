@@ -21,7 +21,7 @@ function MonitorReservation() {
     isPending: isReservationPending,
     isError,
   } = useQuery({
-    queryKey: ["data", reservationCode],
+    queryKey: ["monitorReservation", reservationCode],
     queryFn: handleGetReservationByCode,
   });
 

@@ -86,7 +86,10 @@ function ConfirmedReservationAction({
                 }
                 onClick={handleSubmit}
               >
-                <span className="capitalize">{modal}</span>
+                <span className="capitalize">
+                  {modal}
+                  {modal === "cancel" && " Reservation"}
+                </span>
               </Button>
             </div>
           </form>

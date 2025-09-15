@@ -13,6 +13,7 @@ export function useSocket() {
       queryClient.invalidateQueries({ queryKey: ["confirmedReservations"] });
       queryClient.invalidateQueries({ queryKey: ["todaysStats"] });
       queryClient.invalidateQueries({ queryKey: ["reservationEachDay"] });
+      queryClient.invalidateQueries({ queryKey: ["monitorReservation"] });
     };
 
     const invalidateTableQueries = () => {

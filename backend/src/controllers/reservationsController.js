@@ -168,6 +168,10 @@ export async function getReservationByCode(req, res) {
         reservationDate: { $gte: start, $lte: end },
       };
       const reservation = await Reservation.find(filter);
+
+      console.log(credentials[0]);
+      console.log(credentials[1]);
+      console.log(reservation);
       res.status(200).json(reservation);
     }
 

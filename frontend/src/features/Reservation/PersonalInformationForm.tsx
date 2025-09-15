@@ -102,7 +102,7 @@ function PersonalInformationForm() {
               required
               value={name}
               type="text"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value.trim())}
               className="input-normal"
             />
           </div>
@@ -113,7 +113,7 @@ function PersonalInformationForm() {
               placeholder="Enter your email number"
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value.trim())}
               type="email"
               // pattern="^(09\d{9}|639\d{9})$"
               className="input-normal"
