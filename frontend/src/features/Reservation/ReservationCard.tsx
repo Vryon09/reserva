@@ -6,6 +6,7 @@ import CancelReservation from "./CancelReservation";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import type { ReservationTypes } from "../Admin/types";
+import Card from "../../ui/Card";
 
 interface ReservationCardProps {
   isReservationPending: boolean;
@@ -30,14 +31,14 @@ function ReservationCard({
 
   if (isError)
     return (
-      <div className="m-auto max-w-[400px] space-y-2">
+      <Card additionalStyle="m-auto max-w-[400px] space-y-2">
         <p className="text-lg">No reservation found🥲</p>
         <div className="flex w-full justify-end">
           <Button onClick={() => navigate("/")} type="neutral">
             Go to home
           </Button>
         </div>
-      </div>
+      </Card>
     );
 
   return (

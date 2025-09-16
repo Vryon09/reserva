@@ -9,6 +9,7 @@ import ReservationCard from "./ReservationCard";
 import Loader from "../../ui/Loader";
 import Button from "../../ui/Button";
 import type { ReservationTypes } from "../Admin/types";
+import Card from "../../ui/Card";
 
 //NEXT IS CODE THE RESERVATION STATUS MECHANICS
 //FIX THE Monitor Reservation Component
@@ -45,14 +46,14 @@ function MonitorReservation() {
 
   if (reservationCode.length > 4 && !reservation.length)
     return (
-      <div className="m-auto max-w-[400px] space-y-2">
+      <Card additionalStyle="m-auto max-w-[400px] space-y-2">
         <p className="text-lg">No reservation found🥲</p>
         <div className="flex w-full justify-end">
           <Button onClick={() => navigate("/")} type="neutral">
             Go to home
           </Button>
         </div>
-      </div>
+      </Card>
     );
 
   if (reservationCode.length > 4)

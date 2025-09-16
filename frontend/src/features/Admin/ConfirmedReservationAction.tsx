@@ -76,6 +76,7 @@ function ConfirmedReservationAction({
               <Button type="neutral" onClick={() => setModal("")}>
                 Cancel
               </Button>
+
               <Button
                 type={
                   modal === "done"
