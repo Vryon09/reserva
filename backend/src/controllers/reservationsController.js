@@ -4,6 +4,7 @@ import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import { notify } from "../server.js";
+import QRCode from "qrcode";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -306,4 +307,13 @@ export async function getResNextXHrs(req, res) {
     console.error("Error in getResNextXHrs controller.", error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
+}
+
+async function generateReservationQR(reservation) {
+  try {
+    const data = JSON.stringify({
+      resId: reservation._id,
+      code: reservation.r,
+    });
+  } catch (error) {}
 }
