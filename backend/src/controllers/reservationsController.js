@@ -109,6 +109,8 @@ export async function updateReservation(req, res) {
         reservation.tableName
       }</b>) is now marked as:</p>
       <h2 style="color:#333;">${reservation.status.toUpperCase()}</h2>
+      <h2 style="color:#333;">Code: ${reservation.reservationCode}</h2>
+      <p>Monitor your reservation to get your QRCode.</p>
       <p>Thank you for choosing our restaurant!</p>
     `,
     });
@@ -309,11 +311,17 @@ export async function getResNextXHrs(req, res) {
   }
 }
 
-async function generateReservationQR(reservation) {
+export async function generateReservationQR(reservation) {
   try {
     const data = JSON.stringify({
       resId: reservation._id,
-      code: reservation.r,
+      code: reservation.reservationCode,
     });
-  } catch (error) {}
+
+    const qr = await QRCode.toDataURL(data);
+
+    return qr;
+  } catch (error) {
+    console.log("Can't generate QR Code: " + error);
+  }
 }
