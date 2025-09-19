@@ -1,3 +1,4 @@
+import QRScanner from "./QRScanner";
 import ReservationCountsByDay from "./ReservationCountsByDay";
 import ResNextXHours from "./ResNextXHours";
 import TableOccupancy from "./TableOccupancy";
@@ -8,6 +9,7 @@ function AdminDashboard() {
   return (
     <div>
       <h2 className="mb-4 text-3xl font-semibold">Dashboard</h2>
+      <QRScanner />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <TableOccupancy />
         <TopTables />
