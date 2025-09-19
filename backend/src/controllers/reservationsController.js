@@ -5,6 +5,7 @@ import timezone from "dayjs/plugin/timezone.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import { notify } from "../server.js";
 import QRCode from "qrcode";
+import Table from "../models/Table.js";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -311,7 +312,7 @@ export async function getResNextXHrs(req, res) {
   }
 }
 
-export async function generateReservationQR(reservation) {
+async function generateReservationQR(reservation) {
   try {
     const data = JSON.stringify({
       resId: reservation._id,
@@ -323,5 +324,19 @@ export async function generateReservationQR(reservation) {
     return qr;
   } catch (error) {
     console.log("Can't generate QR Code: " + error);
+  }
+}
+
+export async function getQRCode(req, res) {
+  try {
+    const code = req.params.code;
+    const reservation = await Table.find({ reservationCode: code });
+
+    const qr = await generateReservationQR(reservation);
+
+    res.status(200).json(qr);
+  } catch (error) {
+    console.error("Error in getQRCode controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
   }
 }

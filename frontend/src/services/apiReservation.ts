@@ -31,14 +31,14 @@ export async function getAllReservation({
   }
 }
 
-export async function handleGetReservationByCode( //invalidate this later
+export async function handleGetReservationByCode(
   context: QueryFunctionContext,
 ) {
   const reservationCode = context.queryKey[1] as string;
 
   try {
     const res = await fetch(
-      `${API_BASE_URL}/api/reservations/code/${reservationCode}`,
+      `${API_BASE_URL}/api/reservations/code/key/${reservationCode}`,
     );
 
     if (!res.ok) throw new Error("No reservation found.");
@@ -188,6 +188,22 @@ export async function getReservationCountsByDay({
     const data = await res.json();
 
     return data || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function handleGetQRCode(code: string) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/code/qrcode/${code}`,
+    );
+
+    if (!res.ok) throw new Error("No reservation found.");
+
+    const data = await res.json();
+
+    return data || "";
   } catch (error) {
     console.log(error);
   }
