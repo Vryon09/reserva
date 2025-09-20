@@ -142,8 +142,6 @@ async function handleUpdateReservation({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedReservation),
     });
-
-    console.log("Updated Successfully!");
   } catch (error) {
     console.log(error);
   }

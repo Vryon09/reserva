@@ -5,7 +5,7 @@ import { useUpdateReservationStatus } from "../../../services/apiTable";
 import toast from "react-hot-toast";
 
 type ResultTypes = {
-  reservationId: string;
+  _id: string;
   tableId: string;
 };
 
@@ -23,21 +23,22 @@ function QRScanner({ result, setResult }: QRScannerTypes) {
     onDecodeResult(result) {
       setResult(result.getText());
     },
-    paused: result.reservationId !== "" || result.tableId !== "",
+    paused: result._id !== "" || result.tableId !== "",
   });
 
   useEffect(() => {
+    console.log(result);
     async function runUpdates() {
-      if (result.reservationId !== "" || result.tableId !== "") {
+      if (result._id !== "" || result.tableId !== "") {
         try {
           const [update1, update2] = await Promise.all([
             handleUpdateReservation({
-              id: result.reservationId,
+              id: result._id,
               updatedReservation: { status: "seated" },
             }),
             handleUpdateReservationStatus({
               tableId: result.tableId,
-              reservationId: result.reservationId,
+              reservationId: result._id,
               status: "seated",
             }),
           ]);
@@ -54,7 +55,7 @@ function QRScanner({ result, setResult }: QRScannerTypes) {
 
   return (
     <div>
-      {result.reservationId === "" && result.tableId === "" && (
+      {result._id === "" && result.tableId === "" && (
         <video ref={ref} className="scale-x-[-1] transform" />
       )}
     </div>

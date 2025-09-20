@@ -11,7 +11,7 @@ import { useState } from "react";
 function AdminDashboard() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [scannedId, setScannedId] = useState({
-    reservationId: "",
+    _id: "",
     tableId: "",
   });
 
@@ -30,7 +30,7 @@ function AdminDashboard() {
             additionalFunction={() => {
               setIsScannerOpen(false);
               setScannedId({
-                reservationId: "",
+                _id: "",
                 tableId: "",
               });
             }}
@@ -40,8 +40,7 @@ function AdminDashboard() {
                 result={scannedId}
                 setResult={(res) => {
                   const resParsed = JSON.parse(res);
-                  console.log(resParsed._id);
-                  setScannedId(resParsed._id);
+                  setScannedId(resParsed);
                 }}
               />
             </div>
