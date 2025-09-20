@@ -315,9 +315,11 @@ export async function getResNextXHrs(req, res) {
 
 async function generateReservationQR(reservation) {
   try {
+    const res = reservation[0];
+
     const data = JSON.stringify({
-      resId: reservation._id,
-      code: reservation.reservationCode,
+      resId: res._id,
+      code: res.reservationCode,
     });
 
     const qr = await QRCode.toDataURL(data);
@@ -333,8 +335,6 @@ export async function getQRCode(req, res) {
   try {
     const code = req.params.code;
     const reservation = await Reservation.find({ reservationCode: code });
-
-    console.log(reservation);
 
     const qr = await generateReservationQR(reservation);
 
