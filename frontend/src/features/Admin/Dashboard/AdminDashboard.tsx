@@ -10,7 +10,10 @@ import { useState } from "react";
 
 function AdminDashboard() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [scannedId, setScannedId] = useState("");
+  const [scannedId, setScannedId] = useState({
+    reservationId: "",
+    tableId: "",
+  });
 
   return (
     <div>
@@ -23,12 +26,21 @@ function AdminDashboard() {
           <ScanQrCode size={30} />
         </button>
         {isScannerOpen && (
-          <Modal setIsOpen={setIsScannerOpen}>
+          <Modal
+            additionalFunction={() => {
+              setIsScannerOpen(false);
+              setScannedId({
+                reservationId: "",
+                tableId: "",
+              });
+            }}
+          >
             <div>
               <QRScanner
                 result={scannedId}
                 setResult={(res) => {
                   const resParsed = JSON.parse(res);
+                  console.log(resParsed._id);
                   setScannedId(resParsed._id);
                 }}
               />

@@ -333,6 +333,7 @@ async function generateReservationQR(reservation) {
 
     const data = JSON.stringify({
       _id: res._id,
+      tableId: res.tableId,
     });
 
     const qr = await QRCode.toDataURL(data);
@@ -347,7 +348,14 @@ async function generateReservationQR(reservation) {
 export async function getQRCode(req, res) {
   try {
     const code = req.params.code;
-    const reservation = await Reservation.find({ reservationCode: code });
+    const reservation = await Reservation.find({
+      reservationCode: code,
+      status: "confirmed",
+    });
+
+    if (!reservation) {
+      return res.status(404).json({ message: "Reservation not found." });
+    }
 
     const qr = await generateReservationQR(reservation);
 
