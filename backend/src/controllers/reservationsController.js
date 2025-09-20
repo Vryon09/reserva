@@ -319,7 +319,6 @@ async function generateReservationQR(reservation) {
 
     const data = JSON.stringify({
       resId: res._id,
-      code: res.reservationCode,
     });
 
     const qr = await QRCode.toDataURL(data);

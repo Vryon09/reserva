@@ -6,7 +6,7 @@ function QRScanner() {
   const { ref } = useZxing({
     onDecodeResult(result) {
       console.log("QR: " + result.getText());
-      setResult("QR: " + result.getText());
+      setResult(result.getText());
     },
   });
 
