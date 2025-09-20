@@ -31,6 +31,22 @@ export async function getAllReservation({
   }
 }
 
+export async function handleGerReservation(reservationId: string) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/${reservationId}`,
+    );
+
+    if (!res.ok) throw new Error("No reservation found.");
+
+    const data = await res.json();
+
+    return data || {};
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function handleGetReservationByCode(
   context: QueryFunctionContext,
 ) {

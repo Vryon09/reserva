@@ -1,8 +1,11 @@
-import { useState } from "react";
 import { useZxing } from "react-zxing";
 
-function QRScanner() {
-  const [result, setResult] = useState("");
+type QRScannerTypes = {
+  result: string;
+  setResult: (result: string) => void;
+};
+
+function QRScanner({ result, setResult }: QRScannerTypes) {
   const { ref } = useZxing({
     onDecodeResult(result) {
       console.log("QR: " + result.getText());
@@ -12,7 +15,7 @@ function QRScanner() {
 
   return (
     <div>
-      <video ref={ref} className="scale-x-[-1] transform" />
+      {<video ref={ref} className="scale-x-[-1] transform" />}
       {!!result && <p>{result}</p>}
     </div>
   );

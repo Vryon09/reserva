@@ -47,6 +47,20 @@ export async function getAllReservations(req, res) {
   }
 }
 
+export async function getReservation(req, res) {
+  try {
+    const reservation = Reservation.findById(req.params.id);
+
+    if (!reservation)
+      return res.status(404).json({ message: "Reservation not found." });
+
+    res.status(200).json(reservation);
+  } catch (error) {
+    console.error("Error in getReservation controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
 export async function addReservation(req, res) {
   try {
     const {
@@ -318,7 +332,7 @@ async function generateReservationQR(reservation) {
     const res = reservation[0];
 
     const data = JSON.stringify({
-      resId: res._id,
+      _id: res._id,
     });
 
     const qr = await QRCode.toDataURL(data);

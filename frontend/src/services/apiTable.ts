@@ -28,7 +28,7 @@ export async function handleGetTable(tableId: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/api/tables/${tableId}`);
 
-    if (!res.ok) throw new Error("No reservation found.");
+    if (!res.ok) throw new Error("No table found.");
 
     const data = await res.json();
 
