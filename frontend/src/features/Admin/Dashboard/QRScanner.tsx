@@ -12,7 +12,7 @@ function QRScanner() {
 
   return (
     <div>
-      <video ref={ref} />
+      <video ref={ref} className="scale-x-[-1] transform" />
       {!!result && <p>{result}</p>}
     </div>
   );

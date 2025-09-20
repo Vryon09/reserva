@@ -6,6 +6,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 import { notify } from "../server.js";
 import QRCode from "qrcode";
 import Table from "../models/Table.js";
+import { clearScreenDown } from "readline";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -324,13 +325,16 @@ async function generateReservationQR(reservation) {
     return qr;
   } catch (error) {
     console.log("Can't generate QR Code: " + error);
+    return null;
   }
 }
 
 export async function getQRCode(req, res) {
   try {
     const code = req.params.code;
-    const reservation = await Table.find({ reservationCode: code });
+    const reservation = await Reservation.find({ reservationCode: code });
+
+    console.log(reservation);
 
     const qr = await generateReservationQR(reservation);
 
