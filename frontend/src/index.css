@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 * {
-  outline: 1px solid yellowgreen;
+  /* outline: 1px solid yellowgreen; */
 }
 
 @theme {
