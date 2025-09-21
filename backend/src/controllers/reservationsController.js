@@ -85,6 +85,7 @@ export async function addReservation(req, res) {
 
     const savedReservation = await newReservation.save();
 
+    notify("qrCode", savedReservation);
     notify("reservationAdded", savedReservation);
 
     res.status(201).json(savedReservation);

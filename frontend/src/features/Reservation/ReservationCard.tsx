@@ -36,6 +36,9 @@ function ReservationCard({
     queryFn: () => handleGetQRCode(reservation.reservationCode),
   });
 
+  console.log("first");
+  console.log(qrCode === "");
+
   if (isReservationPending) return <Loader />;
 
   if (isError)
@@ -72,7 +75,7 @@ function ReservationCard({
         <div className="flex w-full flex-col gap-2">
           <p className="font-semibold">QR Code:</p>
           <div className="flex w-full flex-col items-center">
-            {isQRCodePending ? (
+            {isQRCodePending || qrCode === "" ? (
               <div className="mb-6">
                 <Skeleton
                   height={220}
