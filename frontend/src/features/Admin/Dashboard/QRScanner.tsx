@@ -1,8 +1,9 @@
 import { useZxing } from "react-zxing";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUpdateReservation } from "../../../services/apiReservation";
 import { useUpdateReservationStatus } from "../../../services/apiTable";
 import toast from "react-hot-toast";
+import Loader from "../../../ui/Loader";
 
 type ResultTypes = {
   _id: string;
@@ -17,6 +18,8 @@ type QRScannerTypes = {
 };
 
 function QRScanner({ result, setResult, setCloseModal }: QRScannerTypes) {
+  const [isCameraReady, setIsCameraReady] = useState(false);
+
   const { mutate: handleUpdateReservation } = useUpdateReservation();
   const { mutate: handleUpdateReservationStatus } =
     useUpdateReservationStatus();
@@ -54,11 +57,25 @@ function QRScanner({ result, setResult, setCloseModal }: QRScannerTypes) {
     }
 
     runUpdates();
-  }, [result, handleUpdateReservation, handleUpdateReservationStatus]);
+  }, [
+    result,
+    handleUpdateReservation,
+    handleUpdateReservationStatus,
+    setCloseModal,
+  ]);
 
   return (
     <div>
-      {result._id === "" && result.tableId === "" && <video ref={ref} />}
+      {result._id === "" && result.tableId === "" && (
+        <div className="relative">
+          {!isCameraReady && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Loader />
+            </div>
+          )}
+          <video ref={ref} onPlay={() => setIsCameraReady(true)} />
+        </div>
+      )}
     </div>
   );
 }
