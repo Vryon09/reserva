@@ -71,7 +71,7 @@ function ReservationCard({
       {reservation.status === "confirmed" && (
         <div className="flex w-full flex-col">
           <p className="font-semibold">QR Code:</p>
-          <div className="flex w-full flex-col items-center">
+          <div className="flex w-full flex-col items-center gap-2">
             {isQRCodePending ? (
               <div className="mb-6">
                 <Skeleton
