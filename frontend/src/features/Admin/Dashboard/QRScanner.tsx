@@ -7,14 +7,16 @@ import toast from "react-hot-toast";
 type ResultTypes = {
   _id: string;
   tableId: string;
+  name: string;
 };
 
 type QRScannerTypes = {
   result: ResultTypes;
   setResult: (result: string) => void;
+  setCloseModal: () => void;
 };
 
-function QRScanner({ result, setResult }: QRScannerTypes) {
+function QRScanner({ result, setResult, setCloseModal }: QRScannerTypes) {
   const { mutate: handleUpdateReservation } = useUpdateReservation();
   const { mutate: handleUpdateReservationStatus } =
     useUpdateReservationStatus();
@@ -23,15 +25,15 @@ function QRScanner({ result, setResult }: QRScannerTypes) {
     onDecodeResult(result) {
       setResult(result.getText());
     },
-    paused: result._id !== "" || result.tableId !== "",
+    paused: result._id !== "" || result.tableId !== "" || result.name !== "",
   });
 
   useEffect(() => {
     console.log(result);
     async function runUpdates() {
-      if (result._id !== "" || result.tableId !== "") {
+      if (result._id !== "" || result.tableId !== "" || result.name !== "") {
         try {
-          const [update1, update2] = await Promise.all([
+          await Promise.all([
             handleUpdateReservation({
               id: result._id,
               updatedReservation: { status: "seated" },
@@ -43,7 +45,8 @@ function QRScanner({ result, setResult }: QRScannerTypes) {
             }),
           ]);
 
-          toast.success("Successfully updated: " + update1 + update2);
+          toast.success(`${result.name}'s reservation is marked as seated.`);
+          setCloseModal();
         } catch (error) {
           toast.error("Failed to update: " + error);
         }

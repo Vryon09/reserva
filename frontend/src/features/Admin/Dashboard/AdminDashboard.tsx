@@ -13,6 +13,7 @@ function AdminDashboard() {
   const [scannedId, setScannedId] = useState({
     _id: "",
     tableId: "",
+    name: "",
   });
 
   return (
@@ -32,6 +33,7 @@ function AdminDashboard() {
               setScannedId({
                 _id: "",
                 tableId: "",
+                name: "",
               });
             }}
           >
@@ -42,6 +44,7 @@ function AdminDashboard() {
                   const resParsed = JSON.parse(res);
                   setScannedId(resParsed);
                 }}
+                setCloseModal={() => setIsScannerOpen(false)}
               />
             </div>
           </Modal>

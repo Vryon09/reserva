@@ -42,7 +42,7 @@ function MonitorReservation() {
   )
     return <Loader />;
 
-  console.log(reservation);
+  // console.log(reservation);
 
   if (reservationCode.length > 4 && !reservation.length)
     return (
