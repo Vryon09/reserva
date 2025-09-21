@@ -88,7 +88,7 @@ function ReservationCard({
                 className="w-full max-w-[250px]"
               />
             )}
-            <p>(Show this QR Code to one of the staff.)</p>
+            <p className="mt-2">(Show this QR Code to one of the staff.)</p>
           </div>
         </div>
       )}
