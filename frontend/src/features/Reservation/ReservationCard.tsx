@@ -9,6 +9,8 @@ import type { ReservationTypes } from "../Admin/types";
 import Card from "../../ui/Card";
 import { useQuery } from "@tanstack/react-query";
 import { handleGetQRCode } from "../../services/apiReservation";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface ReservationCardProps {
   isReservationPending: boolean;
@@ -66,11 +68,26 @@ function ReservationCard({
       {reservation.status === "pending" && (
         <p> (You can only cancel if the status is pending.)</p>
       )}
-      {!isQRCodePending && reservation.status === "confirmed" && (
+      {reservation.status === "confirmed" && (
         <div className="flex w-full flex-col">
           <p className="font-semibold">QR Code:</p>
           <div className="flex w-full flex-col items-center">
-            <img src={qrCode} alt="qr-code" className="w-full max-w-[250px]" />
+            {isQRCodePending ? (
+              <div className="mb-6">
+                <Skeleton
+                  height={220}
+                  width={220}
+                  borderRadius={12}
+                  baseColor="#d4d4d4"
+                />
+              </div>
+            ) : (
+              <img
+                src={qrCode}
+                alt="qr-code"
+                className="w-full max-w-[250px]"
+              />
+            )}
             <p>(Show this QR Code to one of the staff.)</p>
           </div>
         </div>

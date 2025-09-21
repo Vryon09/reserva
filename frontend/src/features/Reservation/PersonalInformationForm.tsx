@@ -51,16 +51,16 @@ function PersonalInformationForm() {
       const createdReservation = await handleAddReservation({
         tableId,
         tableName,
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim(),
         reservationDate: combinedDateTime.format(),
         reservationCode,
       });
 
       await handleAddReservationInTable({
         tableId,
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim(),
         reservationDate: combinedDateTime.format(),
         _id: createdReservation._id,
       });
@@ -102,7 +102,7 @@ function PersonalInformationForm() {
               required
               value={name}
               type="text"
-              onChange={(e) => setName(e.target.value.trim())}
+              onChange={(e) => setName(e.target.value)}
               className="input-normal"
             />
           </div>
@@ -113,7 +113,7 @@ function PersonalInformationForm() {
               placeholder="Enter your email number"
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value.trim())}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               // pattern="^(09\d{9}|639\d{9})$"
               className="input-normal"
