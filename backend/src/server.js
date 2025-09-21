@@ -39,7 +39,7 @@ const io = new Server(server, {
       "http://localhost:5173",
       "http://192.168.18.9:5173",
     ],
-    method: ["GET", "POST"],
+    methods: ["GET", "POST"],
   },
 });
 
