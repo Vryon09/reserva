@@ -55,9 +55,7 @@ function QRScanner({ result, setResult }: QRScannerTypes) {
 
   return (
     <div>
-      {result._id === "" && result.tableId === "" && (
-        <video ref={ref} className="scale-x-[-1] transform" />
-      )}
+      {result._id === "" && result.tableId === "" && <video ref={ref} />}
     </div>
   );
 }
