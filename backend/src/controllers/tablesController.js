@@ -96,6 +96,9 @@ export async function addTable(req, res) {
 export async function updateTable(req, res) {
   try {
     const { tableName, capacity, notes, reservations } = req.body;
+
+    console.log(req.body);
+
     const updatedTable = await Table.findByIdAndUpdate(
       req.params.id,
       {
@@ -110,7 +113,7 @@ export async function updateTable(req, res) {
     if (!updateTable)
       return res.status(404).json({ message: "Table not found" });
 
-    notify("tableUpdated", updateTable);
+    notify("tableUpdated", updatedTable);
     res.status(200).json(updatedTable);
   } catch (error) {
     console.error("Error in updateTable controller.", error);
