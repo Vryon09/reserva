@@ -69,9 +69,9 @@ function ReservationCard({
         <p> (You can only cancel if the status is pending.)</p>
       )}
       {reservation.status === "confirmed" && (
-        <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col gap-2">
           <p className="font-semibold">QR Code:</p>
-          <div className="flex w-full flex-col items-center gap-2">
+          <div className="flex w-full flex-col items-center">
             {isQRCodePending ? (
               <div className="mb-6">
                 <Skeleton
