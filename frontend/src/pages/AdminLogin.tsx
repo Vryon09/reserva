@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
+//Make this look more professional and improve functionality, change the static user and password
 function AdminLogin() {
   const [user, setUser] = useState<string>("");
   const [password, setPassword] = useState<string>("");
