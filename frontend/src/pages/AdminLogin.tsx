@@ -52,7 +52,7 @@ function AdminLogin() {
           <label>User</label>
           <input
             required
-            type="text"
+            type="password"
             className="input-normal w-full"
             value={user}
             onChange={(e) => setUser(e.target.value)}

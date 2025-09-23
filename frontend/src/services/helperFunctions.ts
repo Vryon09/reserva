@@ -99,7 +99,6 @@ export function generateTimeOptions({
     options.push(time);
   }
 
-  console.log(options);
   return options;
 }
 
