@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { getToken } from "../services/helperFunctions";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 //Make this look more professional and improve functionality, change the static user and password
@@ -12,7 +13,7 @@ function AdminLogin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
+    const token = getToken();
     if (token) {
       navigate("/admin/dashboard");
       return;

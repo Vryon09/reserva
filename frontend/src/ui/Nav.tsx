@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { LogOut, Menu, UserLock } from "lucide-react";
 import { useState } from "react";
 import AdminDrawer from "./AdminDrawer";
+import { getToken } from "../services/helperFunctions";
 
 function Nav() {
   const [isAdminNavOpen, setIsAdminNavOpen] = useState(false);
@@ -19,7 +20,7 @@ function Nav() {
         <Button
           type="secondary"
           onClick={() => {
-            const token = localStorage.getItem("adminToken");
+            const token = getToken();
             if (token) {
               navigate("/admin/dashboard");
               return;
