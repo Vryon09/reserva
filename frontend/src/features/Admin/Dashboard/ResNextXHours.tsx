@@ -26,8 +26,6 @@ function ResNextXHours() {
     );
   });
 
-  // console.log(hours);
-
   const { data: tables, isPending: isTablesPending } = useQuery<Table[]>({
     queryKey: ["tables", nextHours],
     queryFn: () =>

@@ -73,14 +73,6 @@ export async function copyCode({ code }: { code: string }) {
   }
 }
 
-// useEffect(() => {
-//     const token = localStorage.getItem("adminToken");
-//     if (token) {
-//       const payload = JSON.parse(atob(token.split(".")[1]));
-//       console.log(payload.exp * 1000 > Date.now());
-//     }
-//   }, []);
-
 export function getToken() {
   const token = localStorage.getItem("adminToken");
   if (!token) return null;
