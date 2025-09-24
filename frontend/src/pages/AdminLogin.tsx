@@ -81,7 +81,7 @@ function AdminLogin() {
         </div>
         <div className="mt-2 flex w-full justify-end">
           <Button disabled={isLoading} type="primary">
-            Log In
+            {isLoading ? "Logging in..." : "Log In"}
           </Button>
         </div>
       </form>
