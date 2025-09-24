@@ -8,6 +8,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 function AdminLogin() {
   const [user, setUser] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,24 +22,32 @@ function AdminLogin() {
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const res = await fetch(`${API_BASE_URL}/api/admin/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user.trim(), password: password.trim() }),
-    });
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${API_BASE_URL}/api/admin/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user: user.trim(), password: password.trim() }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      toast.error(data.message || "Invalid Credentials");
-      return;
+      if (!res.ok) {
+        toast.error(data.message || "Invalid Credentials");
+        return;
+      }
+
+      toast.success("Logged in successfully.");
+
+      localStorage.setItem("adminToken", data.token);
+
+      navigate("/admin/dashboard");
+    } catch (err) {
+      toast.error("Logging in unsuccessful.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
-
-    toast.success("Logged in successfully.");
-
-    localStorage.setItem("adminToken", data.token);
-
-    navigate("/admin/dashboard");
   }
 
   return (
@@ -52,7 +61,8 @@ function AdminLogin() {
           <label>User</label>
           <input
             required
-            type="password"
+            disabled={isLoading}
+            type="text"
             className="input-normal w-full"
             value={user}
             onChange={(e) => setUser(e.target.value)}
@@ -62,14 +72,17 @@ function AdminLogin() {
           <label>Password</label>
           <input
             required
-            type="text"
+            disabled={isLoading}
+            type="password"
             className="input-normal w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="mt-2 flex w-full justify-end">
-          <Button type="primary">Log In</Button>
+          <Button disabled={isLoading} type="primary">
+            Log In
+          </Button>
         </div>
       </form>
     </div>
