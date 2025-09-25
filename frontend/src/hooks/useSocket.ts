@@ -15,6 +15,7 @@ export function useSocket() {
       queryClient.invalidateQueries({ queryKey: ["reservationEachDay"] });
       queryClient.invalidateQueries({ queryKey: ["monitorReservation"] });
       queryClient.invalidateQueries({ queryKey: ["qrCode"] });
+      queryClient.invalidateQueries({ queryKey: ["forgotCodeResults"] });
     };
 
     const invalidateTableQueries = () => {

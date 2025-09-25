@@ -210,6 +210,36 @@ export async function getReservationByCode(req, res) {
   }
 }
 
+export async function getReservationsByCredentials(req, res) {
+  try {
+    const { name, email, reservationDate } = req.params;
+
+    const start = dayjs(reservationDate)
+      .tz("Asia/Manila")
+      .startOf("day")
+      .toDate();
+    const end = dayjs(reservationDate).tz("Asia/Manila").endOf("day").toDate();
+
+    const filter = {
+      name,
+      email,
+      reservationDate: { $gte: start, $lte: end },
+    };
+
+    const reservations = await Reservation.find(filter);
+
+    if (!reservations.length) {
+      res.status(404).json({ message: "No reservations found" });
+      return;
+    }
+
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error("Error in getReservationsByCredentials controller.", error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+}
+
 export async function getTodaysStats(req, res) {
   try {
     const start = dayjs().tz("Asia/Manila").startOf("day").toDate();

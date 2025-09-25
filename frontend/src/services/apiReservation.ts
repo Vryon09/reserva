@@ -67,6 +67,30 @@ export async function handleGetReservationByCode(
   }
 }
 
+export async function handleGetReservationByCredentials({
+  name,
+  email,
+  reservationDate,
+}: {
+  name: string;
+  email: string;
+  reservationDate: string;
+}) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/reservations/code/forgot/${name}/${email}/${reservationDate}`,
+    );
+
+    if (!res.ok) throw new Error("No reservations found.");
+
+    const data = await res.json();
+
+    return data || {};
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function handleAddReservation(
   newReservation: Partial<ReservationTypes>,
 ) {

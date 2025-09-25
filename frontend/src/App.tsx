@@ -18,6 +18,8 @@ import AdminDashboard from "./features/Admin/Dashboard/AdminDashboard";
 import ManageReservations from "./features/Admin/ManageReservations";
 import ManageTables from "./features/Admin/ManageTables";
 import AllReservations from "./features/Admin/AllReservations";
+import { ForgotCodeProvider } from "./contexts/ForgotCodeContext";
+import ForgotCodeResults from "./features/Reservation/ForgotCodeResults";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,45 +32,51 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <ReservationFormProvider>
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Home />} />
+    <ForgotCodeProvider>
+      <ReservationFormProvider>
+        <QueryClientProvider client={queryClient}>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route index element={<Home />} />
 
-            <Route path="reserve" element={<GuestMode />}>
-              <Route index element={<ReservationForm />} />
-              <Route path="tables" element={<Tables />} />
-              <Route
-                path="personal-information"
-                element={<PersonalInformationForm />}
-              />
-              <Route
-                path="reservation/:reservationCode"
-                element={<MonitorReservation />}
-              />
-              <Route path="reservation/forgot" element={<ForgotCode />} />
-              <Route path="findReservation" element={<FindReservation />} />
+              <Route path="reserve" element={<GuestMode />}>
+                <Route index element={<ReservationForm />} />
+                <Route path="tables" element={<Tables />} />
+                <Route
+                  path="personal-information"
+                  element={<PersonalInformationForm />}
+                />
+                <Route
+                  path="reservation/:reservationCode"
+                  element={<MonitorReservation />}
+                />
+                <Route
+                  path="reservation/:name/:email/:reservationDate"
+                  element={<ForgotCodeResults />}
+                />
+                <Route path="reservation/forgot" element={<ForgotCode />} />
+                <Route path="findReservation" element={<FindReservation />} />
+              </Route>
+
+              <Route path="admin-login" element={<AdminLogin />} />
+
+              <Route path="admin" element={<AdminMode />}>
+                <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="reservations" element={<ManageReservations />} />
+                <Route path="all-reservations" element={<AllReservations />} />
+                <Route path="tables" element={<ManageTables />} />
+              </Route>
             </Route>
-
-            <Route path="admin-login" element={<AdminLogin />} />
-
-            <Route path="admin" element={<AdminMode />}>
-              <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="reservations" element={<ManageReservations />} />
-              <Route path="all-reservations" element={<AllReservations />} />
-              <Route path="tables" element={<ManageTables />} />
-            </Route>
-          </Route>
-        </Routes>
-        <Toaster
-          toastOptions={{
-            success: { duration: 3000 },
-          }}
-          position="top-center"
-        />
-      </QueryClientProvider>
-    </ReservationFormProvider>
+          </Routes>
+          <Toaster
+            toastOptions={{
+              success: { duration: 3000 },
+            }}
+            position="top-center"
+          />
+        </QueryClientProvider>
+      </ReservationFormProvider>
+    </ForgotCodeProvider>
   );
 }
 

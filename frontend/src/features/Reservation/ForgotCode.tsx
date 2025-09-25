@@ -1,24 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
-import { useState } from "react";
 import toast from "react-hot-toast";
+import { useForgotCode } from "../../contexts/useForgotCode";
 
 function ForgotCode() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
+  const { name, email, date, dispatch } = useForgotCode();
   const navigate = useNavigate();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+    dispatch({ type: "setName", payload: e.target.value });
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+    dispatch({ type: "setEmail", payload: e.target.value });
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value);
+    dispatch({ type: "setDate", payload: e.target.value });
   };
 
   function handleFindCode(e: React.FormEvent<HTMLFormElement>) {
@@ -28,7 +26,7 @@ function ForgotCode() {
       toast.error("Please fill in all required fields.");
       return;
     }
-    navigate(`/reserve/reservation/${name.trim()},${email.trim()},${date}`);
+    navigate(`/reserve/reservation/${name.trim()}/${email.trim()}/${date}`);
   }
 
   return (

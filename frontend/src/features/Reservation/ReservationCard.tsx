@@ -36,9 +36,6 @@ function ReservationCard({
     queryFn: () => handleGetQRCode(reservation.reservationCode),
   });
 
-  console.log("first");
-  console.log(qrCode === "");
-
   if (isReservationPending) return <Loader />;
 
   if (isError)
@@ -54,7 +51,7 @@ function ReservationCard({
     );
 
   return (
-    <div className="card-form m-auto flex min-h-54 w-full flex-col items-baseline md:max-w-[300px]">
+    <Card additionalStyle="card-form m-auto flex min-h-54 w-full flex-col items-baseline md:max-w-[300px]">
       <p>
         <span className="font-semibold">Code: </span>
         {reservation.reservationCode}
@@ -121,7 +118,7 @@ function ReservationCard({
           />
         </Modal>
       )}
-    </div>
+    </Card>
   );
 }
 

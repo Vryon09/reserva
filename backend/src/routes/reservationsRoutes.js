@@ -7,6 +7,7 @@ import {
   getQRCode,
   getReservationByCode,
   getReservationCountsByDay,
+  getReservationsByCredentials,
   getResNextXHrs,
   getTodaysStats,
   updateReservation,
@@ -22,6 +23,10 @@ router.get("/stats/today", getTodaysStats);
 router.get("/stats/next-hours", getResNextXHrs);
 router.get("/stats/by-day", getReservationCountsByDay);
 
+router.get(
+  "/code/forgot/:name/:email/:reservationDate",
+  getReservationsByCredentials
+);
 router.get("/code/key/:reservationCode", getReservationByCode);
 router.get("/code/qrcode/:code", getQRCode);
 
