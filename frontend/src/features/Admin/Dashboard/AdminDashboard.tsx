@@ -8,13 +8,15 @@ import TopTables from "./TopTables";
 import Modal from "../../../ui/Modal";
 import { useState } from "react";
 
+const initialScannedIdData = {
+  _id: "",
+  tableId: "",
+  name: "",
+};
+
 function AdminDashboard() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [scannedId, setScannedId] = useState({
-    _id: "",
-    tableId: "",
-    name: "",
-  });
+  const [scannedId, setScannedId] = useState(initialScannedIdData);
 
   return (
     <div>
@@ -30,11 +32,7 @@ function AdminDashboard() {
           <Modal
             additionalFunction={() => {
               setIsScannerOpen(false);
-              setScannedId({
-                _id: "",
-                tableId: "",
-                name: "",
-              });
+              setScannedId(initialScannedIdData);
             }}
           >
             <div>
@@ -46,11 +44,7 @@ function AdminDashboard() {
                 }}
                 setCloseModal={() => {
                   setIsScannerOpen(false);
-                  setScannedId({
-                    _id: "",
-                    tableId: "",
-                    name: "",
-                  });
+                  setScannedId(initialScannedIdData);
                 }}
               />
             </div>
