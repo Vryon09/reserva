@@ -44,7 +44,14 @@ function AdminDashboard() {
                   const resParsed = JSON.parse(res);
                   setScannedId(resParsed);
                 }}
-                setCloseModal={() => setIsScannerOpen(false)}
+                setCloseModal={() => {
+                  setIsScannerOpen(false);
+                  setScannedId({
+                    _id: "",
+                    tableId: "",
+                    name: "",
+                  });
+                }}
               />
             </div>
           </Modal>
