@@ -108,29 +108,31 @@ export async function updateReservation(req, res) {
     if (!updatedReservation || !reservation)
       return res.status(404).json({ message: "No reservation found." });
 
-    await sendEmail({
-      to: reservation.email,
-      subject: `Reservation Update – Status: ${reservation.status.toUpperCase()}`,
-      text: `Hi ${reservation.name}, your reservation for ${dayjs(
-        reservation.reservationDate
-      )
-        .tz("Asia/Manila")
-        .format("MMMM DD, YYYY, h:mm a")} (${
-        reservation.tableName
-      }) is now marked as: ${reservation.status}.`,
-      html: `
+    if (updatedReservation.status === "confirmed") {
+      await sendEmail({
+        to: reservation.email,
+        subject: `Reservation Update – Status: ${reservation.status.toUpperCase()}`,
+        text: `Hi ${reservation.name}, your reservation for ${dayjs(
+          reservation.reservationDate
+        )
+          .tz("Asia/Manila")
+          .format("MMMM DD, YYYY, h:mm a")} (${
+          reservation.tableName
+        }) is now marked as: ${reservation.status}.`,
+        html: `
       <p>Hi <b>${reservation.name}</b>,</p>
       <p>Your reservation for <b>${dayjs(reservation.reservationDate)
         .tz("Asia/Manila")
         .format("MMMM DD, YYYY, h:mm a")}</b> (Table <b>${
-        reservation.tableName
-      }</b>) is now marked as:</p>
+          reservation.tableName
+        }</b>) is now marked as:</p>
       <h2 style="color:#333;">${reservation.status.toUpperCase()}</h2>
       <h2 style="color:#333;">Code: ${reservation.reservationCode}</h2>
       <p>Monitor your reservation to get your QRCode.</p>
       <p>Thank you for choosing our restaurant!</p>
     `,
-    });
+      });
+    }
 
     notify("reservationUpdated", updatedReservation);
     res.status(200).json(updatedReservation);
