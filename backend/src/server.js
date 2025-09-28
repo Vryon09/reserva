@@ -58,6 +58,6 @@ const PORT = process.env.PORT || 5001;
 
 connectDB();
 
-server.listen(PORT, () => {
-  console.log("Server started listening to Port: " + PORT);
-});
+server.listen(PORT, () =>
+  console.log("Server started listening to Port: " + PORT)
+);

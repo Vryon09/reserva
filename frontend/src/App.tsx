@@ -1,30 +1,40 @@
 import { Route, Routes } from "react-router-dom";
-import AdminMode from "./pages/AdminMode";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
+
+//Contexts
+import { ReservationFormProvider } from "./contexts/ReservationFormContext";
+import { ForgotCodeProvider } from "./contexts/ForgotCodeContext";
+
+//Layout
 import AppLayout from "./ui/AppLayout";
+
+//Pages
+import AdminMode from "./pages/AdminMode";
 import GuestMode from "./pages/GuestMode";
 import Home from "./pages/Home";
+import AdminLogin from "./pages/AdminLogin";
+
+//Reservation
+import ReservationForm from "./features/Reservation/ReservationForm";
 import Tables from "./features/Reservation/Tables";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import PersonalInformationForm from "./features/Reservation/PersonalInformationForm";
+
+//Code
 import MonitorReservation from "./features/Reservation/MonitorReservation";
 import FindReservation from "./features/Reservation/FindReservation";
-import ReservationForm from "./features/Reservation/ReservationForm";
-import { ReservationFormProvider } from "./contexts/ReservationFormContext";
-import PersonalInformationForm from "./features/Reservation/PersonalInformationForm";
-import AdminLogin from "./pages/AdminLogin";
-// import AllReservations from "./features/Admin/AllReservations";
-import { Toaster } from "react-hot-toast";
 import ForgotCode from "./features/Reservation/ForgotCode";
+import ForgotCodeResults from "./features/Reservation/ForgotCodeResults";
+
+//Admin
 import AdminDashboard from "./features/Admin/Dashboard/AdminDashboard";
 import ManageReservations from "./features/Admin/ManageReservations";
 import ManageTables from "./features/Admin/ManageTables";
 import AllReservations from "./features/Admin/AllReservations";
-import { ForgotCodeProvider } from "./contexts/ForgotCodeContext";
-import ForgotCodeResults from "./features/Reservation/ForgotCodeResults";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: 60 * 1000,
       staleTime: 0,
     },
   },
@@ -68,6 +78,7 @@ function App() {
               </Route>
             </Route>
           </Routes>
+
           <Toaster
             toastOptions={{
               success: { duration: 3000 },
